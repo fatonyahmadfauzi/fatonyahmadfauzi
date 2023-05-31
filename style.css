@@ -99,6 +99,39 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+/* anonymouse message */
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.message-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.note {
+    font-style: italic;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* Tambahkan style untuk input nama dan textarea pesan */
+#name, #message {
+    width: 100%;
+}
+
 :root {
     --background-height: 100vh;
     --site-language-alignment: left;

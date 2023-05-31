@@ -4,6 +4,34 @@ window.addEventListener("load", function() {
   loadingOverlay.style.display = "none";
 });
 
+// anonymouse message
+document.getElementById("messageForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      var name = document.getElementById("name").value;
+      var message = document.getElementById("message").value;
+
+      var responseElement = document.getElementById("response");
+
+      // Buat elemen baru untuk kotak pesan
+      var messageContainer = document.createElement("div");
+      messageContainer.classList.add("message-container");
+
+      // Buat elemen baru untuk menampilkan pesan
+      var messageElement = document.createElement("div");
+      messageElement.classList.add("message");
+      messageElement.innerHTML = "<p><strong>" + name + ":</strong></p><p>" + message + "</p>";
+
+      // Tambahkan pesan baru ke elemen kotak pesan
+      messageContainer.appendChild(messageElement);
+
+      // Tambahkan kotak pesan ke elemen tanggapan
+      responseElement.appendChild(messageContainer);
+
+      // Reset formulir setelah pengiriman pesan
+      document.getElementById("messageForm").reset();
+    });
+
 (function() {
     var on = addEventListener, $ = function(q) {
         return document.querySelector(q)
