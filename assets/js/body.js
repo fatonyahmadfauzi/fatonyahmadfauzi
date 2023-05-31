@@ -6,31 +6,38 @@ window.addEventListener("load", function() {
 
 // anonymouse message
 document.getElementById("messageForm").addEventListener("submit", function(event) {
-      event.preventDefault();
+    event.preventDefault();
 
-      var name = document.getElementById("name").value;
-      var message = document.getElementById("message").value;
+    var name = document.getElementById("name").value;
+    var message = document.getElementById("message").value;
 
-      var responseElement = document.getElementById("response");
+    var responseElement = document.getElementById("response");
 
-      // Buat elemen baru untuk kotak pesan
-      var messageContainer = document.createElement("div");
-      messageContainer.classList.add("message-container");
+    var messageContainer = document.createElement("div");
+    messageContainer.classList.add("message-container");
 
-      // Buat elemen baru untuk menampilkan pesan
-      var messageElement = document.createElement("div");
-      messageElement.classList.add("message");
-      messageElement.innerHTML = "<p><strong>" + name + ":</strong></p><p>" + message + "</p>";
+    var messageElement = document.createElement("div");
+    messageElement.classList.add("message");
+    messageElement.innerHTML = "<p><strong>" + name + ":</strong></p><p>" + message + "</p>";
 
-      // Tambahkan pesan baru ke elemen kotak pesan
-      messageContainer.appendChild(messageElement);
+    messageContainer.appendChild(messageElement);
 
-      // Tambahkan kotak pesan ke elemen tanggapan
-      responseElement.appendChild(messageContainer);
+    responseElement.appendChild(messageContainer);
 
-      // Reset formulir setelah pengiriman pesan
-      document.getElementById("messageForm").reset();
-    });
+    document.getElementById("messageForm").reset();
+});
+
+// change color
+function openColorPicker() {
+  var colorPicker = document.getElementById("colorPicker");
+  colorPicker.click();
+}
+
+function changeColor(event) {
+  var selectedColor = event.target.value;
+  var contentDiv = document.getElementById("formPesan");
+  contentDiv.style.backgroundColor = selectedColor;
+}
 
 (function() {
     var on = addEventListener, $ = function(q) {
