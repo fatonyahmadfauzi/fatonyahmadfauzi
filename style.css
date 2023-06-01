@@ -1105,7 +1105,7 @@ body.is-instant:after {
     font-size: 1em;
     font-weight: 400;
     border-radius: 0rem;
-    direction: var(--site-language-direction);
+    flex-direction: row-reverse;
     transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
