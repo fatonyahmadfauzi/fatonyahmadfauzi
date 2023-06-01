@@ -3557,9 +3557,12 @@
                   </svg>
                 </div>
                 <br>
+                <form id="inputForm">
+                  <input type="button" value="Tampilkan" onclick="showContent()">
+                </form>
 
                   <!-- anonymouse message -->
-                  <div class="container05" class="container default">
+                  <div class="container05 hidden" class="container default" id="content">
                     <form id="messageForm">
                       <div class="formPesan" id="formPesan">
                         <div class="btn-customize">
@@ -3985,6 +3988,7 @@
     </div>
   </div>
   <script src="assets/js/body.js"></script>
+  <script src="assets/js/anonim-page.js"></script>
 
   <!-- partial -->
   <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script><script  src="/assets/js/hello.js"></script>

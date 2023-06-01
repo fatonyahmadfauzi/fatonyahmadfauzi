@@ -100,6 +100,37 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+.container05 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Ubah tinggi menjadi 100vh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+.animation {
+    animation-name: slideIn;
+    animation-duration: 1s;
+}
+
+@keyframes slideIn {
+    0% {
+    transform: translateY(100%);
+    }
+    100% {
+    transform: translateY(0%);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
 /* anonymouse message */
 .formPesan {
     background-color: #D9D9D9;
