@@ -1057,60 +1057,6 @@ body.is-instant:after {
     transition: none;
 }
 
-#image03 .frame {
-    width: 15rem;
-    transition: none;
-}
-
-#image03 .frame img {
-    transition: none;
-}
-
-#image05 .frame {
-    width: 15rem;
-    transition: none;
-}
-
-#image05 .frame img {
-    transition: none;
-}
-
-#image06 .frame {
-    width: 15rem;
-    transition: none;
-}
-
-#image06 .frame img {
-    transition: none;
-}
-
-#image07 .frame {
-    width: 15rem;
-    transition: none;
-}
-
-#image07 .frame img {
-    transition: none;
-}
-
-#image08 .frame {
-    width: 15rem;
-    transition: none;
-}
-
-#image08 .frame img {
-    transition: none;
-}
-
-#image04 .frame {
-    width: 15rem;
-    transition: none;
-}
-
-#image04 .frame img {
-    transition: none;
-}
-
 #image02 .frame {
     width: 15rem;
     transition: none;
@@ -1777,31 +1723,7 @@ hr:before {
     #image01 .frame {
         width: 15rem;
     }
-
-    #image03 .frame {
-        width: 15rem;
-    }
-
-    #image05 .frame {
-        width: 15rem;
-    }
-
-    #image06 .frame {
-        width: 15rem;
-    }
-
-    #image07 .frame {
-        width: 15rem;
-    }
-
-    #image08 .frame {
-        width: 15rem;
-    }
-
-    #image04 .frame {
-        width: 15rem;
-    }
-
+    
     #image02 .frame {
         width: 15rem;
     }
