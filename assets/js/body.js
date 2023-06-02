@@ -4,40 +4,7 @@ window.addEventListener("load", function() {
   loadingOverlay.style.display = "none";
 });
 
-// anonymouse message
-document.getElementById("messageForm").addEventListener("submit", function(event) {
-    event.preventDefault();
 
-    var name = document.getElementById("name").value;
-    var message = document.getElementById("message").value;
-
-    var responseElement = document.getElementById("response");
-
-    var messageContainer = document.createElement("div");
-    messageContainer.classList.add("message-container");
-
-    var messageElement = document.createElement("div");
-    messageElement.classList.add("message");
-    messageElement.innerHTML = "<p><strong>" + name + ":</strong></p><p>" + message + "</p>";
-
-    messageContainer.appendChild(messageElement);
-
-    responseElement.appendChild(messageContainer);
-
-    document.getElementById("messageForm").reset();
-});
-
-// change color
-function openColorPicker() {
-  var colorPicker = document.getElementById("colorPicker");
-  colorPicker.click();
-}
-
-function changeColor(event) {
-  var selectedColor = event.target.value;
-  var contentDiv = document.getElementById("formPesan");
-  contentDiv.style.backgroundColor = selectedColor;
-}
 
 (function() {
     var on = addEventListener, $ = function(q) {
