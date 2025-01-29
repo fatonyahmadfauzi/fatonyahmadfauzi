@@ -240,7 +240,7 @@
                 <div class="col-md-6">
                     <div class="project-box">
                         <!-- Link ke website -->
-                        <a href="https://www.kianolandgroup.com/" target="_blank" class="text-decoration-none">
+                        <a href="https://kianolandgroup.com/" target="_blank" class="text-decoration-none">
                             <!-- Gambar Project -->
                             <img src="https://opengraph.githubassets.com/1/fatonyahmadfauzi/Kianoland-Group" 
                                 class="img-fluid mb-3" alt="Project Preview">
@@ -401,8 +401,12 @@
             </div>
         </div>        
         <div class="container py-5">
-            <p>&copy; 2024 fatonyahmadfauzi</p>
+            <p>&copy; <span id="year"></span> fatonyahmadfauzi</p>
         </div>
+        
+        <script>
+            document.getElementById("year").textContent = new Date().getFullYear();
+        </script>        
     </footer>  
     
     <script>
