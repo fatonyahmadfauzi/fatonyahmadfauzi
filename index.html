@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Add Bootstrap Icons CDN in the <head> section of your HTML -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Tambahkan Flag Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css/css/flag-icon.min.css">
     <!-- Link to Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/media-queries.css">
@@ -36,26 +38,47 @@
                 <div class="collapse navbar-collapse d-lg-flex" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.html">Home</a>
+                            <a class="nav-link active" href="index.html" id="nameHome">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#project">Project</a>
+                            <a class="nav-link active" href="#project" id="nameProject">Project</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="#" id="nameAbout">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contact</a>
+                            <a class="nav-link" href="#contact" id="nameContact">Contact</a>
                         </li>
-                        
+
+                        <!-- Language Dropdown in Navbar -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="flag-icon flag-icon-gb m-0" id="languageFlag"></i> <!-- Bendera Inggris (default) -->
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('en'); event.preventDefault();"><i class="flag-icon flag-icon-gb"></i> English</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('pl'); event.preventDefault();"><i class="flag-icon flag-icon-pl"></i> Polski</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('zh'); event.preventDefault();"><i class="flag-icon flag-icon-cn"></i> 中文</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('jp'); event.preventDefault();"><i class="flag-icon flag-icon-jp"></i> 日本語</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('de'); event.preventDefault();"><i class="flag-icon flag-icon-de"></i> Deutsch</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('fr'); event.preventDefault();"><i class="flag-icon flag-icon-fr"></i> Français</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('es'); event.preventDefault();"><i class="flag-icon flag-icon-es"></i> Español</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('ru'); event.preventDefault();"><i class="flag-icon flag-icon-ru"></i> Русский</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('pt'); event.preventDefault();"><i class="flag-icon flag-icon-pt"></i> Português</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('id'); event.preventDefault();"><i class="flag-icon flag-icon-id"></i> Indonesia</a></li> <!-- Indonesian -->
+                                <li><a class="dropdown-item" href="#" onclick="changeLanguage('kr'); event.preventDefault();"><i class="flag-icon flag-icon-kr"></i> 한국어</a></li> <!-- Korean -->
+                            </ul>                                                       
+                        </li>
+                
                         <!-- Dark Mode Toggle Button di Navbar -->
                         <li class="nav-item">
                             <button id="lightModeToggleNavbar" class="btn">
                                 <i id="modeIcon" class="bi bi-sun"></i> <!-- Ikon light mode -->
                             </button>
-                        </li>                        
+                        </li>
                     </ul>
                 </div>
+                
                 <!-- Menu Responsif -->
                 <div id="menuToggle" aria-label="Navbar" class="d-lg-none menuToggle">
                     <label for="menuCheckbox" class="visually-hidden">Toggle menu</label>
@@ -64,10 +87,10 @@
                     <span></span>
                     <span></span>
                     <ul id="menu">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="#project">Project</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#contact" id="contactLink">Contact</a></li>
+                        <li><a href="index.html" id="menuHome"></a></li>
+                        <li><a href="#project" id="menuProject"></a></li>
+                        <li><a href="#" id="menuAbout"></a></li>
+                        <li><a href="#contact" id="contactLink"></a></li>
                         <!-- Dark Mode Toggle Button di Menu Responsif -->
                         <li class="nav-item">
                             <button id="lightModeToggleMenu" class="btn">
@@ -79,16 +102,6 @@
             </nav>
         </div>
     </header>
-
-    <script>
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            header.classList.toggle('scrolled', window.scrollY > 0);
-        });
-        document.getElementById("contactLink").addEventListener("click", function() {
-            document.getElementById("menuCheckbox").checked = false;
-        });
-    </script>
 
 <!-- =================================================================================================================================================================================================
 ============ HERO SECTION - VIDEO ==================================================================================================================================================================== 
@@ -112,123 +125,13 @@
         </div>
     </section>
 
-    <script>
-        // Function to set the theme based on time (AM/PM)
-        function setThemeBasedOnTime() {
-            const now = new Date();
-            const hours = now.getHours();
-            console.log('Current Hour: ', hours); // Memastikan nilai jam
-
-            if (hours >= 6 && hours < 18) {
-                // Daytime: Light Mode
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                changeBackgroundVideo("light");
-            } else {
-                // Nighttime: Dark Mode
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
-                changeBackgroundVideo("dark");
-            }
-        }
-    
-        // Function to toggle light/dark mode when the button is clicked
-        function toggleTheme() {
-            const body = document.body;
-            const modeIcon = document.getElementById("modeIcon");
-            if (body.classList.contains('light-mode')) {
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-                modeIcon.classList.remove("bi-sun");
-                modeIcon.classList.add("bi-moon");
-                changeBackgroundVideo("dark");
-            } else {
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-                modeIcon.classList.remove("bi-moon");
-                modeIcon.classList.add("bi-sun");
-                changeBackgroundVideo("light");
-            }
-            // Save the current theme to localStorage
-            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-        }    
-
-        // Function to change the background video based on the current theme
-        function changeBackgroundVideo(theme) {
-            const video = document.getElementById("backgroundVideo");
-            if (theme === "dark") {
-                video.src = "assets/bg-dark.mp4";  // Dark mode video
-            } else {
-                video.src = "assets/bg-light.mp4";  // Light mode video
-            }
-        }
-
-        // On page load, apply the theme based on time
-        window.addEventListener('DOMContentLoaded', () => {
-            // Apply the theme based on current time (morning to evening -> light, else dark)
-            setThemeBasedOnTime();
-
-            // Set up event listeners for theme toggles if you need manual switch
-            document.getElementById("lightModeToggleNavbar").addEventListener("click", toggleTheme);
-            document.getElementById("lightModeToggleMenu").addEventListener("click", toggleTheme);
-        });
-    </script> 
-    
-    <script>
-        // JavaScript to display the current date
-        const dateElement = document.querySelector('.date-message');
-        const currentDate = new Date();
-        
-        const options = { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        };
-        
-        dateElement.textContent = currentDate.toLocaleDateString('en-US', options); // 'en-US' is for English format
-    </script>
-
-    <script>
-        function getGreetingMessage() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const formattedHours = hours % 12 || 12;
-            const formattedMinutes = minutes.toString().padStart(2, '0');
-            
-            let greeting;
-            if (hours >= 5 && hours < 12) {
-                greeting = "Good Morning";
-            } else if (hours >= 12 && hours < 17) {
-                greeting = "Good Afternoon";
-            } else if (hours >= 17 && hours < 20) {
-                greeting = "Good Evening";
-            } else {
-                greeting = "Good Night";
-            }
-            
-            return `${greeting}, the current time is ${formattedHours}:${formattedMinutes} ${ampm}`;
-        }
-
-        function updateGreetingMessage() {
-            const messageElement = document.querySelector('.time-message');
-            if (messageElement) {
-                messageElement.textContent = getGreetingMessage();
-            }
-        }
-
-        // Update the greeting message every minute
-        updateGreetingMessage();
-        setInterval(updateGreetingMessage, 60000);
-    </script>
-
 <!-- =================================================================================================================================================================================================
 ============ PROJECT SECTION =========================================================================================================================================================================
 ================================================================================================================================================================================================== -->
     <section id="project" class="project-section py-5 section-gap">
         <div class="container">
-            <h2 class="text-center mb-5 mt-5">My Projects</h2>
+            <!-- This h2 will be dynamically updated -->
+            <h2 class="text-center mb-5 mt-5" id="myProjectsText">My Projects</h2> <!-- Add id for targeting -->
             <div class="row">
                 <div class="col-md-6">
                     <div class="project-box">
@@ -239,8 +142,8 @@
                                 class="img-fluid mb-3" alt="Project Preview">
                         </a>
                         
-                        <!-- Judul Proyek -->
-                        <h4 class="mb-2">Languages</h4>
+                        <!-- This h4 will be dynamically updated -->
+                        <h4 class="mb-2" id="languagesText">Languages</h4> <!-- Add id for targeting -->
 
                         <!-- List bahasa -->
                         <ul class="language-list" id="languageList"></ul>
@@ -250,83 +153,37 @@
         </div>
     </section>
 
-    <!-- JavaScript to Fetch Languages -->
-    <script>
-        async function fetchLanguages() {
-            const url = "https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/languages";
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const languages = await response.json();
-                const total = Object.values(languages).reduce((sum, value) => sum + value, 0);
-
-                const languageList = document.getElementById("languageList");
-
-                // Kosongkan kontainer jika sebelumnya ada isi
-                languageList.innerHTML = "";
-
-                Object.entries(languages).forEach(([language, value]) => {
-                    const percentage = ((value / total) * 100).toFixed(1);
-
-                    // List item
-                    const listItem = document.createElement("li");
-                    listItem.innerHTML = `
-                        <span class="dot" style="background-color: ${getLanguageColor(language)}"></span>
-                        ${language} <span class="percentage">${percentage}%</span>
-                    `;
-                    languageList.appendChild(listItem);
-                });
-            } catch (error) {
-                console.error("Error fetching languages:", error);
-            }
-        }
-
-        // Fungsi warna sesuai bahasa
-        function getLanguageColor(language) {
-            const colors = {
-                "HTML": "#E34C26",
-                "CSS": "#563D7C",
-                "JavaScript": "#F1E05A",
-                "Python": "#3572A5",
-                "Java": "#B07219"
-            };
-            return colors[language] || "#999"; // Default jika warna tidak ditemukan
-        }
-
-        // Panggil fungsi
-        fetchLanguages();
-    </script>    
-
 <!-- =================================================================================================================================================================================================
 ============ CONTACT SECTION =========================================================================================================================================================================
 ================================================================================================================================================================================================== -->
     <section id="contact" class="py-5 mb-5 section-gap">
         <div class="container">
-            <h2 class="mb-4 custom-heading">Contact Me</h2>
+            <!-- This h2 will be dynamically updated -->
+            <h2 class="mb-4 custom-heading" id="contactMeText">Contact Me</h2> <!-- Add id for targeting -->
             <div class="row">
                 <div class="col-md-6">
                     <form id="contactForm" name="contact" method="POST" data-netlify="true">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                            <!-- This label will be dynamically updated -->
+                            <label for="name" class="form-label" id="nameLabel">Name <span class="text-danger">*</span></label> <!-- Add id for targeting -->
                             <input type="text" class="form-control" id="name" name="name" required autocomplete="name">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <!-- This label will be dynamically updated -->
+                            <label for="email" class="form-label" id="emailLabel">Email <span class="text-danger">*</span></label> <!-- Add id for targeting -->
                             <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
                         </div>
                         <div class="mb-3">
-                            <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                            <!-- This label will be dynamically updated -->
+                            <label for="message" class="form-label" id="messageLabel">Message <span class="text-danger">*</span></label> <!-- Add id for targeting -->
                             <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button> <!-- Add id for targeting -->
                     </form>                    
                 </div>
                 <div class="col-md-6">
-                    <h4>My Location</h4>
+                    <!-- This h4 will be dynamically updated -->
+                    <h4 id="myLocationText">My Location</h4> <!-- Add id for targeting -->
                     <div class="map-responsive">
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15989.34291409018!2d106.849561!3d-6.427747!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6997c3b53e2c29%3A0x76f054d37b6b4fa2!2sCikahuripan%2C%20Kabupaten%20Bogor%2C%20Jawa%20Barat!5e0!3m2!1sen!2sid!4v1672638232932!5m2!1sen!2sid"
@@ -354,9 +211,9 @@
 <!-- =================================================================================================================================================================================================
 ============ CUSTOM TRIANGLE BORDER (LESS SHARP) =====================================================================================================================================================
 ================================================================================================================================================================================================== -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="display: block;">
-    <path fill="#181818" fill-opacity="1" d="M0,128L720,192L1440,128L1440,320L720,320L0,320Z"></path>
-  </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="display: block;">
+        <path fill="#181818" fill-opacity="1" d="M0,128L720,192L1440,128L1440,320L720,320L0,320Z"></path>
+    </svg>
   
 <!-- =================================================================================================================================================================================================
 ============ FOOTER SECTION ==========================================================================================================================================================================
@@ -365,90 +222,42 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-                    <h5 class="resource-heading">Resource</h5>
+                    <h5 class="resource-heading" id="resourceHeading"></h5>
                     <ul class="list-unstyled">
-                        <li><a class="light-link" href="https://getbootstrap.com/">Bootstrap5</a></li>
-                        <li><a class="light-link" href="https://github.com/">GitHub</a></li>
-                        <li><a class="light-link" href="https://netlify.com/">Netlify</a></li>
-                        <li><a class="light-link" href="https://code.visualstudio.com/">VisualStudio Code</a></li>
+                        <li><a class="light-link" href="https://getbootstrap.com/" id="bootstrapLink"></a></li>
+                        <li><a class="light-link" href="https://github.com/" id="githubLink"></a></li>
+                        <li><a class="light-link" href="https://netlify.com/" id="netlifyLink"></a></li>
+                        <li><a class="light-link" href="https://code.visualstudio.com/" id="vscodeLink"></a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-                    <h5 class="resource-heading">Activity</h5>
+                    <h5 class="resource-heading" id="activityHeading"></h5>
                     <ul class="list-unstyled">
-                        <li><a class="light-link">FullStack Developer</a></li>
-                        <li><a class="light-link">UI / UX</a></li>
-                        <li><a class="light-link">Desainer Grafis</a></li>
-                        <li><a class="light-link">Gamer</a></li>
+                        <li><a class="light-link" id="fullstackLink"></a></li>
+                        <li><a class="light-link" id="uiuxLink"></a></li>
+                        <li><a class="light-link" id="graphicDesignLink"></a></li>
+                        <li><a class="light-link" id="gamerLink"></a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-                    <h5 class="resource-heading">Social</h5>
+                    <h5 class="resource-heading" id="socialHeading"></h5>
                     <ul class="list-unstyled">
-                        <li><a class="light-link" href="https://www.instagram.com/fatonyahmad88">Instagram</a></li>
-                        <li><a class="light-link" href="https://www.tiktok.com/@fatonyahmadfauzi">TikTok</a></li>
-                        <li><a class="light-link" href="https://twitter.com/fatonyahmad89">Twitter</a></li>
-                        <li><a class="light-link" href="https://facebook.com/fatonyahmadfauzi">Facebook</a></li>
+                        <li><a class="light-link" href="https://www.instagram.com/fatonyahmad88" id="instagramLink"></a></li>
+                        <li><a class="light-link" href="https://www.tiktok.com/@fatonyahmadfauzi" id="tiktokLink"></a></li>
+                        <li><a class="light-link" href="https://twitter.com/fatonyahmad89" id="twitterLink"></a></li>
+                        <li><a class="light-link" href="https://facebook.com/fatonyahmadfauzi" id="facebookLink"></a></li>
                     </ul>
                 </div>
             </div>
-        </div>        
-        <div class="container py-5">
-            <p>&copy; <span id="year"></span> fatonyahmadfauzi</p>
         </div>
-        
-        <script>
-            document.getElementById("year").textContent = new Date().getFullYear();
-        </script>        
-    </footer>  
+        <div class="container py-5">
+            <p>&copy; <span id="year"></span> <span data-key="footer-name" id="footer-name"></span></p>
+        </div>       
+    </footer>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check if the user has already accepted the cookies
-            if (!getCookie('cookie_accepted')) {
-                // Show the cookie notice if not accepted
-                document.getElementById('cookie-notice').classList.remove('cookie-notice-hidden');
-                document.getElementById('cookie-notice').classList.add('cookie-notice-visible');
-            }
-        
-            // Event listener for the "Ok" button to accept cookies
-            document.getElementById('cn-accept-cookie').addEventListener('click', function () {
-                setCookie('cookie_accepted', 'true', 365);  // Set the cookie for 365 days
-                document.getElementById('cookie-notice').classList.remove('cookie-notice-visible');
-                document.getElementById('cookie-notice').classList.add('cookie-notice-hidden');
-            });
-        
-            // Event listener for the close button
-            document.getElementById('cn-close-notice').addEventListener('click', function () {
-                document.getElementById('cookie-notice').classList.remove('cookie-notice-visible');
-                document.getElementById('cookie-notice').classList.add('cookie-notice-hidden');
-            });
-        });
-        
-        // Function to set a cookie
-        function setCookie(name, value, days) {
-            var expires = "";
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
-        
-        // Function to get a cookie by name
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
-    </script>
-    
+<!-- =================================================================================================================================================================================================
+============ COOKIES =================================================================================================================================================================================
+================================================================================================================================================================================================== -->
     <!-- Cookie Notice plugin v2.3.1 by Hu-manity.co https://hu-manity.co/ -->
     <div id="cookie-notice" role="dialog" class="cookie-notice-hidden cookie-revoke-hidden cn-position-bottom" aria-label="Cookie Notice" style="background-color: rgba(50, 50, 58, 1);">
         <div class="cookie-notice-container" style="color: #fff;">
@@ -462,29 +271,9 @@
         </div>
     </div>        
 
-    <script>
-        // Function to toggle between light and dark mode
-        function toggleDarkMode() {
-            const body = document.body;
-            const modeIcon = document.getElementById("modeIcon");
-            
-            body.classList.toggle("dark-mode"); // Toggle class
-            if (body.classList.contains("dark-mode")) {
-                modeIcon.classList.remove("bi-sun");
-                modeIcon.classList.add("bi-moon");  // Change icon to moon for dark mode
-            } else {
-                modeIcon.classList.remove("bi-moon");
-                modeIcon.classList.add("bi-sun");  // Change icon to sun for light mode
-            }
-        }
-
-        // Add event listeners for the dark mode toggle buttons
-        document.getElementById("lightModeToggleNavbar").addEventListener("click", toggleDarkMode);
-        document.getElementById("lightModeToggleMenu").addEventListener("click", toggleDarkMode);
-    </script> 
-
     <!-- Link to Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/language.js"></script>
 </body>
 </html>
