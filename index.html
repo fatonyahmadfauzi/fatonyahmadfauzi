@@ -351,41 +351,6 @@
         </div>
     </section>
 
-    <!-- <script>
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        var name = document.getElementById('name').value;
-        var email = document.getElementById('email').value;
-        var message = document.getElementById('message').value;
-
-        // Check if all required fields are filled
-        if (!name || !email || !message) {
-            alert('Please fill in all required fields.');
-            return; // Prevent form submission if any field is empty
-        }
-
-        // Email validation (check if the email format is valid)
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-            alert('Please enter a valid email address.');
-            return; // Prevent form submission if the email is invalid
-        }
-
-        var subject = 'Contact from ' + name;
-        var whatsappMessage = `*Subject:* ${subject}\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
-        
-        // URL encode the message for WhatsApp
-        var encodedMessage = encodeURIComponent(whatsappMessage);
-        
-        // Replace with your WhatsApp number (include country code, e.g., +62 for Indonesia)
-        var whatsappURL = `https://wa.me/PHONE_NUMBER?text=${encodedMessage}`;
-
-        // Redirect to WhatsApp chat
-        window.open(whatsappURL, '_blank');
-    });
-    </script> -->
-
 <!-- =================================================================================================================================================================================================
 ============ FLOATING TRAKTEER =======================================================================================================================================================================
 ================================================================================================================================================================================================== -->
@@ -410,8 +375,8 @@
                     <h5 class="resource-heading">Resource</h5>
                     <ul class="list-unstyled">
                         <li><a class="light-link" href="https://getbootstrap.com/">Bootstrap5</a></li>
-                        <li><a class="light-link" href="https://firebase.google.com/">Firebase</a></li>
                         <li><a class="light-link" href="https://github.com/">GitHub</a></li>
+                        <li><a class="light-link" href="https://netlify.com/">Netlify</a></li>
                         <li><a class="light-link" href="https://code.visualstudio.com/">VisualStudio Code</a></li>
                     </ul>
                 </div>
