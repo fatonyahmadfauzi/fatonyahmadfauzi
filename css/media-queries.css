@@ -1,21 +1,13 @@
-/* Responsive Menu Dark Mode Styling */
 @media (max-width: 768px) {
-    /* Dark mode for menu in small screens */
-    body.dark-mode #menu {
+     /* Dark mode for menu in small screens */
+     body.dark-mode #menu {
         background-color: #222; /* Dark background for the menu in dark mode */
     }
 
     body.dark-mode #menu a {
         color: #fff; /* Dark mode link color in small screens */
     }
-}
 
-/* Dark Mode Toggle Button */
-#menu .dark-mode-toggle-bottom {
-    margin-top: auto; /* Push this button to the bottom */
-}
-
-@media (max-width: 768px) {
     /* ====================================================================================================
     ============ HEADER NAVBAR UNTUK LAYAR KECIL ==========================================================
     ==================================================================================================== */
@@ -118,6 +110,13 @@
     /* Dark Mode Toggle Button - Positioned at the bottom */
     #menu .dark-mode-toggle-bottom {
         margin-top: auto; /* Push this button to the bottom */
+    }
+
+    /* ====================================================================================================
+    ============ CONTACT SECTION ==========================================================================
+    ==================================================================================================== */
+    #contact .col-md-6 {
+        margin-bottom: 35px;
     }
 }
 
@@ -240,12 +239,6 @@
     /* Dark Mode Toggle Button - Positioned at the bottom */
     #menu .dark-mode-toggle-bottom {
         margin-top: auto; /* Push this button to the bottom */
-    }
-}
-
-@media screen and (max-width: 768px) {
-    #contact .col-md-6 {
-        margin-bottom: 35px;
     }
 }
 
