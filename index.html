@@ -118,7 +118,7 @@
             const now = new Date();
             const hours = now.getHours();
             console.log('Current Hour: ', hours); // Memastikan nilai jam
-    
+
             if (hours >= 6 && hours < 18) {
                 // Daytime: Light Mode
                 document.body.classList.remove('dark-mode');
@@ -153,8 +153,8 @@
             localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
         }    
 
-    // Function to change the background video based on the current theme
-    function changeBackgroundVideo(theme) {
+        // Function to change the background video based on the current theme
+        function changeBackgroundVideo(theme) {
             const video = document.getElementById("backgroundVideo");
             if (theme === "dark") {
                 video.src = "assets/bg-dark.mp4";  // Dark mode video
@@ -163,22 +163,15 @@
             }
         }
 
-    // On page load, check if a theme is saved in localStorage
-    window.addEventListener('DOMContentLoaded', () => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            // Apply the saved theme
-            document.body.classList.add(savedTheme + '-mode');
-            changeBackgroundVideo(savedTheme);  // Change video based on saved theme
-        } else {
-            // Apply default theme based on time
+        // On page load, apply the theme based on time
+        window.addEventListener('DOMContentLoaded', () => {
+            // Apply the theme based on current time (morning to evening -> light, else dark)
             setThemeBasedOnTime();
-        }
 
-        // Set up event listeners for theme toggles
-        document.getElementById("lightModeToggleNavbar").addEventListener("click", toggleTheme);
-        document.getElementById("lightModeToggleMenu").addEventListener("click", toggleTheme);
-    });
+            // Set up event listeners for theme toggles if you need manual switch
+            document.getElementById("lightModeToggleNavbar").addEventListener("click", toggleTheme);
+            document.getElementById("lightModeToggleMenu").addEventListener("click", toggleTheme);
+        });
     </script> 
     
     <script>
