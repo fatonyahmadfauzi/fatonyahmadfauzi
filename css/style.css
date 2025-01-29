@@ -114,10 +114,6 @@ header.scrolled {
     color: #00d9ff;
 }
 
-body.menu-open {
-    overflow: hidden;
-}
-
 /* ====================================================================================================
 ============ HERO SECTION - VIDEO =====================================================================
 ==================================================================================================== */
@@ -321,7 +317,7 @@ body.dark-mode .language-list .percentage {
     color: #fff; /* Text color (if needed for icons/text) */
     text-align: center;
     font-size: 30px;
-    z-index: 100;
+    z-index: 8;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -385,7 +381,7 @@ footer h5, footer p, footer li {
     left: 0; /* Pas di kiri */
     width: 100%; /* Lebar penuh */
     padding: 16px 0; /* Ruang atas dan bawah ditambah agar lebih tinggi */
-    z-index: 9999; /* Pastikan elemen ini berada di atas elemen lain */
+    z-index: 9; /* Pastikan elemen ini berada di atas elemen lain */
     background-color: rgba(50, 50, 58, 1);
 }
 

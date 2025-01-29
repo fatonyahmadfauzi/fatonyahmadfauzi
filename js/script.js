@@ -13,7 +13,6 @@ const menu = document.getElementById("menu");
 
 // Function to open/close the menu
 menuToggle.addEventListener("click", function() {
-    menu.classList.toggle("open"); // Toggle the 'open' class for menu visibility
     document.body.classList.toggle("menu-open"); // Toggle the scroll locking on body
 });
 

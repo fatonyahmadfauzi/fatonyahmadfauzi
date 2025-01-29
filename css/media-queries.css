@@ -255,3 +255,12 @@
         padding: 5px 10px; /* Sedikit pengurangan padding untuk layar kecil */
     }
 }
+
+@media (max-width: 600px) {
+    .cn-close-icon {
+        font-size: 20px; /* Sesuaikan ukuran ikon */
+        right: 10px; /* Beri jarak lebih dari tepi */
+        top: 0; /* Sesuaikan posisi atas */
+        padding-left: 10px;
+    }
+}
