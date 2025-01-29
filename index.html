@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fatonyahmadfauzi</title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add Bootstrap Icons CDN in the <head> section of your HTML -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Link to Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media-queries.css">
+    <link rel="stylesheet" href="css/prefers-color-scheme.css">
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=js-function.html">
+    </noscript>
+    <script>
+        // Simpan status bahwa JavaScript aktif
+        document.addEventListener("DOMContentLoaded", function () {
+            sessionStorage.setItem('jsEnabled', 'true');
+        });
+    </script>
+</head>
+<body class="light-mode"> <!-- Default light mode class -->
+
+<!-- =================================================================================================================================================================================================
+============ HEADER NAVBAR ===========================================================================================================================================================================
+================================================================================================================================================================================================== -->    
+    <header class="py-3 fixed-top header-transparent">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="#" style="font-weight: bold; color: white;">
+                    FAA
+                </a>
+                <div class="collapse navbar-collapse d-lg-flex" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#project">Project</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        
+                        <!-- Dark Mode Toggle Button di Navbar -->
+                        <li class="nav-item">
+                            <button id="lightModeToggleNavbar" class="btn">
+                                <i id="modeIcon" class="bi bi-sun"></i> <!-- Ikon light mode -->
+                            </button>
+                        </li>                        
+                    </ul>
+                </div>
+                <!-- Menu Responsif -->
+                <div id="menuToggle" aria-label="Navbar" class="d-lg-none menuToggle">
+                    <label for="menuCheckbox" class="visually-hidden">Toggle menu</label>
+                    <input type="checkbox" id="menuCheckbox">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#project">Project</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#contact" id="contactLink">Contact</a></li>
+                        <!-- Dark Mode Toggle Button di Menu Responsif -->
+                        <li class="nav-item">
+                            <button id="lightModeToggleMenu" class="btn">
+                                <i id="modeIcon" class="bi bi-sun"></i> <!-- Ikon light mode -->
+                            </button>
+                        </li> 
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 0);
+        });
+        document.getElementById("contactLink").addEventListener("click", function() {
+            document.getElementById("menuCheckbox").checked = false;
+        });
+    </script>
+
+<!-- =================================================================================================================================================================================================
+============ HERO SECTION - VIDEO ==================================================================================================================================================================== 
+================================================================================================================================================================================================== -->
+    <section class="video-hero d-flex align-items-center justify-content-center text-center section-gap position-relative">
+        <video id="backgroundVideo" autoplay muted loop playsinline>
+            Your browser does not support video.
+        </video>      
+        <div class="video-overlay position-absolute w-100 h-100"></div>
+        <div class="social-handle text-white">
+            @fatonyahmadfauzi
+        </div>
+        <div class="date-message text-white"></div>
+        <div class="time-message text-white"></div>
+
+        <!-- Down arrow SVG with animation -->
+        <div class="down-arrow-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none" viewBox="0 0 24 24" stroke="white">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </div>
+    </section>
+
+    <script>
+        // Function to set the theme based on time (AM/PM)
+        function setThemeBasedOnTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            console.log('Current Hour: ', hours); // Memastikan nilai jam
+    
+            if (hours >= 6 && hours < 18) {
+                // Daytime: Light Mode
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                changeBackgroundVideo("light");
+            } else {
+                // Nighttime: Dark Mode
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                changeBackgroundVideo("dark");
+            }
+        }
+    
+        // Function to toggle light/dark mode when the button is clicked
+        function toggleTheme() {
+            const body = document.body;
+            const modeIcon = document.getElementById("modeIcon");
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                modeIcon.classList.remove("bi-sun");
+                modeIcon.classList.add("bi-moon");
+                changeBackgroundVideo("dark");
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                modeIcon.classList.remove("bi-moon");
+                modeIcon.classList.add("bi-sun");
+                changeBackgroundVideo("light");
+            }
+            // Save the current theme to localStorage
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }    
+
+    // Function to change the background video based on the current theme
+    function changeBackgroundVideo(theme) {
+            const video = document.getElementById("backgroundVideo");
+            if (theme === "dark") {
+                video.src = "assets/bg-dark.mp4";  // Dark mode video
+            } else {
+                video.src = "assets/bg-light.mp4";  // Light mode video
+            }
+        }
+
+    // On page load, check if a theme is saved in localStorage
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            // Apply the saved theme
+            document.body.classList.add(savedTheme + '-mode');
+            changeBackgroundVideo(savedTheme);  // Change video based on saved theme
+        } else {
+            // Apply default theme based on time
+            setThemeBasedOnTime();
+        }
+
+        // Set up event listeners for theme toggles
+        document.getElementById("lightModeToggleNavbar").addEventListener("click", toggleTheme);
+        document.getElementById("lightModeToggleMenu").addEventListener("click", toggleTheme);
+    });
+    </script> 
+    
+    <script>
+        // JavaScript to display the current date
+        const dateElement = document.querySelector('.date-message');
+        const currentDate = new Date();
+        
+        const options = { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        };
+        
+        dateElement.textContent = currentDate.toLocaleDateString('en-US', options); // 'en-US' is for English format
+    </script>
+
+    <script>
+        function getGreetingMessage() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = hours % 12 || 12;
+            const formattedMinutes = minutes.toString().padStart(2, '0');
+            
+            let greeting;
+            if (hours >= 5 && hours < 12) {
+                greeting = "Good Morning";
+            } else if (hours >= 12 && hours < 3) {
+                greeting = "Good Afternoon";
+            } else if (hours >= 3 && hours < 6) {
+                greeting = "Good Evening";
+            } else {
+                greeting = "Good Night";
+            }
+            
+            return `${greeting}, the current time is ${formattedHours}:${formattedMinutes} ${ampm}`;
+        }
+
+        function updateGreetingMessage() {
+            const messageElement = document.querySelector('.time-message');
+            if (messageElement) {
+                messageElement.textContent = getGreetingMessage();
+            }
+        }
+
+        // Update the greeting message every minute
+        updateGreetingMessage();
+        setInterval(updateGreetingMessage, 60000);
+    </script>
+
+<!-- =================================================================================================================================================================================================
+============ PROJECT SECTION =========================================================================================================================================================================
+================================================================================================================================================================================================== -->
+    <section id="project" class="project-section py-5 section-gap">
+        <div class="container">
+            <h2 class="text-center mb-5 mt-5">My Projects</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="project-box">
+                        <!-- Link ke website -->
+                        <a href="https://www.kianolandgroup.com/" target="_blank" class="text-decoration-none">
+                            <!-- Gambar Project -->
+                            <img src="https://opengraph.githubassets.com/1/fatonyahmadfauzi/Kianoland-Group" 
+                                class="img-fluid mb-3" alt="Project Preview">
+                        </a>
+                        
+                        <!-- Judul Proyek -->
+                        <h4 class="mb-2">Languages</h4>
+
+                        <!-- List bahasa -->
+                        <ul class="language-list" id="languageList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript to Fetch Languages -->
+    <script>
+        async function fetchLanguages() {
+            const url = "https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/languages";
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const languages = await response.json();
+                const total = Object.values(languages).reduce((sum, value) => sum + value, 0);
+
+                const languageList = document.getElementById("languageList");
+
+                // Kosongkan kontainer jika sebelumnya ada isi
+                languageList.innerHTML = "";
+
+                Object.entries(languages).forEach(([language, value]) => {
+                    const percentage = ((value / total) * 100).toFixed(1);
+
+                    // List item
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `
+                        <span class="dot" style="background-color: ${getLanguageColor(language)}"></span>
+                        ${language} <span class="percentage">${percentage}%</span>
+                    `;
+                    languageList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Error fetching languages:", error);
+            }
+        }
+
+        // Fungsi warna sesuai bahasa
+        function getLanguageColor(language) {
+            const colors = {
+                "HTML": "#E34C26",
+                "CSS": "#563D7C",
+                "JavaScript": "#F1E05A",
+                "Python": "#3572A5",
+                "Java": "#B07219"
+            };
+            return colors[language] || "#999"; // Default jika warna tidak ditemukan
+        }
+
+        // Panggil fungsi
+        fetchLanguages();
+    </script>    
+
+<!-- =================================================================================================================================================================================================
+============ CONTACT SECTION =========================================================================================================================================================================
+================================================================================================================================================================================================== -->
+    <section id="contact" class="py-5 mb-5 section-gap">
+        <div class="container">
+            <h2 class="mb-4 custom-heading">Contact Me</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="contactForm" name="contact" method="POST" data-netlify="true">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" required autocomplete="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>                    
+                </div>
+                <div class="col-md-6">
+                    <h4>My Location</h4>
+                    <div class="map-responsive">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15989.34291409018!2d106.849561!3d-6.427747!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6997c3b53e2c29%3A0x76f054d37b6b4fa2!2sCikahuripan%2C%20Kabupaten%20Bogor%2C%20Jawa%20Barat!5e0!3m2!1sen!2sid!4v1672638232932!5m2!1sen!2sid"
+                            width="100%" 
+                            height="265" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Google Map showing Cikahuripan, Kabupaten Bogor, Jawa Barat">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var message = document.getElementById('message').value;
+
+        // Check if all required fields are filled
+        if (!name || !email || !message) {
+            alert('Please fill in all required fields.');
+            return; // Prevent form submission if any field is empty
+        }
+
+        // Email validation (check if the email format is valid)
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailPattern.test(email)) {
+            alert('Please enter a valid email address.');
+            return; // Prevent form submission if the email is invalid
+        }
+
+        var subject = 'Contact from ' + name;
+        var whatsappMessage = `*Subject:* ${subject}\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
+        
+        // URL encode the message for WhatsApp
+        var encodedMessage = encodeURIComponent(whatsappMessage);
+        
+        // Replace with your WhatsApp number (include country code, e.g., +62 for Indonesia)
+        var whatsappURL = `https://wa.me/PHONE_NUMBER?text=${encodedMessage}`;
+
+        // Redirect to WhatsApp chat
+        window.open(whatsappURL, '_blank');
+    });
+    </script> -->
+
+<!-- =================================================================================================================================================================================================
+============ FLOATING TRAKTEER =======================================================================================================================================================================
+================================================================================================================================================================================================== -->
+    <a href="https://trakteer.id/fatonyahmadfauzi" class="trakteer-float" target="_blank" rel="noopener" aria-label="Support us on Trakteer">
+        <img src="assets/trakteer.svg" alt="Trakteer" style="width: 35px; height: 35px;">
+    </a>
+
+<!-- =================================================================================================================================================================================================
+============ CUSTOM TRIANGLE BORDER (LESS SHARP) =====================================================================================================================================================
+================================================================================================================================================================================================== -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="display: block;">
+    <path fill="#181818" fill-opacity="1" d="M0,128L720,192L1440,128L1440,320L720,320L0,320Z"></path>
+  </svg>
+  
+<!-- =================================================================================================================================================================================================
+============ FOOTER SECTION ==========================================================================================================================================================================
+================================================================================================================================================================================================== -->
+    <footer class="footer py-5" style="background-color: #181818; background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                    <h5 class="resource-heading">Resource</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="light-link" href="https://getbootstrap.com/">Bootstrap5</a></li>
+                        <li><a class="light-link" href="https://firebase.google.com/">Firebase</a></li>
+                        <li><a class="light-link" href="https://github.com/">GitHub</a></li>
+                        <li><a class="light-link" href="https://code.visualstudio.com/">VisualStudio Code</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                    <h5 class="resource-heading">Activity</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="light-link">FullStack Developer</a></li>
+                        <li><a class="light-link">UI / UX</a></li>
+                        <li><a class="light-link">Desainer Grafis</a></li>
+                        <li><a class="light-link">Gamer</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                    <h5 class="resource-heading">Social</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="light-link" href="https://www.instagram.com/fatonyahmad88">Instagram</a></li>
+                        <li><a class="light-link" href="https://www.tiktok.com/@fatonyahmadfauzi">TikTok</a></li>
+                        <li><a class="light-link" href="https://twitter.com/fatonyahmad89">Twitter</a></li>
+                        <li><a class="light-link" href="https://facebook.com/fatonyahmadfauzi">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>        
+        <div class="container py-5">
+            <p>&copy; 2024 fatonyahmadfauzi</p>
+        </div>
+    </footer>  
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if the user has already accepted the cookies
+            if (!getCookie('cookie_accepted')) {
+                // Show the cookie notice if not accepted
+                document.getElementById('cookie-notice').classList.remove('cookie-notice-hidden');
+                document.getElementById('cookie-notice').classList.add('cookie-notice-visible');
+            }
+        
+            // Event listener for the "Ok" button to accept cookies
+            document.getElementById('cn-accept-cookie').addEventListener('click', function () {
+                setCookie('cookie_accepted', 'true', 365);  // Set the cookie for 365 days
+                document.getElementById('cookie-notice').classList.remove('cookie-notice-visible');
+                document.getElementById('cookie-notice').classList.add('cookie-notice-hidden');
+            });
+        
+            // Event listener for the close button
+            document.getElementById('cn-close-notice').addEventListener('click', function () {
+                document.getElementById('cookie-notice').classList.remove('cookie-notice-visible');
+                document.getElementById('cookie-notice').classList.add('cookie-notice-hidden');
+            });
+        });
+        
+        // Function to set a cookie
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+        
+        // Function to get a cookie by name
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+    </script>
+    
+    <!-- Cookie Notice plugin v2.3.1 by Hu-manity.co https://hu-manity.co/ -->
+    <div id="cookie-notice" role="dialog" class="cookie-notice-hidden cookie-revoke-hidden cn-position-bottom" aria-label="Cookie Notice" style="background-color: rgba(50, 50, 58, 1);">
+        <div class="cookie-notice-container" style="color: #fff;">
+            <span id="cn-notice-text" class="cn-text-container">
+                We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it.
+            </span>
+            <span id="cn-notice-buttons" class="cn-buttons-container a">
+                <a href="#" id="cn-accept-cookie" data-cookie-set="accept" class="cn-set-cookie cn-button" aria-label="Ok">Ok</a>
+            </span>
+            <span id="cn-close-notice" data-cookie-set="accept" class="cn-close-icon" title="No"></span>
+        </div>
+    </div>        
+
+    <script>
+        // Function to toggle between light and dark mode
+        function toggleDarkMode() {
+            const body = document.body;
+            const modeIcon = document.getElementById("modeIcon");
+            
+            body.classList.toggle("dark-mode"); // Toggle class
+            if (body.classList.contains("dark-mode")) {
+                modeIcon.classList.remove("bi-sun");
+                modeIcon.classList.add("bi-moon");  // Change icon to moon for dark mode
+            } else {
+                modeIcon.classList.remove("bi-moon");
+                modeIcon.classList.add("bi-sun");  // Change icon to sun for light mode
+            }
+        }
+
+        // Add event listeners for the dark mode toggle buttons
+        document.getElementById("lightModeToggleNavbar").addEventListener("click", toggleDarkMode);
+        document.getElementById("lightModeToggleMenu").addEventListener("click", toggleDarkMode);
+    </script> 
+
+    <!-- Link to Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
