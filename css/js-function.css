@@ -1,0 +1,194 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: #474747;
+    background-color: #fff;
+}
+
+h1 {
+    font-family: Google Sans, Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 44px;
+    margin: 0;
+    padding-right: 20px;
+}
+ 
+p {
+    margin: 0;
+}
+ 
+a {
+    color: #003366; /* Dark blue for the browser name link */
+    text-decoration: none;
+}
+  
+a:visited {
+    color: #681da8; /* Purple when visited */
+}
+  
+ol {
+    margin: 0;
+}
+  
+.C2JSfb {
+    display: flex;
+    flex-direction: row; /* Flex direction to align horizontally */
+    gap: 20px;
+    max-width: 940px;
+    padding: 8vh 16px 0;
+    margin: auto;
+    position: relative;
+}
+  
+.alert-danger {
+    text-align: center;
+}
+  
+.accordion-container {
+    display: grid;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    flex-grow: 1; /* Allow this section to grow and take available space */
+    margin-top: 10%;
+}
+  
+.accordion-item {
+    border-bottom: 1px solid #dadce0;
+}
+
+.accordion-content ol {
+    margin-top: 20px;   /* Menambahkan jarak atas */
+    margin-bottom: 15px; /* Menambahkan jarak bawah */
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+  
+.accordion-header {
+    display: flex;
+    justify-content: flex-start; /* Align content to the left */
+    align-items: center;
+    padding: 12px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+  
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s;
+}
+  
+.accordion-item input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+  
+.accordion-item input:checked ~ .accordion-content {
+    max-height: 14rem;
+}
+  
+.down-arrow-container {
+    transition: transform 0.2s;
+    margin-left: auto;
+}
+  
+.accordion-item input:checked ~ .accordion-header .down-arrow-container {
+    transform: rotate(180deg);
+}
+
+/* Remove bold from browser names */
+.browser-link {
+    font-weight: normal;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px; /* Memberikan jarak antara dropdown dan teks */
+}
+
+/* Sembunyikan checkbox */
+.dropdown input[type="checkbox"] {
+    display: none;
+}
+
+/* Tombol untuk membuka dan menutup dropdown */
+.dropdown-label {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #007bff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Dropdown menu tersembunyi */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 0;
+}
+
+.dropdown-menu a {
+    color: #333;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Ketika item dropdown difokuskan */
+.dropdown-menu a:focus {
+    background-color: blue;
+    color: white;
+}
+
+/* Menampilkan dropdown ketika checkbox dicentang */
+.dropdown input[type="checkbox"]:checked + .dropdown-label + .dropdown-menu {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .C2JSfb {
+        flex-direction: column;
+        padding: 5vh 16px 0;
+    }
+
+    h1 {
+        font-size: 28px;
+        line-height: 38px;
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .accordion-container {
+        margin-top: 12px;
+    }
+
+    p, .accordion-header {
+        font-size: 14px;
+    }
+
+    .accordion-content ol {
+        font-size: 13px;
+    }
+}
+

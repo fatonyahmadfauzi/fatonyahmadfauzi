@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Aktifkan JavaScript untuk melanjutkan ke Website</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tambahkan Flag Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css/css/flag-icon.min.css">
+    <!-- Link to Custom CSS -->
+    <link rel="stylesheet" href="../css/js-function.css">
     <script>
         // Periksa apakah JavaScript diaktifkan
         if (localStorage.getItem('jsEnabled') === 'true') {
@@ -17,135 +21,64 @@
             localStorage.setItem('jsEnabled', 'true');
         };
     </script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        color: #474747;
-        background-color: #fff;
-      }
-      h1 {
-        font-family: Google Sans, Arial, sans-serif;
-        font-size: 32px;
-        font-weight: 400;
-        line-height: 44px;
-        margin: 0;
-        padding-right: 20px;
-      }
-      p {
-        margin: 0;
-      }
-      a {
-        color: #003366; /* Dark blue for the browser name link */
-        text-decoration: none;
-      }
-      a:visited {
-        color: #681da8; /* Purple when visited */
-      }
-      ol {
-        margin: 0;
-      }
-      .C2JSfb {
-        display: flex;
-        flex-direction: row; /* Flex direction to align horizontally */
-        gap: 20px;
-        max-width: 940px;
-        padding: 8vh 16px 0;
-        margin: auto;
-      }
-      .alert-danger {
-        text-align: center;
-      }
-      .accordion-container {
-        display: grid;
-        gap: 20px;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        line-height: 22px;
-        flex-grow: 1; /* Allow this section to grow and take available space */
-      }
-      .accordion-item {
-            border-bottom: 1px solid #dadce0;
-        }
-
-        .accordion-content ol {
-            margin-top: 20px;   /* Menambahkan jarak atas */
-            margin-bottom: 15px; /* Menambahkan jarak bawah */
-        }
-
-      .accordion-item:last-child {
-        border-bottom: none;
-      }
-      .accordion-header {
-        display: flex;
-        justify-content: flex-start; /* Align content to the left */
-        align-items: center;
-        padding: 12px 0;
-        cursor: pointer;
-        font-size: 16px;
-      }
-      .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.35s;
-      }
-      .accordion-item input {
-        position: absolute;
-        opacity: 0;
-        z-index: -1;
-      }
-      .accordion-item input:checked ~ .accordion-content {
-        max-height: 14rem;
-      }
-      .down-arrow-container {
-        transition: transform 0.2s;
-        margin-left: auto;
-      }
-      .accordion-item input:checked ~ .accordion-header .down-arrow-container {
-        transform: rotate(180deg);
-      }
-
-      /* Remove bold from browser names */
-      .browser-link {
-        font-weight: normal;
-      }
-
-    @media (max-width: 768px) {
-        .C2JSfb {
-            flex-direction: column;
-            padding: 5vh 16px 0;
-        }
-
-        h1 {
-            font-size: 28px;
-            line-height: 38px;
-            padding-right: 0;
-            text-align: center;
-        }
-
-        .accordion-container {
-            margin-top: 12px;
-        }
-
-        p, .accordion-header {
-            font-size: 14px;
-        }
-
-        .accordion-content ol {
-            font-size: 13px;
-        }
-        }
-    </style>
 </head>
 <body>
     <div class="C2JSfb">
-        <h1>Aktifkan JavaScript untuk terus melanjutkan ke Website</h1>
+        <div>
+            <!-- Dropdown berada di atas teks -->
+            <div class="dropdown">
+                <!-- Checkbox tersembunyi untuk kontrol dropdown -->
+                <input type="checkbox" id="dropdownToggle">
+                <!-- Label yang berfungsi sebagai tombol untuk membuka/tutup dropdown -->
+                <label class="dropdown-label" for="dropdownToggle">
+                    <i class="flag-icon flag-icon-id"></i>
+                </label>
+                <!-- Menu dropdown -->
+                <div class="dropdown-menu">
+                    <a href="en.html">
+                        <i class="flag-icon flag-icon-gb"></i> English
+                    </a>
+                    <a href="pl.html">
+                        <i class="flag-icon flag-icon-pl"></i> Polski
+                    </a>
+                    <a href="zh.html">
+                        <i class="flag-icon flag-icon-cn"></i> 中文
+                    </a>
+                    <a href="jp.html">
+                        <i class="flag-icon flag-icon-jp"></i> 日本語
+                    </a>
+                    <a href="de.html">
+                        <i class="flag-icon flag-icon-de"></i> Deutsch
+                    </a>
+                    <a href="fr.html">
+                        <i class="flag-icon flag-icon-fr"></i> Français
+                    </a>
+                    <a href="es.html">
+                        <i class="flag-icon flag-icon-es"></i> Español
+                    </a>
+                    <a href="ru.html">
+                        <i class="flag-icon flag-icon-ru"></i> Русский
+                    </a>
+                    <a href="pt.html">
+                        <i class="flag-icon flag-icon-pt"></i> Português
+                    </a>
+                    <a href="id.html">
+                        <i class="flag-icon flag-icon-id"></i> Indonesia
+                    </a>
+                    <a href="kr.html">
+                        <i class="flag-icon flag-icon-kr"></i> 한국어
+                    </a>
+                </div>
+            </div>
+            <h1>Aktifkan JavaScript untuk terus melanjutkan ke Website</h1>
+        </div>
         <div class="accordion-container">
+            <p>
+                Browser yang Anda gunakan telah menonaktifkan JavaScript. 
+                Untuk melanjutkan ke website, aktifkan JavaScript. 
+            </p>
             <!-- Google Chrome -->
             <div class="accordion-item">
-                <p class="mb-4">Browser yang Anda gunakan telah menonaktifkan JavaScript. Untuk melanjutkan ke Website, aktifkan JavaScript.</p>
                 <input type="checkbox" id="chrome">
                 <label class="accordion-header" for="chrome">
                     Pelajari caranya untuk&nbsp;
@@ -175,7 +108,7 @@
                 <input type="checkbox" id="edge">
                 <label class="accordion-header" for="edge">
                     Pelajari caranya untuk&nbsp;
-                    <a href="https://support.microsoft.com/en-us/microsoft-edge/change-settings-for-website-permissions-in-microsoft-edge-6d8c3486-1b7f-4f23-9a8f-5ac3e7c0ccf9" class="browser-link" target="_blank">
+                    <a href="https://support.microsoft.com/en-us/microsoft-edge" class="browser-link" target="_blank">
                         Microsoft Edge
                     </a>
                     <!-- Down arrow SVG with animation -->
@@ -200,7 +133,7 @@
                 <input type="checkbox" id="firefox">
                 <label class="accordion-header" for="firefox">
                     Pelajari caranya untuk&nbsp;
-                    <a href="https://support.mozilla.org/en-US/kb/enable-javascript-firefox" class="browser-link" target="_blank">
+                    <a href="https://support.mozilla.org/id/kb/javascript-settings-for-interactive-web-pages" class="browser-link" target="_blank">
                         Mozilla Firefox
                     </a>
                     <!-- Down arrow SVG with animation -->

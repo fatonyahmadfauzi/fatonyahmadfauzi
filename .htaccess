@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Mengarahkan root (/) ke folder fatonyahmadfauzi
+RewriteRule ^$ /fatonyahmadfauzi/ [L]
+
+# Menghilangkan index.html dari URL
+DirectoryIndex index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /fatonyahmadfauzi/$1 [L]
