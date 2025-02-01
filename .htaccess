@@ -11,5 +11,35 @@ RewriteRule ^([^\.]+)$ $1.html [NC,L]
 # Redirect untuk index
 RewriteRule ^index$ index.html [NC,L]
 
+# Redirect untuk halaman lain (contoh: de)
+RewriteRule ^de$ js-function/de.html [NC,L]
+
 # Redirect untuk halaman lain (contoh: en)
 RewriteRule ^en$ js-function/en.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: es)
+RewriteRule ^es$ js-function/es.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: fr)
+RewriteRule ^fr$ js-function/fr.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: id)
+RewriteRule ^id$ js-function/id.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: jp)
+RewriteRule ^jp$ js-function/jp.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: kr)
+RewriteRule ^kr$ js-function/kr.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: pl)
+RewriteRule ^pl$ js-function/pl.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: pt)
+RewriteRule ^pt$ js-function/pt.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: ru)
+RewriteRule ^ru$ js-function/ru.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: zh)
+RewriteRule ^zh$ js-function/zh.html [NC,L]
