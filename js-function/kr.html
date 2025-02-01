@@ -20,10 +20,14 @@
     <div class="C2JSfb">
         <div>
             <div class="dropdown">
+                <!-- Checkbox untuk mengontrol dropdown -->
                 <input type="checkbox" id="dropdownToggle">
+                
+                <!-- Label untuk membuka dan menutup dropdown -->
                 <label class="dropdown-label" for="dropdownToggle">
                     <i class="flag-icon flag-icon-kr"></i>
                 </label>
+                
                 <!-- Menu dropdown -->
                 <div class="dropdown-menu">
                     <a href="en">
@@ -60,7 +64,9 @@
                         <i class="flag-icon flag-icon-kr"></i> 한국어
                     </a>
                 </div>
-            </div>
+                
+                <!-- Overlay untuk menutup dropdown ketika mengklik di luar -->
+                <label for="dropdownToggle" class="dropdown-overlay"></label>
             <h1>웹사이트를 계속 진행하려면 JavaScript를 활성화하십시오</h1>
         </div>
         <div class="accordion-container">

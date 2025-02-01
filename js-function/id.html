@@ -25,14 +25,15 @@
 <body>
     <div class="C2JSfb">
         <div>
-            <!-- Dropdown berada di atas teks -->
             <div class="dropdown">
-                <!-- Checkbox tersembunyi untuk kontrol dropdown -->
+                <!-- Checkbox untuk mengontrol dropdown -->
                 <input type="checkbox" id="dropdownToggle">
-                <!-- Label yang berfungsi sebagai tombol untuk membuka/tutup dropdown -->
+                
+                <!-- Label untuk membuka dan menutup dropdown -->
                 <label class="dropdown-label" for="dropdownToggle">
                     <i class="flag-icon flag-icon-id"></i>
                 </label>
+                
                 <!-- Menu dropdown -->
                 <div class="dropdown-menu">
                     <a href="en">
@@ -69,7 +70,9 @@
                         <i class="flag-icon flag-icon-kr"></i> 한국어
                     </a>
                 </div>
-            </div>
+                
+                <!-- Overlay untuk menutup dropdown ketika mengklik di luar -->
+                <label for="dropdownToggle" class="dropdown-overlay"></label>
             <h1>Aktifkan JavaScript untuk terus melanjutkan ke Website</h1>
         </div>
         <div class="accordion-container">

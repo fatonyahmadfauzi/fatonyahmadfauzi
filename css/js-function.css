@@ -109,10 +109,10 @@ ol {
     font-weight: normal;
 }
 
+/* Gaya dasar dropdown */
 .dropdown {
     position: relative;
     display: inline-block;
-    margin-bottom: 20px; /* Memberikan jarak antara dropdown dan teks */
 }
 
 /* Sembunyikan checkbox */
@@ -120,21 +120,30 @@ ol {
     display: none;
 }
 
-/* Tombol untuk membuka dan menutup dropdown */
+/* Gaya label dropdown */
 .dropdown-label {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 1px solid #007bff;
     cursor: pointer;
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #f9f9f9;
 }
 
-/* Dropdown menu tersembunyi */
+/* Gaya ikon bendera */
+.flag-icon {
+    width: 24px;
+    height: 16px;
+    display: inline-block;
+    background-size: cover;
+}
+
+/* Gaya menu dropdown */
 .dropdown-menu {
     display: none;
     position: absolute;
+    top: 100%;
+    left: 0;
     background-color: white;
     min-width: 160px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
@@ -142,27 +151,41 @@ ol {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px 0;
+    margin-top: 5px;
 }
 
+/* Gaya item menu dropdown */
 .dropdown-menu a {
     color: #333;
-    padding: 6px 16px;
+    padding: 8px 16px;
     text-decoration: none;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .dropdown-menu a:hover {
     background-color: #f1f1f1;
 }
 
-/* Ketika item dropdown difokuskan */
-.dropdown-menu a:focus {
-    background-color: blue;
-    color: white;
+/* Menampilkan dropdown ketika checkbox dicentang */
+.dropdown input[type="checkbox"]:checked ~ .dropdown-menu {
+    display: block;
 }
 
-/* Menampilkan dropdown ketika checkbox dicentang */
-.dropdown input[type="checkbox"]:checked + .dropdown-label + .dropdown-menu {
+/* Overlay untuk menutup dropdown ketika mengklik di luar */
+.dropdown-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Menampilkan overlay ketika dropdown terbuka */
+.dropdown input[type="checkbox"]:checked ~ .dropdown-overlay {
     display: block;
 }
 
