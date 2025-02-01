@@ -1,10 +1,45 @@
+/* Gaya default untuk mode terang */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    color: #474747;
-    background-color: #fff;
+    background-color: #fff; /* Warna putih diubah ke #fff */
+    color: #111; /* Warna hitam diubah ke #111 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Gaya untuk mode gelap */
+body:has(#lightModeToggleNavbar:checked) {
+    background-color: #111; /* Warna hitam diubah ke #111 */
+    color: #fff; /* Warna putih diubah ke #fff */
+    --icon-color: #fff; /* Warna ikon dan garis vertikal */
+}
+
+/* Terapkan variabel ke elemen yang sesuai */
+body:has(#lightModeToggleNavbar:checked) .vertical-line {
+    color: var(--icon-color);
+}
+
+body:has(#lightModeToggleNavbar:checked) .down-arrow-container svg path {
+    stroke: var(--icon-color);
+}
+
+/* Warna garis vertikal */
+.vertical-line {
+    color: #111; /* Warna default untuk mode terang diubah ke #111 */
+    transition: color 0.3s;
+}
+
+/* Warna panah SVG */
+.down-arrow-container svg path {
+    stroke: #111; /* Warna default untuk mode terang diubah ke #111 */
+    transition: stroke 0.3s;
+}
+
+/* Sembunyikan ikon yang tidak aktif */
+#lightModeToggleNavbar:checked + label .bi-sun {
+    display: none;
+}
+
+#lightModeToggleNavbar:not(:checked) + label .bi-moon {
+    display: none;
 }
 
 h1 {
@@ -54,7 +89,7 @@ ol {
     font-size: 14px;
     line-height: 22px;
     flex-grow: 1; /* Allow this section to grow and take available space */
-    margin-top: 10%;
+    margin-top: 8%;
 }
   
 .accordion-item {
@@ -109,7 +144,12 @@ ol {
     font-weight: normal;
 }
 
-/* Gaya dasar dropdown */
+.dropdown-container {
+    display: flex;
+    align-items: center; /* Memastikan elemen sejajar secara vertikal */
+    gap: 10px; /* Jarak antara elemen */
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -125,15 +165,15 @@ ol {
     cursor: pointer;
     display: inline-block;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 4px;
-    background-color: #f9f9f9;
+    background-color: none;
 }
 
 /* Gaya ikon bendera */
 .flag-icon {
-    width: 24px;
-    height: 16px;
+    width: 2em;  /* Sesuaikan dengan kebutuhan */
+    height: 1.33em; /* Rasio 3:2 (lebar:tinggi) */
     display: inline-block;
     background-size: cover;
 }
@@ -157,15 +197,21 @@ ol {
 /* Gaya item menu dropdown */
 .dropdown-menu a {
     color: #333;
-    padding: 8px 16px;
+    padding: 6px 16px;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .dropdown-menu a:hover {
     background-color: #f1f1f1;
+}
+
+/* Opsi: Gaya saat item menu dropdown difokuskan (misalnya, saat navigasi dengan keyboard) */
+.dropdown-menu a:focus {
+    background-color: blue;
+    color: white; /* Ubah warna teks agar lebih kontras */
 }
 
 /* Menampilkan dropdown ketika checkbox dicentang */
@@ -187,6 +233,49 @@ ol {
 /* Menampilkan overlay ketika dropdown terbuka */
 .dropdown input[type="checkbox"]:checked ~ .dropdown-overlay {
     display: block;
+}
+
+.vertical-line {
+    margin: 0 0px; /* Jarak antara garis vertikal dan elemen lainnya */
+}
+
+/* Sembunyikan checkbox */
+#lightModeToggleNavbar {
+    display: none;
+}
+
+#lightModeToggleNavbar + label {
+    font-size: 22px;
+    cursor: pointer;
+    color: #111;
+    position: relative; /* Menggunakan posisi relatif untuk menggeser elemen */
+    display: inline-block;
+    top: 2px; /* Geser ke bawah sejauh 5px */
+    left: -5px; /* Geser ke kiri sejauh 5px */
+    margin-left: 10px; /* Jarak dari elemen sebelumnya */
+}
+
+/* Gaya label ketika checkbox dicentang */
+#lightModeToggleNavbar:checked + label {
+    color: #fff; /* Warna untuk ikon bulan */
+}
+
+/* Ganti ikon ketika checkbox dicentang */
+#lightModeToggleNavbar:checked + label .bi-sun {
+    display: none; /* Sembunyikan ikon matahari */
+}
+
+#lightModeToggleNavbar:checked + label .bi-moon {
+    display: inline-block; /* Tampilkan ikon bulan */
+}
+
+/* Ganti ikon ketika checkbox tidak dicentang */
+#lightModeToggleNavbar + label .bi-moon {
+    display: none; /* Sembunyikan ikon bulan */
+}
+
+#lightModeToggleNavbar + label .bi-sun {
+    display: inline-block; /* Tampilkan ikon matahari */
 }
 
 @media (max-width: 768px) {

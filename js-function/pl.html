@@ -19,54 +19,63 @@
 <body>
     <div class="C2JSfb">
         <div>
-            <div class="dropdown">
-                <!-- Checkbox untuk mengontrol dropdown -->
-                <input type="checkbox" id="dropdownToggle">
-                
-                <!-- Label untuk membuka dan menutup dropdown -->
-                <label class="dropdown-label" for="dropdownToggle">
-                    <i class="flag-icon flag-icon-pl"></i>
-                </label>
-                
-                <!-- Menu dropdown -->
-                <div class="dropdown-menu">
-                    <a href="en">
-                        <i class="flag-icon flag-icon-gb"></i> English
-                    </a>
-                    <a href="pl">
-                        <i class="flag-icon flag-icon-pl"></i> Polski
-                    </a>
-                    <a href="zh">
-                        <i class="flag-icon flag-icon-cn"></i> 中文
-                    </a>
-                    <a href="jp">
-                        <i class="flag-icon flag-icon-jp"></i> 日本語
-                    </a>
-                    <a href="de">
-                        <i class="flag-icon flag-icon-de"></i> Deutsch
-                    </a>
-                    <a href="fr">
-                        <i class="flag-icon flag-icon-fr"></i> Français
-                    </a>
-                    <a href="es">
-                        <i class="flag-icon flag-icon-es"></i> Español
-                    </a>
-                    <a href="ru">
-                        <i class="flag-icon flag-icon-ru"></i> Русский
-                    </a>
-                    <a href="pt">
-                        <i class="flag-icon flag-icon-pt"></i> Português
-                    </a>
-                    <a href="id">
-                        <i class="flag-icon flag-icon-id"></i> Indonesia
-                    </a>
-                    <a href="kr">
-                        <i class="flag-icon flag-icon-kr"></i> 한국어
-                    </a>
+            <div class="dropdown-container mb-3">
+                <div class="dropdown">
+                    <!-- Checkbox untuk mengontrol dropdown -->
+                    <input type="checkbox" id="dropdownToggle">
+                    
+                    <!-- Label untuk membuka dan menutup dropdown -->
+                    <label class="dropdown-label dropdown-toggle" for="dropdownToggle">
+                        <i class="flag-icon flag-icon-pl"></i>
+                    </label>
+                    
+                    <!-- Menu dropdown -->
+                    <div class="dropdown-menu">
+                        <a href="en">
+                            <i class="flag-icon flag-icon-gb"></i> English
+                        </a>
+                        <a href="pl">
+                            <i class="flag-icon flag-icon-pl"></i> Polski
+                        </a>
+                        <a href="zh">
+                            <i class="flag-icon flag-icon-cn"></i> 中文
+                        </a>
+                        <a href="jp">
+                            <i class="flag-icon flag-icon-jp"></i> 日本語
+                        </a>
+                        <a href="de">
+                            <i class="flag-icon flag-icon-de"></i> Deutsch
+                        </a>
+                        <a href="fr">
+                            <i class="flag-icon flag-icon-fr"></i> Français
+                        </a>
+                        <a href="es">
+                            <i class="flag-icon flag-icon-es"></i> Español
+                        </a>
+                        <a href="ru">
+                            <i class="flag-icon flag-icon-ru"></i> Русский
+                        </a>
+                        <a href="pt">
+                            <i class="flag-icon flag-icon-pt"></i> Português
+                        </a>
+                        <a href="id">
+                            <i class="flag-icon flag-icon-id"></i> Indonesia
+                        </a>
+                        <a href="kr">
+                            <i class="flag-icon flag-icon-kr"></i> 한국어
+                        </a>
+                    </div>
+                    
+                    <!-- Overlay untuk menutup dropdown ketika mengklik di luar -->
+                    <label for="dropdownToggle" class="dropdown-overlay"></label>
+                    <!-- Garis vertikal (|) -->
+                    <span class="vertical-line">|</span>
                 </div>
-                
-                <!-- Overlay untuk menutup dropdown ketika mengklik di luar -->
-                <label for="dropdownToggle" class="dropdown-overlay"></label>
+                <input type="checkbox" id="lightModeToggleNavbar">
+                <label for="lightModeToggleNavbar">
+                    <i class="bi bi-sun"></i> <!-- Ikon matahari -->
+                    <i class="bi bi-moon"></i> <!-- Ikon bulan -->
+                </label>
             </div>
             <h1>Włącz JavaScript, aby kontynuować korzystanie z witryny</h1>
         </div>
