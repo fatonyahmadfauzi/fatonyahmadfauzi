@@ -1,11 +1,15 @@
 RewriteEngine On
 
+# Redirect root ke index.html
+RewriteRule ^$ index.html [NC,L]
+
 # Menghilangkan ekstensi .html dari URL
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
-# Mengatur redirect untuk index.html
+# Redirect untuk index
 RewriteRule ^index$ index.html [NC,L]
 
+# Redirect untuk halaman lain (contoh: en)
 RewriteRule ^en$ js-function/en.html [NC,L]

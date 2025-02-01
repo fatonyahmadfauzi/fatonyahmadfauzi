@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/js-function.css">
     <script>
         if (localStorage.getItem('jsEnabled') === 'true') {
-            window.location.href = 'index';
+            window.location.href = '/index'; // Gunakan path absolut
         }
         window.onload = function() {
             localStorage.setItem('jsEnabled', 'true');
