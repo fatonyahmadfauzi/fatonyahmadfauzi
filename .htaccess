@@ -8,3 +8,4 @@ RewriteRule ^([^\.]+)$ $1.html [NC,L]
 # Mengatur redirect untuk index.html
 RewriteRule ^home$ index.html [NC,L]
 
+RewriteRule ^en$ js-function/en.html [NC,L]
