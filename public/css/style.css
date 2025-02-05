@@ -1,0 +1,398 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Remove background from the icon */
+#modeIcon {
+    background: none; /* Remove any background */
+    padding: 0; /* Remove padding if any */
+}
+
+/* ====================================================================================================
+============  HEADER NAVBAR ===========================================================================
+==================================================================================================== */
+header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Header hover effect */
+header:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent black */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+}
+
+/* Header scroll effect */
+header.scrolled {
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent black */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+}
+
+/* Navbar link styling */
+.navbar-nav .nav-link {
+    font-weight: 400;
+    font-size: 16px;
+    margin-right: 20px;
+    text-transform: uppercase;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    color: #fff; /* Light color for links */
+    position: relative;
+}
+
+/* Active link color */
+.navbar-nav .nav-item .nav-link.active {
+    color: #fff; /* Active link color */
+}
+
+/* Hover effect for links */
+.nav-link {
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Pseudo-element for link background */
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    z-index: -1;
+    transition: background 0.3s ease, transform 0.3s ease;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.nav-link:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar alignment fix */
+.navbar {
+    display: flex;
+    align-items: center; /* Ensure all items in the navbar are vertically centered */
+}
+
+.navbar-nav .nav-link,
+.navbar-brand,
+#darkModeToggle {
+    display: flex;
+    align-items: center; /* Vertically center text within each element */
+    height: 100%; /* Match the height of the navbar */
+    padding: 0 10px; /* Consistent padding */
+}
+
+#modeIcon {
+    color: white;  /* Warna ikon putih */
+}
+
+/* Ensure dark mode toggle button styling */
+#darkModeToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0 10px;
+    margin-left: 10px; /* Spacing from the previous element */
+    height: 100%; /* Ensure the same height as navbar links */
+    cursor: pointer;
+}
+
+#darkModeToggle:hover {
+    color: #00d9ff;
+}
+
+/* Dark Mode Toggle Button */
+#menu .dark-mode-toggle-bottom {
+    margin-top: auto; /* Push this button to the bottom */
+}
+
+/* ====================================================================================================
+============ HERO SECTION - VIDEO =====================================================================
+==================================================================================================== */
+.video-hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.video-hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* No text styles needed for hero section anymore */
+.video-hero .content {
+    position: relative;
+    z-index: 1;
+}
+
+.social-handle {
+    z-index: 2;
+    position: absolute;
+    top: 25%; /* Closer position to the time message */
+    width: 100%;
+    font-size: 1rem; /* Smaller font size for @fatonyahmadfauzi */
+    font-weight: normal; /* Remove bold */
+    color: rgba(255, 255, 255, 0.8); /* Softer white with reduced opacity */
+}
+
+.time-message {
+    z-index: 2;
+    position: relative;
+    font-size: 3.1rem; /* Larger font size for the time message */
+    font-weight: bold; /* Make the greeting bold */
+    margin-top: 5px; /* Adjust spacing from @fatonyahmadfauzi */
+}
+
+/* Project Box Styling */
+.project-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: start;
+}
+
+/* Dark mode project box */
+body.dark-mode .project-box {
+    background-color: #333; /* Dark background for project box */
+    color: #fff; /* Light text for project box */
+    border-color: #444; /* Slightly darker border */
+}
+
+/* Image Styling */
+.project-box img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* Style for the required star */
+.text-danger {
+    color: red;
+    font-size: 1.2rem;
+    margin-left: 4px;
+}
+
+/* Style for the down arrow container */
+.down-arrow-container {
+    position: absolute;
+    bottom: 30px; /* Adjust the position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: slideFadeIn 2s forwards;
+}
+
+/* Slide and fade animation */
+@keyframes slideFadeIn {
+    0% {
+        transform: translate(-50%, 10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+/* Style for the down arrow container */
+.down-arrow-container {
+    position: absolute;
+    bottom: 30px; /* Adjust the position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* Bounce animation for the arrow */
+@keyframes bounce {
+    0% {
+        transform: translate(-50%, 0);
+    }
+    50% {
+        transform: translate(-50%, 10px); /* Move down */
+    }
+    100% {
+        transform: translate(-50%, 0); /* Move back to original position */
+    }
+}
+
+/* Style for the down arrow container */
+.down-arrow-container {
+    position: absolute;
+    bottom: 30px; /* Adjust the position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* Bounce animation for the arrow */
+@keyframes bounce {
+    0% {
+        transform: translate(-50%, 0);
+    }
+    50% {
+        transform: translate(-50%, 10px); /* Move down */
+    }
+    100% {
+        transform: translate(-50%, 0); /* Move back to original position */
+    }
+}
+
+/* Optional: Add styling to the arrow SVG */
+.down-arrow-container svg {
+    cursor: pointer;
+}
+
+/* ====================================================================================================
+============ FLOATING TRAKTEER | ALL PAGES ============================================================
+==================================================================================================== */
+.trakteer-float {
+    position: fixed;
+    width: 57px;
+    height: 47px; /* Maintain height equal to width */
+    bottom: 20px;
+    right: 20px;
+    color: #fff; /* Text color (if needed for icons/text) */
+    text-align: center;
+    font-size: 30px;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease; /* Add transition */
+    text-decoration: none;
+    background-color: transparent; /* Remove background */
+}
+
+.trakteer-float:hover {
+    transform: scale(1.1); /* Hover effect for scaling */
+}
+
+/* ====================================================================================================
+============ FOOTER ===================================================================================
+==================================================================================================== */
+footer {
+    padding: 3rem 0; /* Increased padding to make the footer taller */
+    color: white;
+    text-align: center;
+    min-height: 300px; /* Adjusted minimum height for a longer footer */
+}
+
+/* Dark mode footer */
+body.dark-mode footer {
+    background-color: #222; /* Darker footer background */
+}
+
+/* Footer links */
+footer a {
+    color: white !important;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Ensure all footer text is white */
+footer h5, footer p, footer li {
+    color: white;
+}
+
+/* ====================================================================================================
+============ COOKIES ==================================================================================
+==================================================================================================== */
+/* Styling untuk cookie notice */
+.cookie-notice-hidden {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.cookie-notice-visible {
+    display: block;
+    opacity: 1;
+}
+
+.cn-position-bottom {
+    position: fixed;
+    bottom: 0; /* Posisikan di bawah halaman */
+    left: 0; /* Pas di kiri */
+    width: 100%; /* Lebar penuh */
+    padding: 16px 0; /* Ruang atas dan bawah ditambah agar lebih tinggi */
+    z-index: 9; /* Pastikan elemen ini berada di atas elemen lain */
+    background-color: rgba(50, 50, 58, 1);
+}
+
+.cookie-notice-container {
+    display: flex;
+    justify-content: center; /* Menyusun konten ke tengah */
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+}
+
+.cn-text-container {
+    font-size: 13px; /* Mengurangi ukuran teks sedikit */
+    margin-right: 20px;
+    max-width: 80%; /* Agar teks tidak terlalu lebar */
+}
+
+.cn-buttons-container a {
+    padding: 6px 12px; /* Mengurangi padding untuk tombol lebih kecil */
+    background-color: #57d0f9;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 13px; /* Ukuran font lebih kecil */
+    display: inline-block;
+    transition: background-color 0.3s ease; /* Efek transisi pada perubahan warna */
+}
+
+/* Efek hover pada tombol */
+.cn-buttons-container a:hover {
+    background-color: #3eafc0; /* Warna sedikit lebih gelap saat hover */
+}
+
+/* Styling untuk tombol close */
+.cn-close-icon {
+    cursor: pointer;
+    font-size: 25px;
+    color: white;
+    padding-left: 15px;
+    position: absolute;
+    right: 15px; /* Posisikan tombol di kanan */
+    top: 12px; /* Posisikan tombol di atas */
+}
+
+/* Menghilangkan default background pada close icon jika ada */
+.cn-close-icon:before {
+    content: "×"; /* Simbol "X" untuk tombol close */
+}

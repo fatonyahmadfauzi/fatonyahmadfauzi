@@ -1,0 +1,45 @@
+RewriteEngine On
+
+# Redirect root ke index.html
+RewriteRule ^$ /index.html [NC,L]
+
+# Menghilangkan ekstensi .html dari URL
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^\.]+)$ /$1.html [NC,L]
+
+# Redirect untuk /index ke /index.html
+RewriteRule ^index$ /index.html [NC,L]
+
+# Redirect untuk halaman js-function
+RewriteRule ^js-function/([a-zA-Z0-9\-]+)$ /js-function/$1.html [L]
+
+# Redirect untuk halaman lain (contoh: en)
+RewriteRule ^en$ /public/js-function/en.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: es)
+RewriteRule ^es$ /public/js-function/es.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: fr)
+RewriteRule ^fr$ /public/js-function/fr.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: id)
+RewriteRule ^id$ /public/js-function/id.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: jp)
+RewriteRule ^jp$ /public/js-function/jp.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: kr)
+RewriteRule ^kr$ /public/js-function/kr.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: pl)
+RewriteRule ^pl$ /public/js-function/pl.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: pt)
+RewriteRule ^pt$ /public/js-function/pt.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: ru)
+RewriteRule ^ru$ /public/js-function/ru.html [NC,L]
+
+# Redirect untuk halaman lain (contoh: zh)
+RewriteRule ^zh$ /public/js-function/zh.html [NC,L]

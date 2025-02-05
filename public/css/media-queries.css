@@ -1,0 +1,259 @@
+@media (max-width: 768px) {
+     /* Dark mode for menu in small screens */
+     body.dark-mode #menu {
+        background-color: #222; /* Dark background for the menu in dark mode */
+    }
+
+    body.dark-mode #menu a {
+        color: #fff; /* Dark mode link color in small screens */
+    }
+
+    /* ====================================================================================================
+    ============ HEADER NAVBAR UNTUK LAYAR KECIL ==========================================================
+    ==================================================================================================== */
+    #menuToggle {
+        display: block;
+        position: fixed;
+        top: 30px; /* Sesuaikan jarak dari atas */
+        right: 20px; /* Sesuaikan jarak dari kanan */
+        z-index: 1;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #menuToggle input {
+        display: block;
+        width: 30px; /* Lebar lebih kecil */
+        height: 24px; /* Tinggi lebih kecil */
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        cursor: pointer;
+        opacity: 0;
+        z-index: 2;
+    }
+      
+    #menuToggle span {
+        display: block;
+        width: 25px; /* Lebar garis lebih kecil */
+        height: 3px; /* Ketebalan garis lebih kecil */
+        margin-bottom: 4px; /* Jarak antar garis lebih kecil */
+        position: relative;
+        background: #fff;
+        border-radius: 2px;
+        z-index: 1;
+        transform-origin: 4px 0px;
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                    opacity 0.55s ease;
+    }
+      
+    #menuToggle span:first-child {
+        transform-origin: 0% 0%;
+    }
+      
+    #menuToggle span:nth-last-child(2) {
+        transform-origin: 0% 100%;
+    }
+      
+    #menuToggle input:checked ~ span {
+        opacity: 1;
+        transform: rotate(45deg) translate(-1px, 0px);
+        background: #111;
+    }
+      
+    #menuToggle input:checked ~ span:nth-last-child(3) {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2, 0.2);
+    }
+     
+    #menuToggle input:checked ~ span:nth-last-child(2) {
+        transform: rotate(-45deg) translate(0, -1px);
+    }
+
+    #menu {
+        box-sizing: border-box;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100vw; /* Lebar penuh pada layar kecil */
+        height: 100vh;
+        padding: 20px;
+        padding-top: 70px;
+        background: #fff;
+        list-style-type: none;
+        -webkit-font-smoothing: antialiased;
+        transform: translateX(100%);
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    }
+
+    #menu > li:not(.dropdown-item) {
+        padding: 15px;
+        position: relative;
+    }
+
+    #menuToggle input:checked ~ ul {
+        transform: translateX(0);
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    #menuToggle a {
+        color: black; /* Warna teks link di menu */
+        text-decoration: none; /* Menghapus garis bawah pada link */
+    }
+
+    /* Dark Mode Toggle Button - Positioned at the bottom */
+    #menu .dark-mode-toggle-bottom {
+        margin-top: auto; /* Push this button to the bottom */
+    }
+
+    /* ====================================================================================================
+    ============ CONTACT SECTION ==========================================================================
+    ==================================================================================================== */
+    #contact .col-md-6 {
+        margin-bottom: 35px;
+    }
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+
+    /* ====================================================================================================
+    ============ HEADER NAVBAR ============================================================================
+    ==================================================================================================== */
+  
+    /* Basic menu styling */
+    .menuToggle {
+        position: relative;
+    }
+
+    #menu {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #menu > li:not(.dropdown-item) {
+        padding: 15px;
+        position: relative;
+    }
+    
+    #menuToggle {
+        display: block;
+        position: fixed;
+        top: 30px; /* Adjusted for header spacing */
+        right: 30px; /* Adjusted for alignment */
+        z-index: 1;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    #menuToggle input {
+        display: block;
+        width: 30px; /* Lebar lebih kecil */
+        height: 24px; /* Tinggi lebih kecil */
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        cursor: pointer;
+        opacity: 0;
+        z-index: 2;
+    }
+      
+    #menuToggle span {
+        display: block;
+        width: 25px; /* Lebar garis lebih kecil */
+        height: 3px; /* Ketebalan garis lebih kecil */
+        margin-bottom: 4px; /* Jarak antar garis lebih kecil */
+        position: relative;
+        background: #fff;
+        border-radius: 2px;
+        z-index: 1;
+        transform-origin: 4px 0px;
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                    opacity 0.55s ease;
+    }
+      
+    #menuToggle span:first-child {
+        transform-origin: 0% 0%;
+    }
+      
+    #menuToggle span:nth-last-child(2) {
+        transform-origin: 0% 100%;
+    }
+      
+    #menuToggle input:checked ~ span {
+        opacity: 1;
+        transform: rotate(45deg) translate(-1px, 0px);
+        background: #111;
+    }
+      
+    #menuToggle input:checked ~ span:nth-last-child(3) {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2, 0.2);
+    }
+     
+    #menuToggle input:checked ~ span:nth-last-child(2) {
+        transform: rotate(-45deg) translate(0, -1px);
+    }
+    
+    #menu {
+        box-sizing: border-box;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 55vw; /* Set the maximum width to 50% of the viewport width */
+        height: 100vh;
+        padding: 50px;
+        padding-top: 125px;
+        background: #fff;
+        list-style-type: none;
+        -webkit-font-smoothing: antialiased;
+        transform: translateX(100%);
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    }
+    
+    #menu li {
+        font-size: 22px;
+    }
+    
+    #menuToggle input:checked ~ ul {
+        transform: translateX(0);
+    }
+    
+    .navbar-toggler {
+        display: none;
+    }
+    
+    #menuToggle a {
+        color: black; /* Warna teks link di menu */
+        text-decoration: none; /* Menghapus garis bawah pada link */
+    }
+
+    /* Dark Mode Toggle Button - Positioned at the bottom */
+    #menu .dark-mode-toggle-bottom {
+        margin-top: auto; /* Push this button to the bottom */
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-nav .nav-link,
+    #darkModeToggle {
+        padding: 5px 10px; /* Sedikit pengurangan padding untuk layar kecil */
+    }
+}
+
+@media (max-width: 600px) {
+    .cn-close-icon {
+        font-size: 20px; /* Sesuaikan ukuran ikon */
+        right: 10px; /* Beri jarak lebih dari tepi */
+        top: 0; /* Sesuaikan posisi atas */
+        padding-left: 10px;
+    }
+}
