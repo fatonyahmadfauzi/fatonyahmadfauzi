@@ -116,18 +116,18 @@ fetch('/.netlify/functions/getCommits')
     .then(data => {
         const commitList = document.getElementById('commitList');
         if (Array.isArray(data) && data.length > 0) {
-            commitList.innerHTML = data.map(commit => {
-                const date = new Date(commit.commit.author.date).toLocaleDateString();
-                return `<p><strong>${commit.committer.login}</strong> - ${commit.commit.message} (${date})</p>`;
-            }).join('');
+            const latestCommit = data[0]; // Ambil hanya commit terbaru
+            const date = new Date(latestCommit.commit.author.date).toLocaleDateString();
+            commitList.innerHTML = `
+                <p><strong>${latestCommit.committer.login}</strong> - ${latestCommit.commit.message} (${date})</p>
+            `;
         } else {
             commitList.innerHTML = 'No commits found.';
         }
     })
     .catch(error => {
         console.error('Error fetching commits:', error);
-        const commitList = document.getElementById('commitList');
-        commitList.innerHTML = 'Error fetching commits';
+        document.getElementById('commitList').innerHTML = 'Error fetching commits';
     });
 
 /// ===============================================================================================================================================================================================
