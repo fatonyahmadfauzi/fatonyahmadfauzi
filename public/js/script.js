@@ -111,33 +111,24 @@ window.addEventListener('DOMContentLoaded', () => {
 /// ===============================================================================================================================================================================================
 /// ============ PROJECT SECTION ==================================================================================================================================================================
 /// ===============================================================================================================================================================================================
-function loadCommits() {
-    fetch('/.netlify/functions/getCommits')
-        .then(response => response.json())
-        .then(commits => {
-            let commitListHTML = '';
-
-            commits.slice(0, 5).forEach(commit => {
-                const commitDate = new Date(commit.commit.author.date).toLocaleDateString();
-                const commitMessage = commit.commit.message;
-                const commitAuthor = commit.commit.author.name;
-
-                commitListHTML += `
-                    <div class="commit-item">
-                        <p><strong>${commitAuthor}</strong> - <em>${commitDate}</em></p>
-                        <p>${commitMessage}</p>
-                    </div>
-                    <hr>
-                `;
-            });
-
-            document.getElementById('commitList').innerHTML = commitListHTML;
-        })
-        .catch(error => {
-            console.error('Error fetching commits:', error);
-            document.getElementById('commitList').innerHTML = 'Failed to load commits';
-        });
-}
+fetch('/.netlify/functions/getCommits')
+    .then(response => response.json())
+    .then(data => {
+        const commitList = document.getElementById('commitList');
+        if (Array.isArray(data) && data.length > 0) {
+            commitList.innerHTML = data.map(commit => {
+                const date = new Date(commit.commit.author.date).toLocaleDateString();
+                return `<p><strong>${commit.committer.login}</strong> - ${commit.commit.message} (${date})</p>`;
+            }).join('');
+        } else {
+            commitList.innerHTML = 'No commits found.';
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching commits:', error);
+        const commitList = document.getElementById('commitList');
+        commitList.innerHTML = 'Error fetching commits';
+    });
 
 /// ===============================================================================================================================================================================================
 /// ============ FOOTER SECTION ===================================================================================================================================================================

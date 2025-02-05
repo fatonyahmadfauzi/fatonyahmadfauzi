@@ -1,5 +1,17 @@
 {
+  "name": "fatonyahmadfauzi",
+  "version": "1.0.0",
+  "description": "A project with Netlify functions",
+  "main": "index.html",
+  "scripts": {
+      "start": "netlify dev",
+      "deploy": "netlify deploy"
+  },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+      "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "engines": {
+      "node": "14.x"
   }
 }
