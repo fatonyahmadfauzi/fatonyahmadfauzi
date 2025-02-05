@@ -1,7 +1,8 @@
-const fetch = require('node-fetch');
+const fetch = require('node-fetch'); // Jika menggunakan 'node-fetch' untuk API request
 
 exports.handler = async function(event, context) {
-    const apiUrl = 'https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits';
+    const apiKey = process.env.GITHUB_API_KEY; // Mengambil API Key dari environment variables
+    const apiUrl = `https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits?access_token=${apiKey}`;
 
     try {
         const response = await fetch(apiUrl);
