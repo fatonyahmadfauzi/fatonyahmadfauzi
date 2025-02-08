@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>启用 JavaScript 继续访问网站</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css/css/flag-icon.min.css">
+    <!-- Add Bootstrap Icons CDN in the <head> section of your HTML -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/js-function.css">
+    <script>
+        if (localStorage.getItem('jsEnabled') === 'true') {
+            window.location.href = '/index';
+        }
+        window.onload = function() {
+            localStorage.setItem('jsEnabled', 'true');
+        };
+    </script>
+</head>
+<body>
+    <div class="C2JSfb">
+        <div>
+            <div class="dropdown-container mb-3">
+                <div class="dropdown">
+                    <!-- Checkbox untuk mengontrol dropdown -->
+                    <input type="checkbox" id="dropdownToggle">
+                    
+                    <!-- Label untuk membuka dan menutup dropdown -->
+                    <label class="dropdown-label dropdown-toggle" for="dropdownToggle">
+                        <i class="flag-icon flag-icon-cn"></i>
+                    </label>
+                    
+                    <!-- Menu dropdown -->
+                    <div class="dropdown-menu">
+                        <a href="en">
+                            <i class="flag-icon flag-icon-gb"></i> English
+                        </a>
+                        <a href="pl">
+                            <i class="flag-icon flag-icon-pl"></i> Polski
+                        </a>
+                        <a href="zh">
+                            <i class="flag-icon flag-icon-cn"></i> 中文
+                        </a>
+                        <a href="jp">
+                            <i class="flag-icon flag-icon-jp"></i> 日本語
+                        </a>
+                        <a href="de">
+                            <i class="flag-icon flag-icon-de"></i> Deutsch
+                        </a>
+                        <a href="fr">
+                            <i class="flag-icon flag-icon-fr"></i> Français
+                        </a>
+                        <a href="es">
+                            <i class="flag-icon flag-icon-es"></i> Español
+                        </a>
+                        <a href="ru">
+                            <i class="flag-icon flag-icon-ru"></i> Русский
+                        </a>
+                        <a href="pt">
+                            <i class="flag-icon flag-icon-pt"></i> Português
+                        </a>
+                        <a href="id">
+                            <i class="flag-icon flag-icon-id"></i> Indonesia
+                        </a>
+                        <a href="kr">
+                            <i class="flag-icon flag-icon-kr"></i> 한국어
+                        </a>
+                    </div>
+                    
+                    <!-- Overlay untuk menutup dropdown ketika mengklik di luar -->
+                    <label for="dropdownToggle" class="dropdown-overlay"></label>
+                    <!-- Garis vertikal (|) -->
+                    <span class="vertical-line">|</span>
+                </div>
+                <input type="checkbox" id="lightModeToggleNavbar">
+                <label for="lightModeToggleNavbar">
+                    <i class="bi bi-sun"></i> <!-- Ikon matahari -->
+                    <i class="bi bi-moon"></i> <!-- Ikon bulan -->
+                </label>
+            </div>
+            <h1>启用 JavaScript 继续访问网站</h1>
+        </div>
+        <div class="accordion-container">
+            <p>您的浏览器禁用了 JavaScript。请启用 JavaScript 以继续访问网站。</p>
+            
+            <div class="accordion-item">
+                <input type="checkbox" id="chrome">
+                <label class="accordion-header" for="chrome">
+                    学习如何为&nbsp;
+                    <a href="https://support.google.com/chrome/answer/114662?hl=zh" target="_blank">Google Chrome</a>
+                    <!-- Down arrow SVG with animation -->
+                    <span class="down-arrow-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="black">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </span>
+                </label>
+                <div class="accordion-content">
+                    <ol>
+                        <li>点击 <b>⋮</b> 并选择 <b>设置</b>。</li>
+                        <li>转到 <b>隐私和安全</b>。</li>
+                        <li>点击 <b>网站设置</b>。</li>
+                        <li>点击 <b>JavaScript</b>。</li>
+                        <li>选择 <b>允许网站使用 JavaScript</b>。</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <input type="checkbox" id="edge">
+                <label class="accordion-header" for="edge">
+                    学习如何为&nbsp;
+                    <a href="https://support.microsoft.com/zh-cn/microsoft-edge" target="_blank">Microsoft Edge</a>
+                    <!-- Down arrow SVG with animation -->
+                    <span class="down-arrow-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="black">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </span>
+                </label>
+                <div class="accordion-content">
+                    <ol>
+                        <li>点击 <b>⋮</b> 并选择 <b>设置</b>。</li>
+                        <li>转到 <b>Cookies 和站点权限</b>。</li>
+                        <li>选择 <b>JavaScript</b>。</li>
+                        <li>启用 <b>允许 (推荐)</b>。</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <input type="checkbox" id="firefox">
+                <label class="accordion-header" for="firefox">
+                    学习如何为&nbsp;
+                    <a href="https://support.mozilla.org/zh-CN/kb/javascript-settings-for-interactive-web-pages" target="_blank">Mozilla Firefox</a>
+                    <!-- Down arrow SVG with animation -->
+                    <span class="down-arrow-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="black">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </span>
+                </label>
+                <div class="accordion-content">
+                    <ol>
+                        <li>在地址栏中输入 <b>about:config</b> 并按回车。</li>
+                        <li>点击“接受风险并继续”。</li>
+                        <li>找到 <b>javascript.enabled</b>。</li>
+                        <li>点击切换按钮，将其设置为 <b>true</b>。</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Safari -->
+            <div class="accordion-item">
+                <input type="checkbox" id="safari">
+                <label class="accordion-header" for="safari">
+                    学习如何为&nbsp;
+                    <a href="https://support.apple.com/guide/safari/use-the-web-content-blocker-in-safari-ipad-iphone" class="browser-link" target="_blank">
+                        Safari
+                    </a>
+                    <!-- Down arrow SVG with animation -->
+                    <span class="down-arrow-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="black">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </span>
+                </label>
+                <div class="accordion-content">
+                    <ol>
+                        <li>打开 Safari &gt; <b>偏好设置</b>。</li>
+                        <li>选择 <b>安全性</b>。</li>
+                        <li>勾选 <b>启用 JavaScript</b>。</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Opera -->
+            <div class="accordion-item">
+                <input type="checkbox" id="opera">
+                <label class="accordion-header" for="opera">
+                    学习如何为&nbsp;
+                    <a href="https://help.opera.com/zh-cn/latest/web-preferences/#javascript" class="browser-link" target="_blank">
+                        Opera
+                    </a>
+                    <!-- Down arrow SVG with animation -->
+                    <span class="down-arrow-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="black">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </span>
+                </label>
+                <div class="accordion-content">
+                    <ol>
+                        <li>打开 <b>设置</b>。</li>
+                        <li>在左侧边栏点击 <b>高级</b>，然后选择 <b>隐私与安全</b>。</li>
+                        <li>点击 <b>网站设置</b>。</li>
+                        <li>点击 <b>JavaScript</b>。</li>
+                        <li>在顶部启用 <b>允许</b>。</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
