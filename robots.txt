@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fatonyahmadfauzi.netlify.app/sitemap.xml
