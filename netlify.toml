@@ -2,14 +2,15 @@
   functions = "functions"
   publish = "public"
 
+# 🔹 Redirect untuk Netlify Functions dengan prefix /api/
 [[redirects]]
-  from = "/.netlify/functions/*"
+  from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
-  force = true
 
-# 🔹 Tambahkan redirect untuk memastikan metadata OG diperbarui
+# 🔹 Redirect SPA tanpa mengganggu metadata OG
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false
