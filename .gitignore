@@ -3,3 +3,5 @@
 
 # Local Cloudflare folder
 .cloudflare
+
+node_modules

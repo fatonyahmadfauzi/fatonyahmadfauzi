@@ -43,3 +43,91 @@ RewriteRule ^ru$ /public/js-function/ru.html [NC,L]
 
 # Redirect untuk halaman lain (contoh: zh)
 RewriteRule ^zh$ /public/js-function/zh.html [NC,L]
+
+# Aktifkan kompresi Gzip
+<IfModule mod_deflate.c>
+  # Kompresi untuk file teks
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml application/xhtml+xml
+
+  # Kompresi untuk font
+  AddOutputFilterByType DEFLATE font/ttf font/otf font/woff font/woff2 application/font-woff
+
+  # Kompresi untuk gambar berbasis teks
+  AddOutputFilterByType DEFLATE image/svg+xml image/x-icon
+
+  # Kompresi untuk file video kecil (opsional)
+  AddOutputFilterByType DEFLATE application/octet-stream
+</IfModule>
+
+# Aktifkan Brotli jika didukung
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml application/xhtml+xml font/ttf font/otf font/woff font/woff2 image/svg+xml
+</IfModule>
+
+# Pengaturan Cache
+<IfModule mod_headers.c>
+  # Cache gambar untuk 1 tahun
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Cache file video untuk 1 tahun
+  <FilesMatch "\.(mp4|webm|ogv)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Cache file font untuk 1 tahun
+  <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Cache file teks untuk 1 bulan
+  <FilesMatch "\.(html|css|js|json|xml)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+# Atur waktu timeout server
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Gambar
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Video
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/webm "access plus 1 year"
+  ExpiresByType video/ogg "access plus 1 year"
+
+  # Font
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  # CSS dan JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+
+  # File HTML
+  ExpiresByType text/html "access plus 1 day"
+</IfModule>
+
+# Redirect HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Blokir Akses ke File Sensitif
+<FilesMatch "(\.env|composer\.json|composer\.lock|\.git|\.htaccess)">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
