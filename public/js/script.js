@@ -1,3 +1,19 @@
+// Definisikan fungsi async fetchData()
+async function fetchData() {
+    try {
+        const response = await fetch('/some-data');
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Error during fetch:', error);
+    }
+}
+
+// Panggil fungsi fetchData() ketika DOM siap
+document.addEventListener("DOMContentLoaded", function() {
+    fetchData(); // Panggil fungsi fetchData setelah DOM selesai dimuat
+});
+
 /// ===============================================================================================================================================================================================
 /// ============ HEADER NAVBAR ====================================================================================================================================================================
 /// ===============================================================================================================================================================================================
