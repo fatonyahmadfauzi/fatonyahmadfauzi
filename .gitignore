@@ -3,21 +3,11 @@ node_modules/
 package-lock.json
 
 # **2. Folder Build & Minify** (Hasil kompilasi yang bisa dibuat ulang)
-dist/
 functions/
 
 # **3. Konfigurasi Cloudflare & Netlify** (Akan dibuat otomatis oleh layanan)
 .netlify/
 .cloudflare/
 
-# **4. Log, Cache, dan File Temporary**
-*.log
-npm-debug.log*
-yarn-debug.log*
-.cache/
-
 # **5. Editor & OS Files** (File lokal yang tidak perlu di commit)
-.DS_Store
 .vscode/
-.idea/
-Thumbs.db
