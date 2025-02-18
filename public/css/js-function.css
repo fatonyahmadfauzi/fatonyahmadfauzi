@@ -1,185 +1,182 @@
-/* Gaya default untuk mode terang */
-body {
-    background-color: #fff; /* Warna putih diubah ke #fff */
-    color: #111; /* Warna hitam diubah ke #111 */
+/* ==================================================================================================== */
+/* ============ GLOBAL STYLES ======================================================================== */
+/* ==================================================================================================== */
+
+:root {
+    --background-light: #fff;
+    --background-dark: #111;
+    --text-light: #111;
+    --text-dark: #fff;
+    --icon-color-light: #111;
+    --icon-color-dark: #fff;
+  }
+  
+  body {
+    background-color: var(--background-light);
+    color: var(--text-light);
     transition: background-color 0.3s, color 0.3s;
-}
-
-/* Gaya untuk mode gelap */
-body:has(#lightModeToggleNavbar:checked) {
-    background-color: #111; /* Warna hitam diubah ke #111 */
-    color: #fff; /* Warna putih diubah ke #fff */
-    --icon-color: #fff; /* Warna ikon dan garis vertikal */
-}
-
-/* Terapkan variabel ke elemen yang sesuai */
-body:has(#lightModeToggleNavbar:checked) .vertical-line {
-    color: var(--icon-color);
-}
-
-body:has(#lightModeToggleNavbar:checked) .down-arrow-container svg path {
-    stroke: var(--icon-color);
-}
-
-/* Warna garis vertikal */
-.vertical-line {
-    color: #111; /* Warna default untuk mode terang diubah ke #111 */
-    transition: color 0.3s;
-}
-
-/* Warna panah SVG */
-.down-arrow-container svg path {
-    stroke: #111; /* Warna default untuk mode terang diubah ke #111 */
-    transition: stroke 0.3s;
-}
-
-/* Sembunyikan ikon yang tidak aktif */
-#lightModeToggleNavbar:checked + label .bi-sun {
+  }
+  
+  body:has(#lightModeToggleNavbar:checked) {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+    --icon-color: var(--icon-color-dark);
+  }
+  
+  /* ==================================================================================================== */
+  /* ============ DARK MODE TOGGLE ===================================================================== */
+  /* ==================================================================================================== */
+  
+  #lightModeToggleNavbar {
     display: none;
-}
-
-#lightModeToggleNavbar:not(:checked) + label .bi-moon {
-    display: none;
-}
-
-h1 {
-    font-family: Google Sans, Arial, sans-serif;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 44px;
-    margin: 0;
-    padding-right: 20px;
-}
- 
-p {
-    margin: 0;
-}
- 
-a {
-    color: #003366; /* Dark blue for the browser name link */
-    text-decoration: none;
-}
+  }
   
-a:visited {
-    color: #681da8; /* Purple when visited */
-}
-  
-ol {
-    margin: 0;
-}
-  
-.C2JSfb {
-    display: flex;
-    flex-direction: row; /* Flex direction to align horizontally */
-    gap: 20px;
-    max-width: 940px;
-    padding: 8vh 16px 0;
-    margin: auto;
+  #lightModeToggleNavbar + label {
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--icon-color-light);
     position: relative;
-}
+    display: inline-block;
+    top: 2px;
+    left: -5px;
+    margin-left: 10px;
+  }
   
-.alert-danger {
-    text-align: center;
-}
+  #lightModeToggleNavbar:checked + label {
+    color: var(--icon-color-dark);
+  }
   
-.accordion-container {
+  #lightModeToggleNavbar:checked + label .bi-sun {
+    display: none;
+  }
+  
+  #lightModeToggleNavbar:checked + label .bi-moon {
+    display: inline-block;
+  }
+  
+  #lightModeToggleNavbar + label .bi-moon {
+    display: none;
+  }
+  
+  #lightModeToggleNavbar + label .bi-sun {
+    display: inline-block;
+  }
+  
+  /* ==================================================================================================== */
+  /* ============ VERTICAL LINE AND ARROW =============================================================== */
+  /* ==================================================================================================== */
+  
+  .vertical-line {
+    color: var(--icon-color-light);
+    transition: color 0.3s;
+  }
+  
+  .down-arrow-container svg path {
+    stroke: var(--icon-color-light);
+    transition: stroke 0.3s;
+  }
+  
+  body:has(#lightModeToggleNavbar:checked) .vertical-line {
+    color: var(--icon-color);
+  }
+  
+  body:has(#lightModeToggleNavbar:checked) .down-arrow-container svg path {
+    stroke: var(--icon-color);
+  }
+  
+  /* ==================================================================================================== */
+  /* ============ ACCORDION ============================================================================ */
+  /* ==================================================================================================== */
+  
+  .accordion-container {
     display: grid;
     gap: 20px;
     font-family: Arial, sans-serif;
     font-size: 14px;
     line-height: 22px;
-    flex-grow: 1; /* Allow this section to grow and take available space */
+    flex-grow: 1;
     margin-top: 8%;
-}
+  }
   
-.accordion-item {
+  .accordion-item {
     border-bottom: 1px solid #dadce0;
-}
-
-.accordion-content ol {
-    margin-top: 20px;   /* Menambahkan jarak atas */
-    margin-bottom: 15px; /* Menambahkan jarak bawah */
-}
-
-.accordion-item:last-child {
-    border-bottom: none;
-}
+  }
   
-.accordion-header {
+  .accordion-item:last-child {
+    border-bottom: none;
+  }
+  
+  .accordion-header {
     display: flex;
-    justify-content: flex-start; /* Align content to the left */
+    justify-content: flex-start;
     align-items: center;
     padding: 12px 0;
     cursor: pointer;
     font-size: 16px;
-}
+  }
   
-.accordion-content {
+  .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.35s;
-}
+    padding: 0 12px;
+    transition: max-height 0.35s ease-in-out;
+  }
   
-.accordion-item input {
+  .accordion-item input {
     position: absolute;
     opacity: 0;
     z-index: -1;
-}
+  }
   
-.accordion-item input:checked ~ .accordion-content {
-    max-height: 14rem;
-}
+  .accordion-item input:checked ~ .accordion-content {
+    max-height: 500px;
+  }
   
-.down-arrow-container {
+  .down-arrow-container {
     transition: transform 0.2s;
     margin-left: auto;
-}
+  }
   
-.accordion-item input:checked ~ .accordion-header .down-arrow-container {
+  .accordion-item input:checked ~ .accordion-header .down-arrow-container {
     transform: rotate(180deg);
-}
-
-/* Remove bold from browser names */
-.browser-link {
-    font-weight: normal;
-}
-
-.dropdown-container {
+  }
+  
+  /* ==================================================================================================== */
+  /* ============ DROPDOWN ============================================================================= */
+  /* ==================================================================================================== */
+  
+  .dropdown-container {
     display: flex;
-    align-items: center; /* Memastikan elemen sejajar secara vertikal */
-    gap: 10px; /* Jarak antara elemen */
-}
-
-.dropdown {
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .dropdown {
     position: relative;
     display: inline-block;
-}
-
-/* Sembunyikan checkbox */
-.dropdown input[type="checkbox"] {
+  }
+  
+  .dropdown input[type="checkbox"] {
     display: none;
-}
-
-/* Gaya label dropdown */
-.dropdown-label {
+  }
+  
+  .dropdown-label {
     cursor: pointer;
     display: inline-block;
     padding: 8px;
     border: none;
     border-radius: 4px;
     background-color: none;
-}
-
-/* Gaya ikon bendera */
-.flag-icon {
-    width: 2em;  /* Sesuaikan dengan kebutuhan */
-    height: 1.33em; /* Rasio 3:2 (lebar:tinggi) */
+  }
+  
+  .flag-icon {
+    width: 2em;
+    height: 1.33em;
     display: inline-block;
     background-size: cover;
-}
-
-/* Gaya menu dropdown */
-.dropdown-menu {
+  }
+  
+  .dropdown-menu {
     display: none;
     position: absolute;
     top: 100%;
@@ -192,35 +189,31 @@ ol {
     border-radius: 4px;
     padding: 5px 0;
     margin-top: 5px;
-}
-
-/* Gaya item menu dropdown */
-.dropdown-menu a {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  
+  .dropdown-menu a {
     color: #333;
     padding: 6px 16px;
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 6px;
-}
-
-.dropdown-menu a:hover {
+  }
+  
+  .dropdown-menu a:hover {
     background-color: #f1f1f1;
-}
-
-/* Opsi: Gaya saat item menu dropdown difokuskan (misalnya, saat navigasi dengan keyboard) */
-.dropdown-menu a:focus {
-    background-color: blue;
-    color: white; /* Ubah warna teks agar lebih kontras */
-}
-
-/* Menampilkan dropdown ketika checkbox dicentang */
-.dropdown input[type="checkbox"]:checked ~ .dropdown-menu {
+  }
+  
+  .dropdown input[type="checkbox"]:checked ~ .dropdown-menu {
     display: block;
-}
-
-/* Overlay untuk menutup dropdown ketika mengklik di luar */
-.dropdown-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .dropdown-overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -228,79 +221,45 @@ ol {
     width: 100%;
     height: 100%;
     z-index: 0;
-}
-
-/* Menampilkan overlay ketika dropdown terbuka */
-.dropdown input[type="checkbox"]:checked ~ .dropdown-overlay {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+  }
+  
+  .dropdown input[type="checkbox"]:checked ~ .dropdown-overlay {
     display: block;
-}
-
-.vertical-line {
-    margin: 0 0px; /* Jarak antara garis vertikal dan elemen lainnya */
-}
-
-/* Sembunyikan checkbox */
-#lightModeToggleNavbar {
-    display: none;
-}
-
-#lightModeToggleNavbar + label {
-    font-size: 22px;
-    cursor: pointer;
-    color: #111;
-    position: relative; /* Menggunakan posisi relatif untuk menggeser elemen */
-    display: inline-block;
-    top: 2px; /* Geser ke bawah sejauh 5px */
-    left: -5px; /* Geser ke kiri sejauh 5px */
-    margin-left: 10px; /* Jarak dari elemen sebelumnya */
-}
-
-/* Gaya label ketika checkbox dicentang */
-#lightModeToggleNavbar:checked + label {
-    color: #fff; /* Warna untuk ikon bulan */
-}
-
-/* Ganti ikon ketika checkbox dicentang */
-#lightModeToggleNavbar:checked + label .bi-sun {
-    display: none; /* Sembunyikan ikon matahari */
-}
-
-#lightModeToggleNavbar:checked + label .bi-moon {
-    display: inline-block; /* Tampilkan ikon bulan */
-}
-
-/* Ganti ikon ketika checkbox tidak dicentang */
-#lightModeToggleNavbar + label .bi-moon {
-    display: none; /* Sembunyikan ikon bulan */
-}
-
-#lightModeToggleNavbar + label .bi-sun {
-    display: inline-block; /* Tampilkan ikon matahari */
-}
-
-@media (max-width: 768px) {
+    opacity: 1;
+  }
+  
+  /* ==================================================================================================== */
+  /* ============ MEDIA QUERIES ======================================================================== */
+  /* ==================================================================================================== */
+  
+  @media (max-width: 768px) {
     .C2JSfb {
-        flex-direction: column;
-        padding: 5vh 16px 0;
+      flex-direction: column;
+      padding: 5vh 16px 0;
     }
-
+  
     h1 {
-        font-size: 28px;
-        line-height: 38px;
-        padding-right: 0;
-        text-align: center;
+      font-size: 28px;
+      line-height: 38px;
+      padding-right: 0;
+      text-align: center;
     }
-
+  
     .accordion-container {
-        margin-top: 12px;
+      margin-top: 12px;
     }
-
+  
     p, .accordion-header {
-        font-size: 14px;
+      font-size: 14px;
     }
-
+  
     .accordion-content ol {
-        font-size: 13px;
+      font-size: 13px;
     }
-}
-
+  
+    .dropdown-menu {
+      min-width: 100%;
+    }
+  }
