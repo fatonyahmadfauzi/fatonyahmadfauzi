@@ -1,39 +1,3 @@
-// Definisikan fungsi async fetchData()
-async function fetchData() {
-    try {
-        // Ganti '/some-data' dengan endpoint yang valid
-        const response = await fetch('/some-data');
-
-        // Cek jika respons tidak OK (misalnya 404, 500, dll.)
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        // Cek jika respons adalah JSON
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-            throw new TypeError("Respons bukan JSON!");
-        }
-
-        // Parse data JSON
-        const data = await response.json();
-        console.log(data);
-    } catch (error) {
-        console.error('Error selama fetch:', error);
-
-        // Tampilkan pesan error ke pengguna (opsional)
-        const commitList = document.getElementById('commitList');
-        if (commitList) {
-            commitList.innerHTML = 'Gagal memuat data. Silakan coba lagi nanti.';
-        }
-    }
-}
-
-// Panggil fungsi fetchData() ketika DOM siap
-document.addEventListener("DOMContentLoaded", function () {
-    fetchData(); // Panggil fungsi fetchData setelah DOM selesai dimuat
-});
-
 /// ===============================================================================================================================================================================================
 /// ============ HEADER NAVBAR ====================================================================================================================================================================
 /// ===============================================================================================================================================================================================
