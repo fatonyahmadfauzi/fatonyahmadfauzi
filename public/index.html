@@ -23,7 +23,15 @@
     <meta property="og:image:alt" content="Preview of Fatony Ahmad Fauzi's Portfolio Website">
     <meta property="og:url" content="https://fatonyahmadfauzi.netlify.app/">
     <meta property="og:type" content="website">
-    <meta property="og:updated_time" content="1739705164"> <!-- Ensure this is dynamically updated -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const metaTag = document.createElement("meta");
+          metaTag.setAttribute("property", "og:updated_time");
+          metaTag.setAttribute("content", Math.floor(Date.now() / 1000)); // Unix timestamp
+          document.head.appendChild(metaTag);
+          console.log("Meta tag og:updated_time telah ditambahkan:", metaTag);
+        });
+    </script>
     <meta property="fb:app_id" content="1319183249323554">
     
     <!-- Twitter Card -->
