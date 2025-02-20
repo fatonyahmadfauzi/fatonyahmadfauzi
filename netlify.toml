@@ -2,6 +2,12 @@
   functions = "functions"
   publish = "public"
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' https://fatonyahmadfauzi.netlify.app;"
+
 # 🔹 Redirect untuk Netlify Functions dengan prefix /api/
 [[redirects]]
   from = "/api/*"
