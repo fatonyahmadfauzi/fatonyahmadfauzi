@@ -25,4 +25,5 @@
     Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     X-Permitted-Cross-Domain-Policies = "none"
+    Feature-Policy = "geolocation 'none'; microphone 'none'; camera 'none'; payment 'none'"
     Expect-CT = "max-age=86400, enforce"
