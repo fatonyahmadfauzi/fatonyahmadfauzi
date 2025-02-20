@@ -6,7 +6,17 @@
   for = "/*"
   [headers.values]
     Referrer-Policy = "no-referrer-when-downgrade"
-    Content-Security-Policy = "default-src 'self'; img-src 'self' https://fatonyahmadfauzi.netlify.app;"
+    Content-Security-Policy = "
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com;
+      style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+      img-src 'self' https://fatonyahmadfauzi.netlify.app https://cdn.jsdelivr.net data:;
+      frame-src https://www.youtube.com https://player.vimeo.com;
+      connect-src 'self' https://www.google-analytics.com https://api.netlify.com;
+      font-src 'self' https://cdn.jsdelivr.net;
+      form-action 'self';
+      upgrade-insecure-requests;
+    "
 
 # 🔹 Redirect untuk Netlify Functions dengan prefix /api/
 [[redirects]]
