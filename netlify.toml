@@ -2,15 +2,24 @@
   functions = "functions"
   publish = "public"
 
-# 🔹 Redirect untuk Netlify Functions dengan prefix /api/
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
-# 🔹 Redirect SPA tanpa mengganggu metadata OG
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = false
+
+# 🔒 Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com 'unsafe-inline'; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net data:; frame-src https://www.googletagmanager.com https://www.google.com; connect-src 'self' https://www.google-analytics.com https://og-media-worker.fatonyahmadfauzi.workers.dev; font-src 'self' https://cdn.jsdelivr.net;"
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"

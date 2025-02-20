@@ -1,17 +1,5 @@
 RewriteEngine On
 
-<IfModule mod_headers.c>
-    Header set Content-Security-Policy "
-        default-src 'self';
-        script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com 'unsafe-inline';
-        style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
-        img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net data:;
-        frame-src https://www.googletagmanager.com https://www.google.com;
-        connect-src 'self' https://www.google-analytics.com https://og-media-worker.fatonyahmadfauzi.workers.dev;
-        font-src 'self' https://cdn.jsdelivr.net;
-    "
-</IfModule>
-
 # Redirect root ke index.html
 RewriteRule ^$ /index.html [NC,L]
 
