@@ -17,154 +17,126 @@ const languageOptions = {
     kr: { locale: 'ko-KR', greetings: ["좋은 아침", "좋은 오후", "좋은 저녁", "잘 자요"] }
 };
 
-// Fungsi memperbarui waktu & salam
+// Update waktu dan tanggal
 function updateDateTime() {
     const now = new Date();
     const { locale, greetings } = languageOptions[currentLanguage];
-
-    // Format tanggal
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    if (dateElement) dateElement.textContent = now.toLocaleDateString(locale, options);
-
-    // Format waktu & salam
-    const hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = hours % 12 || 12;
-
-    let greeting = greetings[hours < 12 ? 0 : hours < 17 ? 1 : hours < 20 ? 2 : 3];
-
-    if (timeElement) timeElement.textContent = `${greeting}, ${formattedHours}:${minutes} ${ampm}`;
+    const hour = now.getHours();
+    const greetingIndex = hour < 12 ? 0 : hour < 17 ? 1 : hour < 20 ? 2 : 3;
+    
+    if (dateElement) {
+        dateElement.textContent = now.toLocaleDateString(locale, { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    }
+    
+    if (timeElement) {
+        timeElement.textContent = `${greetings[greetingIndex]}, ${(hour % 12 || 12)}:${now.getMinutes().toString().padStart(2, '0')} ${hour >= 12 ? 'PM' : 'AM'}`;
+    }
 }
 
-// 🔹 **FETCH JSON SESUAI BAHASA YANG DIPILIH**
+// Ganti bahasa
 async function changeLanguage(lang) {
     currentLanguage = lang;
-
     try {
-        const response = await fetch(`../lang/${lang}.json`); // ✅ PERBAIKAN PATH FETCH
-        if (!response.ok) throw new Error('Gagal mengambil data bahasa');
-
+        const response = await fetch(`../lang/${lang}.json`);
         currentLang = await response.json();
-        updateUI(); // Perbarui tampilan dengan teks dari JSON
+        updateUI();
     } catch (error) {
         console.error("Error:", error);
     }
 }
 
-// 🔹 **PERBARUI TEKS BERDASARKAN JSON**
+// Update antarmuka
 function updateUI() {
-    ['nameHome', 'nameProject', 'nameAbout', 'nameContact'].forEach(id => {
-        const element = document.getElementById(id);
-        if (element && currentLang[id]) element.textContent = currentLang[id];
+    // Update navigasi
+    const navElements = {
+        nameHome: ['nameHome', 'menuHome'],
+        nameProject: ['nameProject', 'menuProject'],
+        nameAbout: ['nameAbout', 'menuAbout'],
+        nameContact: ['nameContact', 'contactLink']
+    };
+    
+    Object.entries(navElements).forEach(([key, ids]) => {
+        ids.forEach(id => {
+            const element = document.getElementById(id);
+            if (element && currentLang[key]) {
+                element.textContent = currentLang[key];
+            }
+        });
     });
 
-    // Update menu items with the existing keys
-    const menuItems = [
-        { id: 'menuHome', key: 'nameHome' },
-        { id: 'menuProject', key: 'nameProject' },
-        { id: 'menuAbout', key: 'nameAbout' },
-        { id: 'contactLink', key: 'nameContact' }
-    ];
-
-    menuItems.forEach(item => {
-        const element = document.getElementById(item.id);
-        if (element && currentLang[item.key]) {
-            element.textContent = currentLang[item.key];
+    // Update konten dinamis
+    const dynamicContent = {
+        contactMeText: 'contactMeText',
+        nameLabel: 'nameLabel',
+        emailLabel: 'emailLabel',
+        messageLabel: 'messageLabel',
+        submitBtn: 'submitBtn',
+        myLocationText: 'myLocationText',
+        locationText: 'locationText',
+        cookieNotice: 'cn-notice-text',
+        videoFallback: 'backgroundVideo + p',
+        myProjects: 'myProjectsText',
+        languages: 'languagesText',
+        footerAuthor: 'footer-name'
+    };
+    
+    Object.entries(dynamicContent).forEach(([key, selector]) => {
+        const element = selector.startsWith('#') ? 
+            document.querySelector(selector) : 
+            document.getElementById(selector);
+            
+        if (element && currentLang[key]) {
+            element.textContent = currentLang[key];
         }
     });
 
-    // Update ikon bendera bahasa
+    // Update footer
+    const footerContent = {
+        resourceHeading: 'resourceHeading',
+        bootstrapLink: 'bootstrapLink',
+        githubLink: 'githubLink',
+        netlifyLink: 'netlifyLink',
+        vscodeLink: 'vscodeLink',
+        activityHeading: 'activityHeading',
+        fullstackLink: 'fullstackLink',
+        uiuxLink: 'uiuxLink',
+        graphicDesignLink: 'graphicDesignLink',
+        gamerLink: 'gamerLink',
+        socialHeading: 'socialHeading',
+        instagramLink: 'instagramLink',
+        tiktokLink: 'tiktokLink',
+        twitterLink: 'twitterLink',
+        facebookLink: 'facebookLink'
+    };
+    
+    Object.entries(footerContent).forEach(([key, id]) => {
+        const element = document.getElementById(id);
+        if (element && currentLang[key]) {
+            element.textContent = currentLang[key];
+        }
+    });
+
+    // Update bendera
     const flagElement = document.getElementById('languageFlag');
-    if (flagElement) {
-        flagElement.className = currentLang.flagClass || "";
+    if (flagElement && currentLang.flagClass) {
+        flagElement.className = currentLang.flagClass;
     }
 
-    // Memperbarui teks di form kontak
-    const contactElements = ['contactMeText', 'nameLabel', 'emailLabel', 'messageLabel', 'submitBtn', 'myLocationText', 'locationText'];
-    contactElements.forEach(id => {
-        const element = document.getElementById(id);
-        if (element && currentLang[id]) {
-            element.textContent = currentLang[id];
-        }
-    });
-
-    // Memperbarui teks pemberitahuan cookie
-    const cookieNoticeElement = document.getElementById('cn-notice-text');
-    if (cookieNoticeElement && currentLang.cookieNotice) {
-        cookieNoticeElement.textContent = currentLang.cookieNotice;
-    }
-
-    // Memperbarui fallback teks video
-    const videoFallbackElement = document.querySelector('#backgroundVideo + p');
-    if (videoFallbackElement && currentLang.videoFallback) {
-        videoFallbackElement.textContent = currentLang.videoFallback;
-    }
-
-    // Memperbarui teks "My Projects" dan "Languages"
-    const myProjectsElement = document.getElementById('myProjectsText');
-    if (myProjectsElement && currentLang.myProjects) {
-        myProjectsElement.textContent = currentLang.myProjects;
-    }
-
-    const languagesElement = document.getElementById('languagesText');
-    if (languagesElement && currentLang.languages) {
-        languagesElement.textContent = currentLang.languages;
-    }
-
-
-    // **FOOTER UPDATES**
-    // Update Resource Section
-    const resourceHeading = document.getElementById('resourceHeading');
-    const bootstrapLink = document.getElementById('bootstrapLink');
-    const githubLink = document.getElementById('githubLink');
-    const netlifyLink = document.getElementById('netlifyLink');
-    const vscodeLink = document.getElementById('vscodeLink');
-
-    if (resourceHeading && currentLang.resourceHeading) resourceHeading.textContent = currentLang.resourceHeading;
-    if (bootstrapLink && currentLang.bootstrapLink) bootstrapLink.textContent = currentLang.bootstrapLink;
-    if (githubLink && currentLang.githubLink) githubLink.textContent = currentLang.githubLink;
-    if (netlifyLink && currentLang.netlifyLink) netlifyLink.textContent = currentLang.netlifyLink;
-    if (vscodeLink && currentLang.vscodeLink) vscodeLink.textContent = currentLang.vscodeLink;
-
-    // Update Activity Section
-    const activityHeading = document.getElementById('activityHeading');
-    const fullstackLink = document.getElementById('fullstackLink');
-    const uiuxLink = document.getElementById('uiuxLink');
-    const graphicDesignLink = document.getElementById('graphicDesignLink');
-    const gamerLink = document.getElementById('gamerLink');
-
-    if (activityHeading && currentLang.activityHeading) activityHeading.textContent = currentLang.activityHeading;
-    if (fullstackLink && currentLang.fullstackLink) fullstackLink.textContent = currentLang.fullstackLink;
-    if (uiuxLink && currentLang.uiuxLink) uiuxLink.textContent = currentLang.uiuxLink;
-    if (graphicDesignLink && currentLang.graphicDesignLink) graphicDesignLink.textContent = currentLang.graphicDesignLink;
-    if (gamerLink && currentLang.gamerLink) gamerLink.textContent = currentLang.gamerLink;
-
-    // Update Social Section
-    const socialHeading = document.getElementById('socialHeading');
-    const instagramLink = document.getElementById('instagramLink');
-    const tiktokLink = document.getElementById('tiktokLink');
-    const twitterLink = document.getElementById('twitterLink');
-    const facebookLink = document.getElementById('facebookLink');
-
-    if (socialHeading && currentLang.socialHeading) socialHeading.textContent = currentLang.socialHeading;
-    if (instagramLink && currentLang.instagramLink) instagramLink.textContent = currentLang.instagramLink;
-    if (tiktokLink && currentLang.tiktokLink) tiktokLink.textContent = currentLang.tiktokLink;
-    if (twitterLink && currentLang.twitterLink) twitterLink.textContent = currentLang.twitterLink;
-    if (facebookLink && currentLang.facebookLink) facebookLink.textContent = currentLang.facebookLink;
-
-    // Update Year and Footer Author
+    // Update tahun
     const yearElement = document.getElementById('year');
-    const footerName = document.getElementById('footer-name');
-
-    if (yearElement) yearElement.textContent = new Date().getFullYear();
-    if (footerName && currentLang.footerAuthor) footerName.textContent = currentLang.footerAuthor;
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 
     updateDateTime();
 }
 
-// **LOAD BAHASA SAAT HALAMAN DIMUAT**
+// Inisialisasi
 window.addEventListener('DOMContentLoaded', () => {
     changeLanguage(currentLanguage);
-    setInterval(updateDateTime, 60000);
+    setInterval(updateDateTime, 1000); // Update per detik
 });

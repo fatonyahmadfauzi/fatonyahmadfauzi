@@ -6,6 +6,11 @@
     "videoFallback": "Su navegador no admite videos.",
     "myProjects": "Mis Proyectos",
     "languages": "Idiomas",
+
+    "loadingText": "Cargando...",
+    "noCommits": "No se encontraron commits.",
+    "fetchError": "Error al obtener los commits.",
+    
     "contactMeText": "Contáctame",
     "nameLabel": "Nombre",
     "emailLabel": "Correo electrónico",

@@ -6,6 +6,11 @@
     "videoFallback": "您的浏览器不支持视频。",
     "myProjects": "我的项目",
     "languages": "语言",
+
+    "loadingText": "加载中...",
+    "noCommits": "未找到提交。",
+    "fetchError": "获取提交时出错。",
+    
     "contactMeText": "联系我",
     "nameLabel": "姓名",
     "emailLabel": "电子邮件",

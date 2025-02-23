@@ -6,6 +6,11 @@
     "videoFallback": "Ваш браузер не поддерживает видео.",
     "myProjects": "Мои проекты",
     "languages": "Языки",
+
+    "loadingText": "Загрузка...",
+    "noCommits": "Коммиты не найдены.",
+    "fetchError": "Ошибка получения коммитов.",
+    
     "contactMeText": "Свяжитесь со мной",
     "nameLabel": "Имя",
     "emailLabel": "Электронная почта",

@@ -6,6 +6,11 @@
     "videoFallback": "귀하의 브라우저는 비디오를 지원하지 않습니다.",
     "myProjects": "나의 프로젝트",
     "languages": "언어",
+
+    "loadingText": "로딩 중...",
+    "noCommits": "커밋을 찾을 수 없습니다.",
+    "fetchError": "커밋을 가져오는 중 오류 발생.",
+    
     "contactMeText": "문의하기",
     "nameLabel": "이름",
     "emailLabel": "이메일",

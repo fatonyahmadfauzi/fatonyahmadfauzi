@@ -6,6 +6,11 @@
     "videoFallback": "Peramban Anda tidak mendukung video.",
     "myProjects": "Proyek Saya",
     "languages": "Bahasa",
+
+    "loadingText": "Memuat...",
+    "noCommits": "Tidak ada commit ditemukan.",
+    "fetchError": "Gagal mengambil commit.",
+    
     "contactMeText": "Hubungi Saya",
     "nameLabel": "Nama",
     "emailLabel": "Email",

@@ -6,6 +6,11 @@
     "videoFallback": "お使いのブラウザは動画をサポートしていません。",
     "myProjects": "私のプロジェクト",
     "languages": "言語",
+
+    "loadingText": "読み込み中...",
+    "noCommits": "コミットが見つかりません。",
+    "fetchError": "コミットの取得エラー。",
+    
     "contactMeText": "お問い合わせ",
     "nameLabel": "名前",
     "emailLabel": "メール",

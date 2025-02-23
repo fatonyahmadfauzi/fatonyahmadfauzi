@@ -6,6 +6,11 @@
     "videoFallback": "Your browser does not support video.",
     "myProjects": "My Projects",
     "languages": "Languages",
+
+    "loadingText": "Loading...",
+    "noCommits": "No commits found.",
+    "fetchError": "Error fetching commits.",
+    
     "contactMeText": "Contact Me",
     "nameLabel": "Name",
     "emailLabel": "Email",
