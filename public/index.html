@@ -272,29 +272,31 @@
 ================================================================================================================================================================================================== -->
     <section id="contact" class="py-5 mb-5 section-gap">
         <div class="container">
-            <h2 class="mb-4 custom-heading" id="contactMeText">Contact Me</h2>
             <div class="row">
                 <div class="col-md-6">
-                    <form id="contactForm" name="contact" method="POST" data-netlify="true">
-                        <div class="mb-3">
-                            <label for="name" class="form-label" id="nameLabel">Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" name="name" required autocomplete="name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label" id="emailLabel">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label" id="messageLabel">Message <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
-                    </form>                    
+                    <div class="contact-responsive">
+                        <h2 class="mb-4" id="contactMeText">Contact Me</h2>
+                        <form id="contactForm" name="contact" method="POST" data-netlify="true">
+                            <div class="mb-3">
+                                <label for="name" class="form-label" id="nameLabel">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" required autocomplete="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label" id="emailLabel">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label" id="messageLabel">Message <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                        </form>                    
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="map-responsive">
-                        <h2 id="myLocationText">My Location</h2>
-                        <p>I am in Cikahuripan, Bogor Regency, West Java. Here is my location that you can view on Google Maps:</p>
+                        <h2 class="mb-4" id="myLocationText">My Location</h2>
+                        <p id="locationText">I am in Cikahuripan, Bogor Regency, West Java. Here is my location that you can view on Google Maps:</p>
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15989.34291409018!2d106.849561!3d-6.427747!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6997c3b53e2c29%3A0x76f054d37b6b4fa2!2sCikahuripan%2C%20Kabupaten%20Bogor%2C%20Jawa%20Barat!5e0!3m2!1sen!2sid!4v1672638232932!5m2!1sen!2sid"
                             width="100%" 

@@ -81,7 +81,7 @@ function updateUI() {
     }
 
     // Memperbarui teks di form kontak
-    const contactElements = ['contactMeText', 'nameLabel', 'emailLabel', 'messageLabel', 'submitBtn', 'myLocationText'];
+    const contactElements = ['contactMeText', 'nameLabel', 'emailLabel', 'messageLabel', 'submitBtn', 'myLocationText', 'locationText'];
     contactElements.forEach(id => {
         const element = document.getElementById(id);
         if (element && currentLang[id]) {
