@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
 
 <url>
   <loc>https://fatonyahmadfauzi.netlify.app/</loc>
   <lastmod>2025-02-17T12:01:12+00:00</lastmod>
   <priority>1.00</priority>
+  <video:video>
+    <video:thumbnail_loc>https://og-media-worker.fatonyahmadfauzi.workers.dev/image</video:thumbnail_loc>
+    <video:title>Video Light/Dark Mode</video:title>
+    <video:description>Video latar belakang yang berubah sesuai tema terang/gelap.</video:description>
+    <video:content_loc>https://og-media-worker.fatonyahmadfauzi.workers.dev/video</video:content_loc>
+    <video:player_loc>https://fatonyahmadfauzi.netlify.app/</video:player_loc>
+    <video:duration>60</video:duration>
+    <video:publication_date>2025-02-17</video:publication_date>
+  </video:video>
 </url>
 <url>
   <loc>https://fatonyahmadfauzi.netlify.app/js-function/id</loc>
@@ -65,6 +74,4 @@
   <lastmod>2025-02-17T12:01:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
-
-
 </urlset>

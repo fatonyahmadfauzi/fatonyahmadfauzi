@@ -64,23 +64,48 @@
     <!-- Schema Markup -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Fatony Ahmad Fauzi",
-      "url": "https://fatonyahmadfauzi.netlify.app/",
-      "sameAs": [
-        "https://www.instagram.com/fatonyahmadfauzi",
-        "https://www.tiktok.com/@fatonyahmadfauzi",
-        "https://twitter.com/fatonyahmad89",
-        "https://facebook.com/fatonyahmadfauzi"
-      ],
-      "jobTitle": "Web Developer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Freelance"
-      }
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Fatony Ahmad Fauzi",
+        "url": "https://fatonyahmadfauzi.netlify.app/",
+        "sameAs": [
+            "https://www.instagram.com/fatonyahmadfauzi",
+            "https://www.tiktok.com/@fatonyahmadfauzi",
+            "https://twitter.com/fatonyahmad89",
+            "https://facebook.com/fatonyahmadfauzi"
+        ],
+        "jobTitle": "Web Developer",
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Freelance"
+        }
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "Video Hero - Light and Dark Mode",
+        "description": "A dynamic hero section video that changes based on the time of day.",
+        "thumbnailUrl": "https://og-media-worker.fatonyahmadfauzi.workers.dev/image",
+        "uploadDate": "2025-02-17",
+        "contentUrl": "https://og-media-worker.fatonyahmadfauzi.workers.dev/video",
+        "embedUrl": "https://fatonyahmadfauzi.netlify.app/",
+        "duration": "PT1M",
+        "author": {
+            "@type": "Person",
+            "name": "Fatony Ahmad Fauzi",
+            "url": "https://fatonyahmadfauzi.netlify.app/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Fatony Ahmad Fauzi"
+        },
+        "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "https://schema.org/WatchAction",
+            "userInteractionCount": 1000
+        }
     }
-    </script>
+    </script>    
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -196,15 +221,21 @@
 ============ HERO SECTION - VIDEO ==================================================================================================================================================================== 
 ================================================================================================================================================================================================== -->
     <section class="video-hero d-flex align-items-center justify-content-center text-center section-gap position-relative">
-        <video id="backgroundVideo" autoplay muted loop playsinline>
+        <video id="backgroundVideo" autoplay muted loop playsinline loading="lazy">
+            <source src="https://fatonyahmadfauzi.netlify.app/assets/bg-light.mp4" type="video/mp4">
             Your browser does not support video.
-        </video>      
+        </video>
         <div class="video-overlay position-absolute w-100 h-100"></div>
         <div class="social-handle text-white">
             @fatonyahmadfauzi
         </div>
         <div class="date-message text-white"></div>
         <div class="time-message text-white"></div>
+
+        <!-- Deskripsi tambahan untuk video -->
+        <div class="video-description visually-hidden">
+            Video latar belakang yang menunjukkan perubahan tema terang dan gelap.
+        </div>
 
         <!-- Down arrow SVG with animation -->
         <div class="down-arrow-container">
