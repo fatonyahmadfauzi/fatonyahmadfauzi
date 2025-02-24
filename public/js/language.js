@@ -55,16 +55,18 @@ async function changeLanguage(lang) {
 async function fetchCommits() {
     document.getElementById('commitList').innerHTML = currentLang.loading || "Loading...";
     try {
-        const response = await fetch('/.netlify/functions/getCommits');
+        // Tambahkan parameter lang pada URL
+        const response = await fetch(`/.netlify/functions/getCommits?lang=${currentLanguage}`);
         if (!response.ok) throw new Error("Gagal mengambil data commit");
         const data = await response.json();
 
         const commitList = document.getElementById('commitList');
+        // Di dalam fetchCommits(), setelah const data = await response.json();
         if (Array.isArray(data) && data.length > 0) {
             const latestCommit = data[0];
-            const date = new Date(latestCommit.commit.author.date).toLocaleDateString();
+            const date = new Date(latestCommit.date).toLocaleDateString();
             commitList.innerHTML = `
-                <p><strong>${latestCommit.committer.login}</strong> - ${latestCommit.commit.message} (${date})</p>
+                <p><strong>${latestCommit.author}</strong> - ${latestCommit.translatedMessage} (${date})</p>
             `;
         } else {
             commitList.innerHTML = currentLang.noCommits || "No commits found";

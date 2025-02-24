@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { translateMyMemory } = require("./translate");
+const { translateMyMemory } = require("../translate"); // Impor fungsi translate
 
 exports.handler = async function(event, context) {
     const githubToken = process.env.GITHUB_TOKEN; // Ambil GitHub token dari Netlify
@@ -18,7 +18,8 @@ exports.handler = async function(event, context) {
         const commits = await response.json();
         const translatedCommits = await Promise.all(commits.slice(0, 5).map(async (commit) => {
             const message = commit.commit.message;
-            const translatedMessage = await translateMyMemory(message, "id", targetLang); // Ubah ke targetLang
+            // Di dalam Promise.all(...)
+            const translatedMessage = await translateMyMemory(message, "en", targetLang);
             return {
                 author: commit.commit.author.name,
                 originalMessage: message,
