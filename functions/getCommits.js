@@ -1,9 +1,17 @@
 const fetch = require("node-fetch");
-const { translateLibre } = require("./translate"); // Impor fungsi translate
 
+// Fungsi untuk translate menggunakan Google Translate Scraping
+async function translateGoogleScrape(text, sourceLang, targetLang) {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data[0][0][0];
+}
+
+// Handler Netlify Functions
 exports.handler = async function(event, context) {
     const githubToken = process.env.GITHUB_TOKEN;
-    const targetLang = event.queryStringParameters.lang || "en";
+    const targetLang = event.queryStringParameters.lang || "en"; // Bahasa target default = Inggris
     const githubApiUrl = "https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits";
 
     const headers = {
@@ -16,9 +24,11 @@ exports.handler = async function(event, context) {
         if (!response.ok) throw new Error("Gagal mengambil data commit");
 
         const commits = await response.json();
+        
+        // Ambil 5 commit terbaru dan translate pesan commit
         const translatedCommits = await Promise.all(commits.slice(0, 5).map(async (commit) => {
             const message = commit.commit.message;
-            const translatedMessage = await translateLibre(message, targetLang);
+            const translatedMessage = await translateGoogleScrape(message, "auto", targetLang); // Auto detect bahasa asal
             return {
                 author: commit.commit.author.name,
                 originalMessage: message,
