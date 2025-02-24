@@ -109,28 +109,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /// ===============================================================================================================================================================================================
-/// ============ PROJECT SECTION ==================================================================================================================================================================
-/// ===============================================================================================================================================================================================
-fetch('/.netlify/functions/getCommits')
-    .then(response => response.json())
-    .then(data => {
-        const commitList = document.getElementById('commitList');
-        if (Array.isArray(data) && data.length > 0) {
-            const latestCommit = data[0]; // Ambil hanya commit terbaru
-            const date = new Date(latestCommit.commit.author.date).toLocaleDateString();
-            commitList.innerHTML = `
-                <p><strong>${latestCommit.committer.login}</strong> - ${latestCommit.commit.message} (${date})</p>
-            `;
-        } else {
-            commitList.innerHTML = 'No commits found.';
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching commits:', error);
-        document.getElementById('commitList').innerHTML = 'Error fetching commits';
-    });
-
-/// ===============================================================================================================================================================================================
 /// ============ FOOTER SECTION ===================================================================================================================================================================
 /// ===============================================================================================================================================================================================
 document.getElementById("year").textContent = new Date().getFullYear();

@@ -1,6 +1,6 @@
 const dateElement = document.querySelector('.date-message');
 const timeElement = document.querySelector('.time-message');
-let currentLanguage = 'en'; // Default language
+let currentLanguage = localStorage.getItem('selectedLang') || 'en';
 let currentLang = {}; // Menyimpan teks terjemahan dari JSON
 
 const languageOptions = {
@@ -37,20 +37,49 @@ function updateDateTime() {
     }
 }
 
-// Ganti bahasa
+// Fungsi untuk mengganti bahasa
 async function changeLanguage(lang) {
     currentLanguage = lang;
+    localStorage.setItem('selectedLang', lang); // Simpan ke localStorage
     try {
-        const response = await fetch(`../lang/${lang}.json`);
+        const response = await fetch(`/lang/${lang}.json`);
+        if (!response.ok) throw new Error(`Gagal memuat ${lang}.json`);
         currentLang = await response.json();
         updateUI();
     } catch (error) {
-        console.error("Error:", error);
+        console.error("Error memuat bahasa:", error);
     }
 }
 
-// Update antarmuka
+// Fungsi untuk mengambil commit dari Netlify Functions
+async function fetchCommits() {
+    document.getElementById('commitList').innerHTML = currentLang.loading || "Loading...";
+    try {
+        const response = await fetch('/.netlify/functions/getCommits');
+        if (!response.ok) throw new Error("Gagal mengambil data commit");
+        const data = await response.json();
+
+        const commitList = document.getElementById('commitList');
+        if (Array.isArray(data) && data.length > 0) {
+            const latestCommit = data[0];
+            const date = new Date(latestCommit.commit.author.date).toLocaleDateString();
+            commitList.innerHTML = `
+                <p><strong>${latestCommit.committer.login}</strong> - ${latestCommit.commit.message} (${date})</p>
+            `;
+        } else {
+            commitList.innerHTML = currentLang.noCommits || "No commits found";
+        }
+    } catch (error) {
+        console.error("Error fetching commits:", error);
+        document.getElementById('commitList').innerHTML = currentLang.fetchError || "Error fetching commits";
+    }
+}
+
+// Fungsi untuk memperbarui UI setelah bahasa diganti
 function updateUI() {
+    // Update teks commit
+    fetchCommits();
+
     // Update navigasi
     const navElements = {
         nameHome: ['nameHome', 'menuHome'],
@@ -68,8 +97,8 @@ function updateUI() {
         });
     });
 
-    // Update konten dinamis
-    const dynamicContent = {
+    // Update footer dan elemen lainnya
+    const elements = {
         contactMeText: 'contactMeText',
         nameLabel: 'nameLabel',
         emailLabel: 'emailLabel',
@@ -81,21 +110,7 @@ function updateUI() {
         videoFallback: 'backgroundVideo + p',
         myProjects: 'myProjectsText',
         languages: 'languagesText',
-        footerAuthor: 'footer-name'
-    };
-    
-    Object.entries(dynamicContent).forEach(([key, selector]) => {
-        const element = selector.startsWith('#') ? 
-            document.querySelector(selector) : 
-            document.getElementById(selector);
-            
-        if (element && currentLang[key]) {
-            element.textContent = currentLang[key];
-        }
-    });
-
-    // Update footer
-    const footerContent = {
+        footerAuthor: 'footer-name',
         resourceHeading: 'resourceHeading',
         bootstrapLink: 'bootstrapLink',
         githubLink: 'githubLink',
@@ -112,31 +127,26 @@ function updateUI() {
         twitterLink: 'twitterLink',
         facebookLink: 'facebookLink'
     };
-    
-    Object.entries(footerContent).forEach(([key, id]) => {
+
+    Object.entries(elements).forEach(([key, id]) => {
         const element = document.getElementById(id);
         if (element && currentLang[key]) {
             element.textContent = currentLang[key];
         }
     });
 
-    // Update bendera
+    // Update ikon bendera bahasa
     const flagElement = document.getElementById('languageFlag');
-    if (flagElement && currentLang.flagClass) {
-        flagElement.className = currentLang.flagClass;
+    if (flagElement) {
+        flagElement.className = currentLang.flagClass || "";
     }
 
-    // Update tahun
-    const yearElement = document.getElementById('year');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    }
-
+    // Update waktu dan tanggal
     updateDateTime();
 }
 
 // Inisialisasi
-window.addEventListener('DOMContentLoaded', () => {
-    changeLanguage(currentLanguage);
+window.addEventListener('DOMContentLoaded', async () => {
+    await changeLanguage(currentLanguage);
     setInterval(updateDateTime, 1000); // Update per detik
 });
