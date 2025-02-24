@@ -1,32 +1,41 @@
-const fetch = require('node-fetch'); // Menggunakan fetch untuk API call
+const fetch = require("node-fetch");
+const { translateLibre } = require("./translate"); // Impor fungsi translate
 
 exports.handler = async function(event, context) {
-    const apiKey = process.env.GITHUB_TOKEN; // Mengambil token dari environment variables
-    const apiUrl = `https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits`;
+    const githubToken = process.env.GITHUB_TOKEN;
+    const targetLang = event.queryStringParameters.lang || "en";
+    const githubApiUrl = "https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits";
 
     const headers = {
-        "Authorization": `Bearer ${apiKey}`,
+        "Authorization": `Bearer ${githubToken}`,
         "Accept": "application/vnd.github.v3+json",
     };
 
     try {
-        const response = await fetch(apiUrl, { headers });
+        const response = await fetch(githubApiUrl, { headers });
+        if (!response.ok) throw new Error("Gagal mengambil data commit");
+
         const commits = await response.json();
-        if (response.ok) {
+        const translatedCommits = await Promise.all(commits.slice(0, 5).map(async (commit) => {
+            const message = commit.commit.message;
+            const translatedMessage = await translateLibre(message, targetLang);
             return {
-                statusCode: 200,
-                body: JSON.stringify(commits),
+                author: commit.commit.author.name,
+                originalMessage: message,
+                translatedMessage: translatedMessage,
+                date: commit.commit.author.date,
             };
-        } else {
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ message: 'Error fetching commits' }),
-            };
-        }
+        }));
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify(translatedCommits),
+        };
+
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Error fetching commits' }),
+            body: JSON.stringify({ message: "Error fetching or translating commits", error: error.toString() }),
         };
     }
 };
