@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { translateMyMemory } = require("../translate"); // Impor fungsi translate
+const { translateMyMemory } = require("./translate");
 
 exports.handler = async function(event, context) {
     const githubToken = process.env.GITHUB_TOKEN; // Ambil GitHub token dari Netlify
