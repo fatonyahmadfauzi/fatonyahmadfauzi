@@ -108,23 +108,6 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById("lightModeToggleMenu").addEventListener("click", toggleTheme);
 });
 
-async function fetchCommits(lang = "id") {
-    const response = await fetch(`/api/getCommits?lang=${lang}`);
-    const commits = await response.json();
-
-    let commitHTML = "";
-    commits.forEach(commit => {
-        commitHTML += `
-            <p><strong>${commit.author}:</strong> ${commit.translatedMessage} <br> <small>${commit.date}</small></p>
-        `;
-    });
-
-    document.getElementById("commitList").innerHTML = commitHTML;
-}
-
-// Panggil saat halaman dimuat
-document.addEventListener("DOMContentLoaded", () => fetchCommits("id"));
-
 /// ===============================================================================================================================================================================================
 /// ============ FOOTER SECTION ===================================================================================================================================================================
 /// ===============================================================================================================================================================================================
