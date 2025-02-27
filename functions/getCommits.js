@@ -1,9 +1,9 @@
 const fetch = require("node-fetch");
-const { translateMyMemory } = require("./translate"); // Impor fungsi translate
+const { translateMyMemory } = require("./translate");
 
 exports.handler = async function (event, context) {
-    const githubToken = process.env.GITHUB_TOKEN; // Ambil GitHub token dari environment variable
-    const targetLang = event.queryStringParameters.lang || "en"; // Default English jika tidak ada parameter
+    const githubToken = process.env.GITHUB_TOKEN;
+    const targetLang = event.queryStringParameters.lang || "en";
     const githubApiUrl = "https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits";
 
     const headers = {
@@ -12,27 +12,28 @@ exports.handler = async function (event, context) {
     };
 
     try {
-        console.log("Mengambil data commit dari GitHub...");
         const response = await fetch(githubApiUrl, { headers });
-        if (!response.ok) throw new Error("Gagal mengambil data commit dari GitHub.");
+        if (!response.ok) throw new Error("Gagal mengambil data commit");
 
         const commits = await response.json();
-        console.log("Respons data commit:", commits);
 
-        // Ambil 5 commit terakhir dan terjemahkan pesan commit
         const translatedCommits = await Promise.all(
             commits.slice(0, 5).map(async (commit) => {
                 const message = commit.commit.message;
+
+                // Log untuk debugging
                 console.log("Pesan asli:", message);
 
                 // Terjemahkan pesan commit
                 const translatedMessage = await translateMyMemory(message, "en", targetLang);
-                console.log("Pesan terjemahan:", translatedMessage);
+
+                // Log hasil terjemahan
+                console.log(`Terjemahan (${targetLang}):`, translatedMessage);
 
                 return {
                     author: commit.commit.author.name,
                     originalMessage: message,
-                    translatedMessage: translatedMessage,
+                    translatedMessage,
                     date: commit.commit.author.date,
                 };
             })

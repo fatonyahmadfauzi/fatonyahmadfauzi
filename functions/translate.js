@@ -4,17 +4,8 @@ const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY; // API Key dari environme
 
 // Peta kode bahasa yang diterima dari pengguna ke format ISO 639-1 yang diharapkan oleh MyMemory
 const LANGUAGE_MAP = {
-    de: "de", // German
-    en: "en", // English
-    es: "es", // Spanish
-    fr: "fr", // French
-    id: "id", // Indonesian
-    jp: "ja", // Japanese
-    kr: "ko", // Korean
-    pl: "pl", // Polish
-    pt: "pt", // Portuguese
-    ru: "ru", // Russian
-    zh: "zh", // Chinese
+    de: "de", en: "en", es: "es", fr: "fr", id: "id",
+    jp: "ja", kr: "ko", pl: "pl", pt: "pt", ru: "ru", zh: "zh",
 };
 
 /**
