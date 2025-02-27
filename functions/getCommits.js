@@ -1,15 +1,9 @@
 const fetch = require("node-fetch");
 const { translateMyMemory } = require("./translate"); // Impor fungsi translate
 
-/**
- * Fungsi handler untuk mendapatkan daftar commit dari GitHub dan menerjemahkannya
- * @param {object} event - Event request
- * @param {object} context - Context function
- * @returns {object} - Response berupa daftar commit
- */
 exports.handler = async function (event, context) {
     const githubToken = process.env.GITHUB_TOKEN; // Ambil GitHub token dari environment variable
-    const targetLang = event.queryStringParameters.lang || "en"; // Bahasa target (default: English)
+    const targetLang = event.queryStringParameters.lang || "en"; // Default English jika tidak ada parameter
     const githubApiUrl = "https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits";
 
     const headers = {
