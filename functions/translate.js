@@ -25,7 +25,7 @@ async function translateMyMemory(text, sourceLang, targetLang) {
     }
 
     const keyParam = MYMEMORY_API_KEY ? `&key=${MYMEMORY_API_KEY}` : "";
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}${keyParam}`;
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}&de=fatonyahmadfauzi@gmail.com`;
 
     try {
         console.log(`Mengirim permintaan ke MyMemory API: ${url}`);
