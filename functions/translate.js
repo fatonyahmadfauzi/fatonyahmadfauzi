@@ -4,7 +4,7 @@ const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY;
 
 const LANGUAGE_MAP = {
     de: "de", en: "en", es: "es", fr: "fr", id: "id",
-    jp: "ja", kr: "ko", pl: "pl", pt: "pt", ru: "ru", zh: "zh",
+    jp: "ja", kr: "ko", pl: "en", pt: "pt", ru: "en", zh: "zh",
 };
 
 function mapLanguage(lang) {
