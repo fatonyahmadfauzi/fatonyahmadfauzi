@@ -1,3 +1,42 @@
+document.getElementById('contactForm').addEventListener('submit', function (event) {
+    let isValid = true;
+
+    // Clear previous error messages
+    document.getElementById('nameError').textContent = '';
+    document.getElementById('emailError').textContent = '';
+    document.getElementById('messageError').textContent = '';
+
+    // Name validation
+    const nameInput = document.getElementById('name');
+    if (nameInput.value.trim() === '') {
+        document.getElementById('nameError').textContent = currentLang.nameRequired || '* Name is required';
+        isValid = false;
+    }
+
+    // Email validation
+    const emailInput = document.getElementById('email');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailInput.value.trim() === '') {
+        document.getElementById('emailError').textContent = currentLang.emailRequired || '* Email is required';
+        isValid = false;
+    } else if (!emailPattern.test(emailInput.value.trim())) {
+        document.getElementById('emailError').textContent = currentLang.invalidEmail || '* Invalid email format';
+        isValid = false;
+    }
+
+    // Message validation
+    const messageInput = document.getElementById('message');
+    if (messageInput.value.trim() === '') {
+        document.getElementById('messageError').textContent = currentLang.messageRequired || '* Message is required';
+        isValid = false;
+    }
+
+    // Prevent form submission if validation fails
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+
 const dateElement = document.querySelector('.date-message');
 const timeElement = document.querySelector('.time-message');
 let currentLanguage = localStorage.getItem('selectedLang') || 'en';
@@ -141,6 +180,21 @@ function updateUI() {
     const flagElement = document.getElementById('languageFlag');
     if (flagElement) {
         flagElement.className = currentLang.flagClass || "";
+    }
+
+    // Perbarui pesan error dengan bahasa baru
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const messageError = document.getElementById('messageError');
+
+    if (nameError && nameError.textContent) {
+        nameError.textContent = currentLang.nameRequired || '* Name is required';
+    }
+    if (emailError && emailError.textContent) {
+        emailError.textContent = currentLang.emailRequired || '* Email is required';
+    }
+    if (messageError && messageError.textContent) {
+        messageError.textContent = currentLang.messageRequired || '* Message is required';
     }
 
     // Update waktu dan tanggal

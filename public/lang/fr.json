@@ -21,6 +21,11 @@
     "cookieNotice": "Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site Web. Si vous continuez à utiliser ce site, nous supposerons que vous en êtes satisfait.",
     "flagClass": "flag-icon flag-icon-fr",
 
+    "nameRequired": "* Le nom est requis",
+    "emailRequired": "* L'email est requis",
+    "invalidEmail": "* Format d'email invalide",
+    "messageRequired": "* Le message est requis",
+
     "resourceHeading": "Ressources",
     "bootstrapLink": "Bootstrap5",
     "githubLink": "GitHub",

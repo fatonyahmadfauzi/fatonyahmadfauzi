@@ -21,6 +21,11 @@
     "cookieNotice": "私たちはウェブサイトで最高の体験を提供するためにクッキーを使用しています。このサイトを引き続き使用する場合、同意したものとみなされます。",
     "flagClass": "flag-icon flag-icon-jp",
 
+    "nameRequired": "* 名前は必須です",
+    "emailRequired": "* メールは必須です",
+    "invalidEmail": "* 無効なメール形式です",
+    "messageRequired": "* メッセージは必須です",
+
     "resourceHeading": "リソース",
     "bootstrapLink": "Bootstrap5",
     "githubLink": "GitHub",
