@@ -276,21 +276,24 @@
                 <div class="col-md-6">
                     <div class="contact-responsive">
                         <h2 class="mb-4" id="contactMeText">Contact Me</h2>
-                        <form id="contactForm" name="contact" method="POST" data-netlify="true">
+                        <form id="contactForm" name="contact" method="POST" action="https://your-backend-url.com/form-handler.php" novalidate>
                             <div class="mb-3">
                                 <label for="name" class="form-label" id="nameLabel">Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name" name="name" required autocomplete="name">
+                                <div id="nameError" class="error-message"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label" id="emailLabel">Email <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
+                                <div id="emailError" class="error-message"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="message" class="form-label" id="messageLabel">Message <span class="text-danger">*</span></label>
                                 <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                                <div id="messageError" class="error-message"></div>
                             </div>
                             <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
-                        </form>                    
+                        </form>          
                     </div>
                 </div>
                 <div class="col-md-6">

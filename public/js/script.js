@@ -109,6 +109,48 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /// ===============================================================================================================================================================================================
+/// ============ CONTACT SECTION ==================================================================================================================================================================
+/// ===============================================================================================================================================================================================
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    let isValid = true;
+
+    // Clear previous error messages
+    document.getElementById('nameError').textContent = '';
+    document.getElementById('emailError').textContent = '';
+    document.getElementById('messageError').textContent = '';
+
+    // Name validation
+    const nameInput = document.getElementById('name');
+    if (nameInput.value.trim() === '') {
+        document.getElementById('nameError').textContent = '* Name is required';
+        isValid = false;
+    }
+
+    // Email validation
+    const emailInput = document.getElementById('email');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailInput.value.trim() === '') {
+        document.getElementById('emailError').textContent = '* Email is required';
+        isValid = false;
+    } else if (!emailPattern.test(emailInput.value.trim())) {
+        document.getElementById('emailError').textContent = '* Invalid email format';
+        isValid = false;
+    }
+
+    // Message validation
+    const messageInput = document.getElementById('message');
+    if (messageInput.value.trim() === '') {
+        document.getElementById('messageError').textContent = '* Message is required';
+        isValid = false;
+    }
+
+    // Prevent form submission if validation fails
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+
+/// ===============================================================================================================================================================================================
 /// ============ FOOTER SECTION ===================================================================================================================================================================
 /// ===============================================================================================================================================================================================
 document.getElementById("year").textContent = new Date().getFullYear();
