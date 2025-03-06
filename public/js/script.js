@@ -121,13 +121,13 @@ const handleSubmit = async (event) => {
     };
 
     try {
-        const response = await fetch("faa-form-backend-production.up.railway.app/handle-form.php", {
+        const response = await fetch("https://faa-form-backend-production.up.railway.app/handle-form.php", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
-        });
+        });          
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
