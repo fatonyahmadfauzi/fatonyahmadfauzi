@@ -113,38 +113,42 @@ window.addEventListener('DOMContentLoaded', () => {
 /// ===============================================================================================================================================================================================
 const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const formData = {
-        name: event.target.name.value,
-        email: event.target.email.value,
-        message: event.target.message.value,
+      name: event.target.name.value.trim(),
+      email: event.target.email.value.trim(),
+      message: event.target.message.value.trim(),
     };
-
-    try {
-        const response = await fetch("https://faa-form-backend-production.up.railway.app/handle-form.php", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        });          
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data.status === "success") {
-            alert("Message sent successfully!");
-        } else {
-            alert("Error: " + data.message);
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred. Please try again later.");
+  
+    console.log("Form Data:", formData);
+  
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("All fields are required!");
+      return;
     }
-};
+  
+    try {
+      const response = await fetch("https://faa-form-backend-production.up.railway.app/handle-form.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+      console.log("Response Data:", data);
+  
+      if (data.status === "success") {
+        alert("Message sent successfully!");
+      } else {
+        alert("Error: " + data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
+};  
 
 // Pasang event listener setelah fungsi handleSubmit dideklarasikan
 document.getElementById("contactForm").addEventListener("submit", handleSubmit);
