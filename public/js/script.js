@@ -121,7 +121,7 @@ const handleSubmit = async (event) => {
     };
 
     try {
-        const response = await fetch("https://faa-form-middleware-proxy.vercel.app/api/proxy.js", {
+        const response = await fetch("faa-form-backend-production.up.railway.app/handle-form.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
