@@ -111,21 +111,14 @@ window.addEventListener('DOMContentLoaded', () => {
 /// ===============================================================================================================================================================================================
 /// ============ CONTACT SECTION ==================================================================================================================================================================
 /// ===============================================================================================================================================================================================
-const handleSubmit = async (event) => {
+document.querySelector("form").addEventListener("submit", async (event) => {
     event.preventDefault();
   
     const formData = {
-      name: event.target.name.value.trim(),
-      email: event.target.email.value.trim(),
-      message: event.target.message.value.trim(),
+      name: event.target.name.value,
+      email: event.target.email.value,
+      message: event.target.message.value,
     };
-  
-    console.log("Form Data:", formData);
-  
-    if (!formData.name || !formData.email || !formData.message) {
-      alert("All fields are required!");
-      return;
-    }
   
     try {
       const response = await fetch("https://faa-form-backend-production.up.railway.app/handle-form.php", {
@@ -137,7 +130,6 @@ const handleSubmit = async (event) => {
       });
   
       const data = await response.json();
-      console.log("Response Data:", data);
   
       if (data.status === "success") {
         alert("Message sent successfully!");
@@ -148,10 +140,7 @@ const handleSubmit = async (event) => {
       console.error("Error:", error);
       alert("An error occurred. Please try again later.");
     }
-};  
-
-// Pasang event listener setelah fungsi handleSubmit dideklarasikan
-document.getElementById("contactForm").addEventListener("submit", handleSubmit);
+});  
 
 /// ===============================================================================================================================================================================================
 /// ============ FOOTER SECTION ===================================================================================================================================================================
