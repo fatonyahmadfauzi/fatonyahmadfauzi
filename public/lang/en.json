@@ -20,11 +20,6 @@
     "locationText": "I am in Cikahuripan, Bogor Regency, West Java. Here is my location that you can view on Google Maps:",
     "cookieNotice": "We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it.",
     "flagClass": "flag-icon flag-icon-gb",
-
-    "nameRequired": "* Name is required",
-    "emailRequired": "* Email is required",
-    "invalidEmail": "* Invalid email format",
-    "messageRequired": "* Message is required",
     
     "resourceHeading": "Resource",
     "bootstrapLink": "Bootstrap5",

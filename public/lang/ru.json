@@ -21,11 +21,6 @@
     "cookieNotice": "Мы используем файлы cookie, чтобы обеспечить наилучший опыт на нашем сайте. Если вы продолжите использовать этот сайт, мы будем считать, что вы с этим согласны.",
     "flagClass": "flag-icon flag-icon-ru",
 
-    "nameRequired": "* Имя обязательно",
-    "emailRequired": "* Электронная почта обязательна",
-    "invalidEmail": "* Неверный формат электронной почты",
-    "messageRequired": "* Сообщение обязательно",
-
     "resourceHeading": "Ресурсы",
     "bootstrapLink": "Bootstrap5",
     "githubLink": "GitHub",

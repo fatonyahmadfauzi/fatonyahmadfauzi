@@ -21,11 +21,6 @@
     "cookieNotice": "我们使用 Cookie 以确保您在我们的网站上获得最佳体验。如果您继续使用本网站，我们将认为您对此感到满意。",
     "flagClass": "flag-icon flag-icon-cn",
 
-    "nameRequired": "* 姓名是必填项",
-    "emailRequired": "* 邮箱是必填项",
-    "invalidEmail": "* 邮箱格式无效",
-    "messageRequired": "* 消息是必填项",
-
     "resourceHeading": "资源",
     "bootstrapLink": "Bootstrap5",
     "githubLink": "GitHub",

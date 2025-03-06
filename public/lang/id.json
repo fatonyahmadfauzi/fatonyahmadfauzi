@@ -21,11 +21,6 @@
     "cookieNotice": "Kami menggunakan cookie untuk memastikan bahwa kami memberikan pengalaman terbaik di situs kami. Jika Anda terus menggunakan situs ini, kami akan menganggap Anda setuju dengan hal tersebut.",
     "flagClass": "flag-icon flag-icon-id",
 
-    "nameRequired": "* Nama wajib diisi",
-    "emailRequired": "* Email wajib diisi",
-    "invalidEmail": "* Format email tidak valid",
-    "messageRequired": "* Pesan wajib diisi",
-
     "resourceHeading": "Sumber Daya",
     "bootstrapLink": "Bootstrap5",
     "githubLink": "GitHub",
