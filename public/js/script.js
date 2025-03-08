@@ -121,7 +121,7 @@ document.querySelector("form").addEventListener("submit", async (event) => {
     };
   
     try {
-      const response = await fetch("https://faa-form-backend-production.up.railway.app/handle-form.php", {
+      const response = await fetch("https://faa-form-backend.rf.gd/handle-form.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,6 +133,8 @@ document.querySelector("form").addEventListener("submit", async (event) => {
   
       if (data.status === "success") {
         alert("Message sent successfully!");
+        // Reset form
+        event.target.reset();
       } else {
         alert("Error: " + data.message);
       }
