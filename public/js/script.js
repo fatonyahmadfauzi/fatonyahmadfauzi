@@ -140,6 +140,9 @@ document.querySelector("form").addEventListener("submit", async (event) => {
       console.error("Error:", error);
       alert("An error occurred. Please try again later.");
     }
+
+    // Reset form
+    this.reset();
 });  
 
 /// ===============================================================================================================================================================================================
