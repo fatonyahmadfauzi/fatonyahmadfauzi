@@ -121,7 +121,7 @@ document.querySelector("form").addEventListener("submit", async (event) => {
     };
   
     try {
-      const response = await fetch("https://faa-form-backend.vercel.app/api/send-email", {
+      const response = await fetch("https://faa-form-backend-production.up.railway.app/handle-form.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
