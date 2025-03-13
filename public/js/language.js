@@ -1,3 +1,15 @@
+// language.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle language selection
+    document.querySelectorAll('.language-option').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.dataset.lang;
+            changeLanguage(lang);
+        });
+    });
+});
+
 const dateElement = document.querySelector('.date-message');
 const timeElement = document.querySelector('.time-message');
 let currentLanguage = localStorage.getItem('selectedLang') || 'en';
