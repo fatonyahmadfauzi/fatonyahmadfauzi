@@ -28,7 +28,7 @@ status = 301
       style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
       img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id data:; 
       media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; 
-      frame-src 'self' https://www.googletagmanager.com https://www.google.com https://td.doubleclick.net; 
+      frame-src 'self' https://www.googletagmanager.com https://www.google.com https://maps.googleapis.com https://td.doubleclick.net; 
       connect-src 'self' https://www.google-analytics.com https://og-media-worker.fatonyahmadfauzi.workers.dev https://faa-form-backend-production.up.railway.app https://faa-form-backend.vercel.app https://analytics.google.com https://stats.g.doubleclick.net; 
       font-src 'self' https://cdn.jsdelivr.net;
     '''
