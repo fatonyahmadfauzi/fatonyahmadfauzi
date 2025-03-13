@@ -322,7 +322,7 @@ body.dark-mode .project-box {
 ============ FOOTER ===================================================================================
 ==================================================================================================== */
 .custom-footer {
-    background-color: #181818;
+    background-color: #222;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -333,11 +333,6 @@ footer {
     color: white;
     text-align: center;
     min-height: 300px; /* Adjusted minimum height for a longer footer */
-}
-
-/* Dark mode footer */
-body.dark-mode footer {
-    background-color: #222; /* Darker footer background */
 }
 
 /* Footer links */
