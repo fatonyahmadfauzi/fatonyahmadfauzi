@@ -270,6 +270,10 @@ body.dark-mode .project-box {
     cursor: pointer;
 }
 
+.custom-svg {
+    display: block;
+}
+
 /* ====================================================================================================
 ============ CONTACT SECTION ==========================================================================
 ==================================================================================================== */
@@ -304,9 +308,26 @@ body.dark-mode .project-box {
     transform: scale(1.1); /* Hover effect for scaling */
 }
 
+.trakteer-icon {
+    width: 35px;
+    height: 35px;
+    transition: transform 0.3s ease;
+}
+
+.trakteer-float:hover .trakteer-icon {
+    transform: scale(1.1);
+}
+
 /* ====================================================================================================
 ============ FOOTER ===================================================================================
 ==================================================================================================== */
+.custom-footer {
+    background-color: #181818;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 footer {
     padding: 3rem 0; /* Increased padding to make the footer taller */
     color: white;

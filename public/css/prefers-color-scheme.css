@@ -63,6 +63,11 @@ body.dark-mode #darkModeToggle {
     color: #fff; /* Light color when dark mode is active */
 }
 
+/* Dark Mode */
+body.dark-mode .custom-footer {
+    background-color: #222;
+}
+
 @media (max-width: 992px) {
     /* Pastikan mode tetap diterapkan dengan benar pada layar kecil */
     #modeIcon {
