@@ -13,6 +13,11 @@
   status = 200
   force = false
 
+[[redirects]]
+from = "/*"
+to = "https://fatonyahmadfauzi.me/:splat"
+status = 301
+
 # 🔒 Security Headers
 [[headers]]
   for = "/*"
