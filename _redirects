@@ -1,1 +1,2 @@
+https://fatonyahmadfauzi.netlify.app/* https://fatonyahmadfauzi.me/:splat 301!
 /api/\* /.netlify/functions/:splat 200

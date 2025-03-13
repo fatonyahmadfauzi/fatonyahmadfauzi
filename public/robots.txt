@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Allow: /sitemap.xml
 
-Sitemap: https://fatonyahmadfauzi.netlify.app/sitemap.xml
+Sitemap: https://fatonyahmadfauzi.me/sitemap.xml
