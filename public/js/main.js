@@ -1,25 +1,39 @@
 // Fungsi untuk mencegah XSS (Cross-Site Scripting)
 function sanitizeInput(input) {
-    return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const temp = document.createElement('div');
+    temp.textContent = input;
+    return temp.innerHTML;
 }
 
 (function() {
     // Blokir kombinasi tombol tertentu
     document.addEventListener('keydown', function(event) {
-        if ((event.ctrlKey && event.key === 'U') || // Ctrl + U (View Source)
-            (event.ctrlKey && event.shiftKey && event.key === 'J') || // Ctrl + Shift + J (Console)
-            (event.key === 'F12')) { // F12 (DevTools)
+        if ((event.ctrlKey && event.key === 'U') || 
+            (event.ctrlKey && event.shiftKey && event.key === 'J') || 
+            (event.key === 'F12')) {
             event.preventDefault();
-            alert("Fitur ini dinonaktifkan!");
+            console.log("Akses ke DevTools dinonaktifkan.");
         }
     });
 })();
 
 // Menampilkan peringatan di Console Developer
 (function() {
-    console.log("%c Berhenti!", "color: red; font-size: 50px; font-weight: bold;");
+    console.log("%c PERHATIAN!", "color: red; font-size: 40px; font-weight: bold;");
     console.log(
-        "%cIni adalah fitur browser yang ditujukan untuk developer. Jika seseorang meminta Anda untuk menyalin-menempel sesuatu di sini untuk mengaktifkan fitur Websites atau 'meretas' akun seseorang, ini adalah penipuan dan akan memberikannya akses ke akun Anda.",
-        "color: white; background: black; font-size: 16px; padding: 10px;"
+        "%cMenggunakan fitur ini untuk tujuan yang tidak sah dapat melanggar kebijakan kami.\n" +
+        "Jika Anda tidak yakin, tutup tab ini dan hindari menempelkan skrip tidak dikenal.",
+        "color: white; background: black; font-size: 16px; padding: 8px;"
     );
+})();
+
+// Mode Debug Aman
+(function() {
+    const developerModeToken = "YOUR_SECURE_TOKEN";
+    const queryParams = new URLSearchParams(window.location.search);
+    if (queryParams.get("debug") === developerModeToken) {
+        console.log("%c Debug Mode Aktif", "color: green; font-size: 20px; font-weight: bold;");
+    } else {
+        console.log("%c DevTools Akses Dibatasi!", "color: red; font-size: 20px;");
+    }
 })();
