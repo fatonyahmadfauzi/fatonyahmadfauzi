@@ -2,76 +2,59 @@
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
+
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/</loc>
   <priority>1.00</priority>
-  <video:video>
-    <video:thumbnail_loc>https://og-media-worker.fatonyahmadfauzi.workers.dev/image</video:thumbnail_loc>
-    <video:title>Video Light/Dark Mode</video:title>
-    <video:description>Video latar belakang yang berubah sesuai tema terang/gelap.</video:description>
-    <video:content_loc>https://og-media-worker.fatonyahmadfauzi.workers.dev/video</video:content_loc>
-    <video:player_loc>https://fatonyahmadfauzi.netlify.app/</video:player_loc>
-    <video:duration>60</video:duration>
-    <video:publication_date>2025-02-17</video:publication_date>
-  </video:video>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/id</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/id</loc>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/en</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/en</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/pl</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/pl</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/zh</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/zh</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/jp</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/jp</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/de</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/de</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/fr</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/fr</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/es</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/es</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/ru</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/ru</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/pt</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/pt</loc>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://fatonyahmadfauzi.netlify.app/js-function/kr</loc>
-  <lastmod>2025-02-17T12:01:12+00:00</lastmod>
+  <loc>https://fatonyahmadfauzi.me/js-function/kr</loc>
   <priority>0.64</priority>
 </url>
+
+
 </urlset>
