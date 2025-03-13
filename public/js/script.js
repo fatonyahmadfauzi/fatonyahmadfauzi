@@ -109,43 +109,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /// ===============================================================================================================================================================================================
-/// ============ CONTACT SECTION ==================================================================================================================================================================
-/// ===============================================================================================================================================================================================
-document.querySelector("form").addEventListener("submit", async (event) => {
-    event.preventDefault();
-  
-    const formData = {
-      name: event.target.name.value,
-      email: event.target.email.value,
-      message: event.target.message.value,
-    };
-  
-    try {
-      const response = await fetch("https://faa-form-backend-production.up.railway.app/handle-form.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      const data = await response.json();
-  
-      if (data.status === "success") {
-        alert("Message sent successfully!");
-      } else {
-        alert("Error: " + data.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
-    }
-
-    // Reset form
-    event.target.reset();
-});
-
-/// ===============================================================================================================================================================================================
 /// ============ FOOTER SECTION ===================================================================================================================================================================
 /// ===============================================================================================================================================================================================
 document.getElementById("year").textContent = new Date().getFullYear();
