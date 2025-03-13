@@ -1,18 +1,22 @@
-// language.js
+// Language handling
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle language selection
-    document.querySelectorAll('.language-option').forEach(link => {
-        link.addEventListener('click', function(e) {
+    // Event listeners untuk pilihan bahasa
+    document.querySelectorAll('[data-lang]').forEach(element => {
+        element.addEventListener('click', function(e) {
             e.preventDefault();
-            const lang = this.dataset.lang;
-            changeLanguage(lang);
+            changeLanguage(this.dataset.lang);
         });
+    });
+
+    // Inisialisasi bahasa
+    const currentLanguage = localStorage.getItem('selectedLang') || 'en';
+    changeLanguage(currentLanguage).then(() => {
+        setInterval(updateDateTime, 1000);
     });
 });
 
 const dateElement = document.querySelector('.date-message');
 const timeElement = document.querySelector('.time-message');
-let currentLanguage = localStorage.getItem('selectedLang') || 'en';
 let currentLang = {}; // Menyimpan teks terjemahan dari JSON
 
 const languageOptions = {
