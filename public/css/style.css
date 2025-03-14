@@ -421,3 +421,15 @@ footer h5, footer p, footer li {
 .cn-close-icon:before {
     content: "×"; /* Simbol "X" untuk tombol close */
 }
+
+iframe.map-frame {
+    border: 0;
+}
+
+svg.custom-svg {
+    display: block;
+}
+
+#cookie-notice {
+    background-color: rgba(50, 50, 58, 1);
+}
