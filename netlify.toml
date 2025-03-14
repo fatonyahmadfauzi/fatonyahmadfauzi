@@ -24,7 +24,7 @@ status = 301
   [headers.values]
     Content-Security-Policy = '''
       default-src 'none'; 
-      script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com;
+      script-src 'self' 'strict-dynamic' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com;
       style-src 'self' https://cdn.jsdelivr.net; 
       img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id data:; 
       media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; 
