@@ -330,7 +330,7 @@ body.dark-mode .project-box {
 
 footer {
     padding: 3rem 0; /* Increased padding to make the footer taller */
-    color: white;
+    color: #222;
     text-align: center;
     min-height: 300px; /* Adjusted minimum height for a longer footer */
 }
