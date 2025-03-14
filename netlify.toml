@@ -33,10 +33,11 @@
     '''
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+    Referrer-Policy = "no-referrer-when-downgrade"
     Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     X-Permitted-Cross-Domain-Policies = "none"
     Expect-CT = "max-age=86400, enforce"
     Cross-Origin-Embedder-Policy = "require-corp"
+    Cross-Origin-Resource-Policy = "cross-origin"
     Cross-Origin-Opener-Policy = "same-origin"

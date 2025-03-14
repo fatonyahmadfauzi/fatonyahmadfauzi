@@ -142,10 +142,10 @@
 ============ HERO SECTION - VIDEO ==================================================================================================================================================================== 
 ================================================================================================================================================================================================== -->
     <section class="video-hero d-flex align-items-center justify-content-center text-center section-gap position-relative">
-        <video id="backgroundVideo" autoplay muted loop playsinline loading="lazy">
+        <video id="backgroundVideo" autoplay muted loop playsinline loading="lazy" referrerpolicy="no-referrer">
             <source src="https://og-media-worker.fatonyahmadfauzi.workers.dev/video" type="video/mp4">
             Your browser does not support video.
-        </video>
+        </video>        
         <div class="video-overlay position-absolute w-100 h-100"></div>
         <div class="social-handle text-white">
             @fatonyahmadfauzi
@@ -228,6 +228,8 @@
                             class="map-frame"
                             allowfullscreen="" 
                             loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            sandbox="allow-scripts allow-same-origin allow-presentation"
                             title="Google Map showing Cikahuripan, Kabupaten Bogor, Jawa Barat">
                         </iframe>
                     </div>
