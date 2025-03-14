@@ -22,8 +22,8 @@
       script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com; 
       style-src 'self' https://cdn.jsdelivr.net; 
       img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id data:; 
-      media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; 
-      frame-src 'self' https://www.googletagmanager.com https://www.google.com https://maps.googleapis.com https://td.doubleclick.net; 
+      media-src 'self' https://example.com; 
+      frame-src 'self' https://www.google.com https://maps.googleapis.com https://td.doubleclick.net https://www.googletagmanager.com; 
       connect-src 'self' https://analytics.google.com https://stats.g.doubleclick.net; 
       font-src 'self' https://cdn.jsdelivr.net; 
       object-src 'none'; 
@@ -38,7 +38,7 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     X-Permitted-Cross-Domain-Policies = "none"
     Expect-CT = "max-age=86400, enforce"
-    Cross-Origin-Embedder-Policy = "require-corp"
+    Cross-Origin-Embedder-Policy = "credentialless"
     Cross-Origin-Resource-Policy = "cross-origin"
     Cross-Origin-Opener-Policy = "same-origin"
 
