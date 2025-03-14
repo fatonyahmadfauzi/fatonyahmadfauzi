@@ -24,19 +24,15 @@ status = 301
   [headers.values]
     Content-Security-Policy = '''
       default-src 'self'; 
-      script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com; 
-      style-src 'self' https://cdn.jsdelivr.net; 
+      script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com 'unsafe-inline'; 
+      style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
       img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id data:; 
       media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; 
       frame-src 'self' https://www.googletagmanager.com https://www.google.com https://maps.googleapis.com https://td.doubleclick.net; 
       connect-src 'self' https://www.google-analytics.com https://og-media-worker.fatonyahmadfauzi.workers.dev https://faa-form-backend-production.up.railway.app https://faa-form-backend.vercel.app https://analytics.google.com https://stats.g.doubleclick.net; 
-      font-src 'self' https://cdn.jsdelivr.net; 
-      object-src 'none'; 
-      base-uri 'self'; 
-      form-action 'self'; 
-      frame-ancestors 'none';
+      font-src 'self' https://cdn.jsdelivr.net;
     '''
-    X-Frame-Options = "DENY"
+    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
