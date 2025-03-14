@@ -84,6 +84,11 @@ header.scrolled {
     align-items: center; /* Ensure all items in the navbar are vertically centered */
 }
 
+.navbar-brand {
+    font-weight: bold;
+    color: white;
+}
+
 .navbar-nav .nav-link,
 .navbar-brand,
 #darkModeToggle {
