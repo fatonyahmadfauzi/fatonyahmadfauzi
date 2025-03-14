@@ -13,15 +13,6 @@ body.light-mode #menu a {
     color: #000; /* Link color in light mode */
 }
 
-body.light-mode footer {
-    background-color: #f8f9fa; /* Footer background in light mode */
-    color: #000; /* Footer text color in light mode */
-}
-
-body.light-mode footer a {
-    color: #007bff; /* Set footer links color to blue in light mode */
-}
-
 /* Styles for dark mode */
 body.dark-mode {
     background-color: #111;
