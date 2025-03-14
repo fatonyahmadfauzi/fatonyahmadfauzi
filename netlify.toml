@@ -19,7 +19,7 @@
   [headers.values]
     Content-Security-Policy = '''
       default-src 'none'; 
-      script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com;
+      script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com; 
       style-src 'self' https://cdn.jsdelivr.net; 
       img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id data:; 
       media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; 
@@ -41,3 +41,23 @@
     Cross-Origin-Embedder-Policy = "require-corp"
     Cross-Origin-Resource-Policy = "cross-origin"
     Cross-Origin-Opener-Policy = "same-origin"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
