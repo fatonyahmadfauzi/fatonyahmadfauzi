@@ -433,3 +433,8 @@ svg.custom-svg {
 #cookie-notice {
     background-color: rgba(50, 50, 58, 1);
 }
+
+.hidden-frame {
+    display: none;
+    visibility: hidden;
+}
