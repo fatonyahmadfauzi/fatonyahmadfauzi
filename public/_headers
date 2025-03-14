@@ -5,14 +5,3 @@ https://fatonyahmadfauzi.netlify.app/* https://fatonyahmadfauzi.me/:splat 301!
 
 /robots.txt
   Access-Control-Allow-Origin: *
-  
-/*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com 'unsafe-inline'; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id data:; media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; frame-src 'self' https://www.googletagmanager.com https://www.google.com https://maps.googleapis.com https://td.doubleclick.net; connect-src 'self' https://www.google-analytics.com https://og-media-worker.fatonyahmadfauzi.workers.dev https://faa-form-backend-production.up.railway.app https://faa-form-backend.vercel.app https://analytics.google.com https://stats.g.doubleclick.net; font-src 'self' https://cdn.jsdelivr.net;
-  X-Frame-Options: SAMEORIGIN
-  X-Content-Type-Options: nosniff
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=()
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
-  X-Permitted-Cross-Domain-Policies: none
-  Expect-CT: max-age=86400, enforce

@@ -91,10 +91,14 @@ function toggleTheme() {
 // Function to change the background video based on the current theme
 function changeBackgroundVideo(theme) {
     const video = document.getElementById("backgroundVideo");
-    if (theme === "dark") {
-        video.src = "assets/bg-dark.mp4";  // Dark mode video
+    if (video) {
+        if (theme === "dark") {
+            video.src = "assets/bg-dark.mp4";  // Dark mode video
+        } else {
+            video.src = "assets/bg-light.mp4";  // Light mode video
+        }
     } else {
-        video.src = "assets/bg-light.mp4";  // Light mode video
+        console.warn("Background video element not found");
     }
 }
 
