@@ -3,6 +3,22 @@
   publish = "public"
 
 [[redirects]]
+  from = "https://fatonyahmadfauzi.netlify.app/*"
+  to = "https://fatonyahmadfauzi.me/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+
+[[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200

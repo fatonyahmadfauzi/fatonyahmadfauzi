@@ -1,7 +1,0 @@
-https://fatonyahmadfauzi.netlify.app/* https://fatonyahmadfauzi.me/:splat 301!
-
-/sitemap.xml
-  Content-Type: application/xml
-
-/robots.txt
-  Access-Control-Allow-Origin: *
