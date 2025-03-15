@@ -84,22 +84,6 @@ header.scrolled {
     align-items: center; /* Ensure all items in the navbar are vertically centered */
 }
 
-a.navbar-brand {
-    font-weight: bold;
-    color: white !important; /* Warna teks putih */
-    text-decoration: none !important; /* Hilangkan garis bawah */
-    background: none !important; /* Hilangkan latar belakang */
-}
-
-a.navbar-brand:hover {
-    color: white !important; /* Tetap putih saat hover */
-    background: none !important; /* Tidak ada perubahan latar belakang */
-}
-
-a.navbar-brand::before {
-    content: none !important; /* Hilangkan pseudo-element */
-}
-
 .navbar-nav .nav-link,
 .navbar-brand,
 #darkModeToggle {
