@@ -84,9 +84,9 @@ header.scrolled {
     align-items: center; /* Ensure all items in the navbar are vertically centered */
 }
 
-.navbar-brand {
+.navbar-brand .a {
     font-weight: bold;
-    color: white;
+    color: white !important;
     text-decoration-color: white !important;
 }
 
