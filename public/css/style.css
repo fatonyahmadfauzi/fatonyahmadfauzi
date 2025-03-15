@@ -443,3 +443,26 @@ svg.custom-svg {
     display: none;
     visibility: hidden;
 }
+
+.map-fallback {
+    display: none;
+}
+
+.map-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#map-fallback {
+    background: #f8f9fa url('placeholder-map.jpg') center/cover;
+}
+
+#map-fallback a {
+    background: rgba(255,255,255,0.9);
+    padding: 8px 16px;
+    border-radius: 24px;
+    text-decoration: none;
+    color: #1a73e8;
+    border: 1px solid #dadce0;
+}

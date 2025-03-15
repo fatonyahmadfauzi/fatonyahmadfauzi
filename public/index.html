@@ -219,18 +219,34 @@
                 </div>
                 <div class="col-md-6">
                     <div class="map-responsive">
-                        <h2 class="mb-4" id="myLocationText">My Location</h2>
-                        <p id="locationText">I am in Cikahuripan, Bogor Regency, West Java. Here is my location that you can view on Google Maps:</p>
-                        <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15989.34291409018!2d106.849561!3d-6.427747!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6997c3b53e2c29%3A0x76f054d37b6b4fa2!2sCikahuripan%2C%20Kabupaten%20Bogor%2C%20Jawa%20Barat!5e0!3m2!1sen!2sid!4v1672638232932!5m2!1sen!2sid"
-                        width="100%" 
-                        height="265" 
-                        allowfullscreen 
-                        loading="lazy" 
-                        sandbox="allow-scripts allow-same-origin allow-presentation"
-                        referrerpolicy="no-referrer"
-                        title="Google Map showing Cikahuripan, Kabupaten Bogor, Jawa Barat">
-                    </iframe>                                                     
+                        <h2 class="mb-4" id="myLocationText">Lokasi Saya</h2>
+                        <p id="locationText">Saya berada di Cikahuripan, Kabupaten Bogor, Jawa Barat. Berikut lokasi yang bisa dilihat di Google Maps:</p>
+                        
+                        <!-- Iframe Google Maps tanpa API Key -->
+                        <div class="position-relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                            <iframe 
+                                src="https://cloudflare-proxy.fatonyahmadfauzi.workers.dev/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fembed%3Fpb%3D%211m14%211m8%211m3%211d15989.34291409018%212d106.849561%213d-6.427747%213m2%211i1024%212i768%214f13.1%213m3%211m2%211s0x2e6997c3b53e2c29%253A0x76f054d37b6b4fa2%212sCikahuripan%252C%2520Kabupaten%2520Bogor%252C%2520Jawa%2520Barat%215e0%213m2%211sen%212sid%214v1672638232932%215m2%211sen%212sid"
+                                width="100%"
+                                height="100%"
+                                allowfullscreen
+                                loading="lazy"
+                                sandbox="allow-scripts allow-same-origin"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                crossorigin="anonymous"
+                                aria-label="Peta Interaktif Cikahuripan"
+                                title="Peta Lokasi Cikahuripan"
+                                data-map-embed
+                            ></iframe>
+                            
+                            <!-- Fallback untuk browser lama/blokir CSP -->
+                            <div id="map-fallback" class="map-fallback position-absolute top-0 start-0 w-100 h-100 bg-light d-flex align-items-center justify-content-center text-center">
+                                <p class="mb-0">
+                                    <a href="https://maps.google.com/maps?q=Cikahuripan,Bogor" target="_blank" rel="noopener">
+                                        Buka di Google Maps
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
