@@ -29,7 +29,7 @@
       object-src 'none'; 
       base-uri 'self'; 
       form-action 'self'; 
-      frame-ancestors 'self'; # Mengubah dari 'none' ke 'self' untuk iframe
+      frame-ancestors 'self';
     '''
     X-Frame-Options = "SAMEORIGIN" # Mengubah dari DENY ke SAMEORIGIN
     X-Content-Type-Options = "nosniff"
