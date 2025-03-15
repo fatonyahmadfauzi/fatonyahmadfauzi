@@ -38,7 +38,7 @@
       script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com https://*.google.com https://*.gstatic.com; 
       style-src 'self' https://cdn.jsdelivr.net; 
       img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id https://*.google.com data:; 
-      media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev; 
+      media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; 
       frame-src 'self' https://www.google.com https://maps.googleapis.com https://td.doubleclick.net https://www.googletagmanager.com; 
       connect-src 'self' https://analytics.google.com https://stats.g.doubleclick.net https://faa-form-backend-production.up.railway.app; 
       font-src 'self' https://cdn.jsdelivr.net; 
