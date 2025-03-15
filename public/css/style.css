@@ -87,6 +87,16 @@ header.scrolled {
 .navbar-brand {
     font-weight: bold;
     color: white;
+    position: relative; /* Menyesuaikan untuk efek lainnya */
+}
+
+.navbar-brand::before {
+    content: none; /* Hapus pseudo-element hover */
+}
+
+.navbar-brand:hover {
+    color: white; /* Tetap putih saat hover */
+    background: none; /* Pastikan tidak ada latar belakang saat hover */
 }
 
 .navbar-nav .nav-link,
