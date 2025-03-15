@@ -86,9 +86,13 @@ header.scrolled {
 
 .navbar-brand {
     font-weight: bold;
-    color: white; /* Warna default */
-    text-decoration: none; /* Hilangkan garis bawah jika ada */
-    background: none !important; /* Pastikan tidak ada latar belakang */
+    color: white !important; /* Pastikan tetap putih */
+    text-decoration: none !important; /* Hilangkan garis bawah jika ada */
+    background: none !important; /* Hilangkan latar belakang */
+}
+
+.navbar-brand::before {
+    content: none !important; /* Hapus pseudo-element */
 }
 
 .navbar-nav .nav-link,
