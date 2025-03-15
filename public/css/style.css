@@ -449,7 +449,9 @@ svg.custom-svg {
 }
 
 .map-responsive {
+    border-radius: none;
     overflow: hidden;
+    box-shadow: none;
 }
 
 #map-fallback {
