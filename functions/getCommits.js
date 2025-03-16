@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { translateMyMemory } = require("./translate");
+const { translate } = require("./translate");
 
 exports.handler = async function (event, context) {
     const githubToken = process.env.GITHUB_TOKEN;
@@ -25,7 +25,7 @@ exports.handler = async function (event, context) {
                 console.log("Pesan asli:", message);
 
                 // Terjemahkan pesan commit
-                const translatedMessage = await translateMyMemory(message, "en", targetLang);
+                const translatedMessage = await translate(message, "en", targetLang);
 
                 // Log hasil terjemahan
                 console.log(`Terjemahan (${targetLang}):`, translatedMessage);
