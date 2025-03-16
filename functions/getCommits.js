@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { translateWithCache } = require("./translate");
+const { translate } = require("./translate");
 
 exports.handler = async function (event, context) {
     const githubToken = process.env.GITHUB_TOKEN;
@@ -12,22 +12,24 @@ exports.handler = async function (event, context) {
     };
 
     try {
+        // Fetch commits from GitHub API
         const response = await fetch(githubApiUrl, { headers });
         if (!response.ok) throw new Error("Gagal mengambil data commit");
 
         const commits = await response.json();
 
+        // Translate commit messages
         const translatedCommits = await Promise.all(
             commits.slice(0, 5).map(async (commit) => {
                 const message = commit.commit.message;
 
-                // Log untuk debugging
+                // Log for debugging
                 console.log("Pesan asli:", message);
 
-                // Terjemahkan pesan commit
-                const translatedMessage = await translateWithCache(message, "en", targetLang);
+                // Translate commit message
+                const translatedMessage = await translate(message, "en", targetLang);
 
-                // Log hasil terjemahan
+                // Log translation
                 console.log(`Terjemahan (${targetLang}):`, translatedMessage);
 
                 return {
