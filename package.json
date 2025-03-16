@@ -4,14 +4,14 @@
   "description": "Fatony Ahmad Fauzi - Portofolio, proyek, dan informasi kontak.",
   "main": "index.html",
   "scripts": {
-      "start": "netlify dev",
-      "deploy": "netlify deploy"
+    "start": "netlify dev",
+    "deploy": "netlify deploy"
   },
   "dependencies": {
-      "node-fetch": "^2.6.7"
+    "node-fetch": "^2.7.0",
+    "redis": "^4.7.0"
   },
-  "devDependencies": {},
-    "engines": {
+  "engines": {
     "node": ">=22.0.0"
-    }
+  }
 }
