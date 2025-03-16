@@ -8,3 +8,6 @@ package-lock.json
 
 # **5. Editor & OS Files** (File lokal yang tidak perlu di commit)
 .vscode/
+
+# **6. Variabel Lingkungan** (Token atau API Key yang bersifat rahasia)
+.env
