@@ -25,6 +25,11 @@ const HF_API_KEY = process.env.HF_API_KEY;
 const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY;
 
 async function translate(text, sourceLang, targetLang) {
+    if (sourceLang === targetLang) {
+        console.warn("Bahasa sumber dan target sama. Tidak perlu menerjemahkan.");
+        return text;
+    }
+
     const redisKey = `${sourceLang}:${targetLang}:${text}`;
     const cachedTranslation = await client.get(redisKey);
 
@@ -45,9 +50,11 @@ async function translate(text, sourceLang, targetLang) {
             translation = await translateMyMemory(text, sourceLang, targetLang);
         }
 
-        if (translation) {
+        if (translation && translation !== text && !/PLEASE SELECT TWO DISTINCT LANGUAGES/i.test(translation)) {
             await client.set(redisKey, translation, { EX: 3600 }); // Cache 1 jam
             console.log(`✅ Terjemahan disimpan ke Redis: ${redisKey}`);
+        } else {
+            console.warn("❌ Terjemahan tidak valid. Tidak disimpan ke Redis.");
         }
     } catch (error) {
         console.error("❌ Error saat menerjemahkan:", error.message);
