@@ -1,96 +1,98 @@
 const fetch = require("node-fetch");
 
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz72hUk_ZHt5G8Uxjusz5PogNY9YsYmJ2qOcQLesvspad9PDo9kQX4I_X8SF3zGsq7k/exec";
-const HF_API_KEY = process.env.HF_API_KEY;
 const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY;
+const HF_API_KEY = process.env.HF_API_KEY; // Masukkan API Key Hugging Face
 
+const LANGUAGE_MAP = {
+    de: "de", en: "en", es: "es", fr: "fr", id: "id",
+    jp: "ja", kr: "ko", pl: "pl", pt: "pt", ru: "ru", zh: "zh",
+};
+
+// Fungsi utama untuk memilih API berdasarkan bahasa
 async function translate(text, sourceLang, targetLang) {
+    sourceLang = LANGUAGE_MAP[sourceLang] || "en";
+    targetLang = LANGUAGE_MAP[targetLang] || "en";
+
     if (sourceLang === targetLang) {
         console.warn("Bahasa sumber dan target sama. Tidak perlu menerjemahkan.");
         return text;
     }
 
-    console.log(`📥 Mengirim permintaan terjemahan: ${text} dari ${sourceLang} ke ${targetLang}`);
-    let translation;
-
-    try {
-        if (sourceLang === "en" && targetLang === "pl") {
-            translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
-        } else if (sourceLang === "en" && targetLang === "ru") {
-            translation = await translateHuggingFace(text, targetLang);
-        } else {
-            translation = await translateMyMemory(text, sourceLang, targetLang);
-        }
-
-        if (translation && translation !== text && !/PLEASE SELECT TWO DISTINCT LANGUAGES/i.test(translation)) {
-            console.log("✅ Terjemahan berhasil:", translation);
-        } else {
-            console.warn("❌ Terjemahan tidak valid.");
-        }
-    } catch (error) {
-        console.error("❌ Error saat menerjemahkan:", error.message);
+    // Gunakan Google Translate API untuk en → pl
+    if (sourceLang === "en" && targetLang === "pl") {
+        return translateGoogle(text);
     }
 
-    return translation || text;
+    // Gunakan Hugging Face API untuk en → ru
+    if (sourceLang === "en" && targetLang === "ru") {
+        return translateHuggingFace(text, targetLang);
+    }
+
+    // Gunakan MyMemory API untuk bahasa lain
+    return translateMyMemory(text, sourceLang, targetLang);
 }
 
-async function translateGoogleAppsScript(text, sourceLang, targetLang) {
+// Fungsi untuk menerjemahkan menggunakan Google Translate API (Gratis)
+async function translateGoogle(text) {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pl&dt=t&q=${encodeURIComponent(text)}`;
+
     try {
-        console.log("🌐 Menggunakan Google Apps Script");
-        const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?text=${encodeURIComponent(text)}&source=${sourceLang}&target=${targetLang}`);
+        console.log(`Menggunakan Google Translate API untuk en → pl`);
+        const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-        const translatedText = await response.text();
-        console.log("✅ Respons Google Apps Script:", translatedText);
-        return translatedText.trim();
+        const data = await response.json();
+        return data[0][0][0] || text;
     } catch (error) {
-        console.error("❌ Error Google Apps Script:", error.message);
-        return null;
+        console.error("Error saat menerjemahkan dengan Google Translate:", error.message);
+        return text;
     }
 }
 
-async function translateHuggingFace(text, targetLang) {
-    const model = "Helsinki-NLP/opus-mt-en-ru";
+// Fungsi untuk menerjemahkan menggunakan MyMemory API
+async function translateMyMemory(text, sourceLang, targetLang) {
+    const keyParam = MYMEMORY_API_KEY ? `&key=${MYMEMORY_API_KEY}` : "";
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}&de=fatonyahmadfauzi@gmail.com`;
 
     try {
-        console.log(`🌐 Menggunakan Hugging Face API (en → ${targetLang})`);
+        console.log(`Menggunakan MyMemory API: ${url}`);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+        const data = await response.json();
+        console.log("Respons MyMemory API:", JSON.stringify(data, null, 2));
+
+        return data.responseData?.translatedText || text;
+    } catch (error) {
+        console.error("Error saat menerjemahkan dengan MyMemory:", error.message);
+        return text;
+    }
+}
+
+// Fungsi untuk menerjemahkan menggunakan Hugging Face API (en → ru)
+async function translateHuggingFace(text, targetLang) {
+    const model = "Helsinki-NLP/opus-mt-en-ru"; // Model en → ru
+
+    try {
+        console.log(`Menggunakan Hugging Face API (${model}) untuk en → ${targetLang}`);
         const response = await fetch(`https://api-inference.huggingface.co/models/${model}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${HF_API_KEY}`,
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ inputs: text }),
+            body: JSON.stringify({ inputs: text })
         });
 
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
-        const translation = data[0]?.translation_text || null;
-        console.log("✅ Respons Hugging Face:", translation);
-        return translation;
+        console.log("Respons Hugging Face API:", JSON.stringify(data, null, 2));
+
+        return data[0]?.translation_text || text;
     } catch (error) {
-        console.error("❌ Error Hugging Face:", error.message);
-        return null;
-    }
-}
-
-async function translateMyMemory(text, sourceLang, targetLang) {
-    const keyParam = MYMEMORY_API_KEY ? `&key=${MYMEMORY_API_KEY}` : "";
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}${keyParam}`;
-
-    try {
-        console.log("🌐 Menggunakan MyMemory API");
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-        const data = await response.json();
-        const translation = data.responseData?.translatedText || null;
-        console.log("✅ Respons MyMemory:", translation);
-        return translation;
-    } catch (error) {
-        console.error("❌ Error MyMemory:", error.message);
-        return null;
+        console.error("Error saat menerjemahkan dengan Hugging Face:", error.message);
+        return text;
     }
 }
 
