@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { translate, client } = require("./translate");
+const { translate } = require("./translate");
 
 exports.handler = async function (event, context) {
     const githubToken = process.env.GITHUB_TOKEN;
@@ -18,35 +18,19 @@ exports.handler = async function (event, context) {
 
         const commits = await response.json();
 
-        // Ambil commit pertama dari daftar
-        const firstCommit = commits[0];
-        const message = firstCommit.commit.message;
-
-        // Log for debugging
-        console.log("Pesan asli commit pertama:", message);
-
-        // Cek apakah sudah ada di Redis
-        const redisKey = `commit:${targetLang}:first-message`;
-        let translatedMessage = await client.get(redisKey);
-
-        if (!translatedMessage) {
-            // Jika belum ada di Redis, terjemahkan dan simpan hasilnya
-            translatedMessage = await translate(message, "en", targetLang);
-            console.log(`Terjemahan commit pertama (${targetLang}):`, translatedMessage);
-
-            await client.set(redisKey, translatedMessage, { EX: 3600 }); // Cache 1 jam
-            console.log(`✅ Terjemahan commit pertama disimpan ke Redis dengan key: ${redisKey}`);
-        } else {
-            console.log(`♻️ Terjemahan commit pertama ditemukan di Redis dengan key: ${redisKey}`);
-        }
-
-        // Translate commit messages (tanpa menyimpan ke Redis)
+        // Translate commit messages
         const translatedCommits = await Promise.all(
             commits.slice(0, 5).map(async (commit) => {
                 const message = commit.commit.message;
 
+                // Log for debugging
+                console.log("Pesan asli:", message);
+
                 // Translate commit message
                 const translatedMessage = await translate(message, "en", targetLang);
+
+                // Log translation
+                console.log(`Terjemahan (${targetLang}):`, translatedMessage);
 
                 return {
                     author: commit.commit.author.name,
@@ -56,9 +40,6 @@ exports.handler = async function (event, context) {
                 };
             })
         );
-
-        // Tambahkan hasil Redis ke response
-        translatedCommits[0].cachedTranslatedMessage = translatedMessage;
 
         return {
             statusCode: 200,

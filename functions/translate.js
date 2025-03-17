@@ -1,24 +1,4 @@
 const fetch = require("node-fetch");
-const redis = require("redis");
-
-// Konfigurasi koneksi Redis
-const client = redis.createClient({
-    socket: {
-        host: process.env.REDIS_HOST,
-        port: process.env.REDIS_PORT,
-    },
-    password: process.env.REDIS_PASSWORD,
-});
-
-// Menghubungkan ke Redis
-(async () => {
-    try {
-        await client.connect();
-        console.log("✅ Redis connected successfully");
-    } catch (error) {
-        console.error("❌ Redis connection error:", error.message);
-    }
-})();
 
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz72hUk_ZHt5G8Uxjusz5PogNY9YsYmJ2qOcQLesvspad9PDo9kQX4I_X8SF3zGsq7k/exec";
 const HF_API_KEY = process.env.HF_API_KEY;
@@ -28,14 +8,6 @@ async function translate(text, sourceLang, targetLang) {
     if (sourceLang === targetLang) {
         console.warn("Bahasa sumber dan target sama. Tidak perlu menerjemahkan.");
         return text;
-    }
-
-    const redisKey = `${sourceLang}:${targetLang}:${text}`;
-    const cachedTranslation = await client.get(redisKey);
-
-    if (cachedTranslation) {
-        console.log(`♻️ Cache ditemukan di Redis: ${redisKey}`);
-        return cachedTranslation;
     }
 
     console.log(`📥 Mengirim permintaan terjemahan: ${text} dari ${sourceLang} ke ${targetLang}`);
@@ -51,10 +23,9 @@ async function translate(text, sourceLang, targetLang) {
         }
 
         if (translation && translation !== text && !/PLEASE SELECT TWO DISTINCT LANGUAGES/i.test(translation)) {
-            await client.set(redisKey, translation, { EX: 3600 }); // Cache 1 jam
-            console.log(`✅ Terjemahan disimpan ke Redis: ${redisKey}`);
+            console.log("✅ Terjemahan berhasil:", translation);
         } else {
-            console.warn("❌ Terjemahan tidak valid. Tidak disimpan ke Redis.");
+            console.warn("❌ Terjemahan tidak valid.");
         }
     } catch (error) {
         console.error("❌ Error saat menerjemahkan:", error.message);
@@ -123,4 +94,4 @@ async function translateMyMemory(text, sourceLang, targetLang) {
     }
 }
 
-module.exports = { translate, client };
+module.exports = { translate };
