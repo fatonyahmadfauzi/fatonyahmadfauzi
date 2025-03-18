@@ -1,19 +1,8 @@
 const fetch = require("node-fetch");
 const { translate } = require("./translate");
-const redis = require("redis");
 
 const HF_LANG_DETECT_MODEL = "papluca/xlm-roberta-base-language-detection";
 const HF_API_KEY = process.env.HF_API_KEY;
-
-const client = redis.createClient({
-    socket: {
-        host: process.env.REDIS_HOST,
-        port: process.env.REDIS_PORT,
-    },
-    password: process.env.REDIS_PASSWORD
-});
-
-client.connect().catch(console.error);
 
 async function detectLanguage(text) {
     const response = await fetch(`https://api-inference.huggingface.co/models/${HF_LANG_DETECT_MODEL}`, {
@@ -45,32 +34,11 @@ exports.handler = async function (event, context) {
 
         const commits = await response.json();
 
-        // Check Redis Cache for first commit
-        const firstCommit = commits[0]?.commit.message;
-        const cacheKey = `commit:${firstCommit}:${targetLang}`;
-        let firstCommitTranslation = await client.get(cacheKey);
-
-        if (!firstCommitTranslation) {
-            const detectedLang = await detectLanguage(firstCommit);
-            firstCommitTranslation = await translate(firstCommit, detectedLang, targetLang);
-            await client.set(cacheKey, firstCommitTranslation);
-        }
-
         // Translate commit messages with language detection
         const translatedCommits = await Promise.all(
-            commits.slice(0, 5).map(async (commit, index) => {
+            commits.slice(0, 5).map(async (commit) => {
                 const message = commit.commit.message;
                 console.log("Pesan asli:", message);
-
-                if (index === 0) {
-                    return {
-                        author: commit.commit.author.name,
-                        originalMessage: message,
-                        detectedLanguage: await detectLanguage(message),
-                        translatedMessage: firstCommitTranslation,
-                        date: commit.commit.author.date,
-                    };
-                }
 
                 const detectedLang = await detectLanguage(message);
                 console.log(`Detected language: ${detectedLang}`);
