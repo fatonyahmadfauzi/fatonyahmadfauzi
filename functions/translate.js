@@ -18,11 +18,14 @@ async function translate(text, sourceLang, targetLang) {
             translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
         } else if (sourceLang === "en" && targetLang === "ru") {
             translation = await translateHuggingFace(text, targetLang);
-        } else if (targetLang === "ja" || targetLang === "ko") {
-            // Gunakan Google Apps Script untuk bahasa Jepang & Korea
-            translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
         } else {
             translation = await translateMyMemory(text, sourceLang, targetLang);
+
+            // Jika MyMemory gagal, alihkan ke Google Apps Script
+            if (!translation || translation.toLowerCase() === text.toLowerCase()) {
+                console.warn(`⚠️ MyMemory gagal. Menggunakan Google Apps Script untuk "${targetLang}".`);
+                translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
+            }
         }
 
         if (translation && translation !== text) {
@@ -79,8 +82,12 @@ async function translateHuggingFace(text, targetLang) {
 }
 
 async function translateMyMemory(text, sourceLang, targetLang) {
-    const keyParam = MYMEMORY_API_KEY ? `&key=${MYMEMORY_API_KEY}` : "";
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}${keyParam}`;
+    if (!MYMEMORY_API_KEY) {
+        console.warn("⚠️ MyMemory API Key tidak tersedia. Mengabaikan permintaan.");
+        return null;
+    }
+
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}&key=${MYMEMORY_API_KEY}`;
 
     try {
         console.log("🌐 Menggunakan MyMemory API");
@@ -89,10 +96,9 @@ async function translateMyMemory(text, sourceLang, targetLang) {
 
         const data = await response.json();
         const translation = data.responseData?.translatedText || null;
-        
-        // Pastikan hasil terjemahan tidak sama dengan input
+
         if (!translation || translation.toLowerCase() === text.toLowerCase()) {
-            console.warn(`⚠️ MyMemory mungkin gagal menerjemahkan "${text}" ke ${targetLang}.`);
+            console.warn(`⚠️ MyMemory gagal menerjemahkan "${text}" ke ${targetLang}.`);
             return null;
         }
 
