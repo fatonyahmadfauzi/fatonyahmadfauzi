@@ -14,18 +14,18 @@ async function translate(text, sourceLang, targetLang) {
     let translation;
 
     try {
-        if (sourceLang === "en" && targetLang === "pl") {
-            translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
-        } else if (sourceLang === "en" && targetLang === "ru") {
+        if (sourceLang === "en" && targetLang === "ru") {
+            // 🇬🇧 → 🇷🇺 Gunakan Hugging Face
             translation = await translateHuggingFace(text, targetLang);
-        } else {
+        } else if (sourceLang === "en" && targetLang === "pl") {
+            // 🇬🇧 → 🇵🇱 Gunakan Google Apps Script
+            translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
+        } else if (["id", "zh", "ja", "de", "fr", "es", "pt", "ko"].includes(targetLang)) {
+            // 🇬🇧 → 🇮🇩 🇨🇳 🇯🇵 🇩🇪 🇫🇷 🇪🇸 🇵🇹 🇰🇷 Gunakan MyMemory
             translation = await translateMyMemory(text, sourceLang, targetLang);
-
-            // Jika MyMemory gagal, alihkan ke Google Apps Script
-            if (!translation || translation.toLowerCase() === text.toLowerCase()) {
-                console.warn(`⚠️ MyMemory gagal. Menggunakan Google Apps Script untuk "${targetLang}".`);
-                translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
-            }
+        } else {
+            console.warn(`⚠️ Bahasa ${targetLang} tidak didukung.`);
+            return text;
         }
 
         if (translation && translation !== text) {
@@ -42,7 +42,7 @@ async function translate(text, sourceLang, targetLang) {
 
 async function translateGoogleAppsScript(text, sourceLang, targetLang) {
     try {
-        console.log("🌐 Menggunakan Google Apps Script");
+        console.log("🌐 Menggunakan Google Apps Script (en → pl)");
         const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?text=${encodeURIComponent(text)}&source=${sourceLang}&target=${targetLang}`);
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
@@ -59,7 +59,7 @@ async function translateHuggingFace(text, targetLang) {
     const model = "Helsinki-NLP/opus-mt-en-ru";
 
     try {
-        console.log(`🌐 Menggunakan Hugging Face API (en → ${targetLang})`);
+        console.log("🌐 Menggunakan Hugging Face API (en → ru)");
         const response = await fetch(`https://api-inference.huggingface.co/models/${model}`, {
             method: "POST",
             headers: {
