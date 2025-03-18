@@ -11,8 +11,16 @@ async function translate(text, sourceLang, targetLang) {
     }
 
     console.log(`📥 Teks asli untuk terjemahan: ${text}`);
-    let translation;
 
+    // Pastikan kode bahasa sesuai format MyMemory
+    const langMapping = {
+        "jp": "ja",
+        "kr": "ko"
+    };
+
+    targetLang = langMapping[targetLang] || targetLang;
+
+    let translation;
     try {
         if (sourceLang === "en" && targetLang === "ru") {
             // 🇬🇧 → 🇷🇺 Gunakan Hugging Face
@@ -90,7 +98,7 @@ async function translateMyMemory(text, sourceLang, targetLang) {
     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}&key=${MYMEMORY_API_KEY}`;
 
     try {
-        console.log("🌐 Menggunakan MyMemory API");
+        console.log(`🌐 Menggunakan MyMemory API (en → ${targetLang})`);
         const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
