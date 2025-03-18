@@ -76,6 +76,10 @@ async function translateHuggingFace(text, targetLang) {
 }
 
 async function translateMyMemory(text, sourceLang, targetLang) {
+    // Koreksi kode bahasa jika pengguna memasukkan "JP" atau "KR"
+    const langMap = { "JP": "JA", "KR": "KO" };
+    targetLang = langMap[targetLang] || targetLang;
+
     const keyParam = MYMEMORY_API_KEY ? `&key=${MYMEMORY_API_KEY}` : "";
     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}${keyParam}`;
 
@@ -85,7 +89,14 @@ async function translateMyMemory(text, sourceLang, targetLang) {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
-        const translation = data.responseData?.translatedText || null;
+        let translation = data.responseData?.translatedText || null;
+
+        // Cek apakah MyMemory mengembalikan bahasa default (biasanya sama dengan input)
+        if (!translation || translation.toLowerCase() === text.toLowerCase()) {
+            console.warn(`⚠️ MyMemory mungkin gagal menerjemahkan "${text}" ke ${targetLang}.`);
+            return null;
+        }
+
         console.log("✅ Respons MyMemory:", translation);
         return translation;
     } catch (error) {
