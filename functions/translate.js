@@ -18,6 +18,9 @@ async function translate(text, sourceLang, targetLang) {
             translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
         } else if (sourceLang === "en" && targetLang === "ru") {
             translation = await translateHuggingFace(text, targetLang);
+        } else if (targetLang === "ja" || targetLang === "ko") {
+            // Gunakan Google Apps Script untuk bahasa Jepang & Korea
+            translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
         } else {
             translation = await translateMyMemory(text, sourceLang, targetLang);
         }
@@ -76,10 +79,6 @@ async function translateHuggingFace(text, targetLang) {
 }
 
 async function translateMyMemory(text, sourceLang, targetLang) {
-    // Koreksi kode bahasa jika pengguna memasukkan "JP" atau "KR"
-    const langMap = { "JP": "JA", "KR": "KO" };
-    targetLang = langMap[targetLang] || targetLang;
-
     const keyParam = MYMEMORY_API_KEY ? `&key=${MYMEMORY_API_KEY}` : "";
     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}${keyParam}`;
 
@@ -89,9 +88,9 @@ async function translateMyMemory(text, sourceLang, targetLang) {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
-        let translation = data.responseData?.translatedText || null;
-
-        // Cek apakah MyMemory mengembalikan bahasa default (biasanya sama dengan input)
+        const translation = data.responseData?.translatedText || null;
+        
+        // Pastikan hasil terjemahan tidak sama dengan input
         if (!translation || translation.toLowerCase() === text.toLowerCase()) {
             console.warn(`⚠️ MyMemory mungkin gagal menerjemahkan "${text}" ke ${targetLang}.`);
             return null;
