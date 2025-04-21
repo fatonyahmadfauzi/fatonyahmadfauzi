@@ -20,7 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify(formData),
                 });
 
-                const data = await response.json();
+                const text = await response.text();
+                    console.log("Raw Response:", text);
+
+                    let data;
+                    try {
+                        data = JSON.parse(text);
+                    } catch (e) {
+                        console.error("Failed to parse JSON:", e);
+                        throw new Error("Invalid JSON from server");
+                    }
                 alert(data.status === "success" 
                     ? "Message sent successfully!" 
                     : "Error: " + data.message);
