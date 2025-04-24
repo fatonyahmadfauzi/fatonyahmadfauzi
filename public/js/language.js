@@ -1,28 +1,7 @@
-// Language handling
-document.addEventListener('DOMContentLoaded', function() {
-    // Event listeners untuk pilihan bahasa
-    document.querySelectorAll('[data-lang]').forEach(element => {
-        element.addEventListener('click', function(e) {
-            e.preventDefault();
-            changeLanguage(this.dataset.lang);
-        });
-    });
-
-    // Inisialisasi bahasa
-    const currentLanguage = localStorage.getItem('selectedLang') || 'en';
-    changeLanguage(currentLanguage).then(() => {
-        setInterval(updateDateTime, 1000);
-    });
-});
-
-const dateElement = document.querySelector('.date-message');
-const timeElement = document.querySelector('.time-message');
-let currentLang = {}; // Menyimpan teks terjemahan dari JSON
-
 const languageOptions = {
     en: { locale: 'en-US', greetings: ["Good Morning", "Good Afternoon", "Good Evening", "Good Night"] },
     id: { locale: 'id-ID', greetings: ["Selamat Pagi", "Selamat Siang", "Selamat Sore", "Selamat Malam"] },
-    pl: { locale: 'pl-PL', greetings: ["Dzień dobry", "Dobry wieczór", "Dobry wieczór", "Dobranoc"] },
+    pl: { locale: 'pl-PL', greetings: ["Dzień dobry", "Dzień dobry", "Dobry wieczór", "Dobranoc"] },
     zh: { locale: 'zh-CN', greetings: ["早上好", "下午好", "晚上好", "晚安"] },
     jp: { locale: 'ja-JP', greetings: ["おはようございます", "こんにちは", "こんばんは", "おやすみなさい"] },
     de: { locale: 'de-DE', greetings: ["Guten Morgen", "Guten Tag", "Guten Abend", "Gute Nacht"] },
@@ -33,10 +12,53 @@ const languageOptions = {
     kr: { locale: 'ko-KR', greetings: ["좋은 아침", "좋은 오후", "좋은 저녁", "잘 자요"] }
 };
 
+// ---- Bagian 1: Deklarasi Variabel ----
+let currentLanguage; // Biarkan kosong dulu
+
+// Fungsi untuk mendapatkan bahasa default berdasarkan region
+function getDefaultLanguage() {
+    const userLocale = navigator.language;
+    // Cocokkan locale lengkap (contoh: 'id-ID')
+    const langEntry = Object.entries(languageOptions).find(([key, value]) => value.locale === userLocale);
+    if (langEntry) return langEntry[0];
+    
+    // Ambil kode bahasa utama (contoh: 'id' dari 'id-ID')
+    const userLangCode = userLocale.split('-')[0];
+    // Cek apakah kode utama tersedia sebagai kunci
+    if (languageOptions[userLangCode]) return userLangCode;
+    
+    // Cari locale yang dimulai dengan kode utama (contoh: 'ko-KR' untuk 'ko')
+    const matchedLang = Object.entries(languageOptions).find(([key, value]) => 
+        value.locale.startsWith(userLangCode + '-')
+    );
+    if (matchedLang) return matchedLang[0];
+    
+    // Default ke Inggris jika tidak ada yang cocok
+    return 'en';
+}
+
+// Fungsi untuk set bahasa default
+function initializeLanguage() {
+    currentLanguage = localStorage.getItem('selectedLang') || getDefaultLanguage();
+}
+
+// ---- Bagian 2: Event Listener ----
+document.addEventListener('DOMContentLoaded', function() {
+    initializeLanguage(); // Isi nilai currentLanguage
+    changeLanguage(currentLanguage).then(() => {
+        setInterval(updateDateTime, 1000);
+    });
+});
+
+const dateElement = document.querySelector('.date-message');
+const timeElement = document.querySelector('.time-message');
+let currentLang = {}; // Menyimpan teks terjemahan dari JSON
+
 // Update waktu dan tanggal
 function updateDateTime() {
     const now = new Date();
-    const { locale, greetings } = languageOptions[currentLanguage];
+    const langConfig = languageOptions[currentLanguage] || languageOptions.en; // ✅ Fallback
+    const { locale, greetings } = langConfig;
     const hour = now.getHours();
     const greetingIndex = hour < 12 ? 0 : hour < 17 ? 1 : hour < 20 ? 2 : 3;
     
@@ -167,9 +189,3 @@ function updateUI() {
     // Update waktu dan tanggal
     updateDateTime();
 }
-
-// Inisialisasi
-window.addEventListener('DOMContentLoaded', async () => {
-    await changeLanguage(currentLanguage);
-    setInterval(updateDateTime, 1000); // Update per detik
-});
