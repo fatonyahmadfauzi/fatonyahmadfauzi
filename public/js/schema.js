@@ -52,9 +52,9 @@ const schemaData = [
         "@type": "VideoObject",
         "name": "Video Hero - Light and Dark Mode",
         "description": "A dynamic hero section video that changes based on the time of day.",
-        "thumbnailUrl": "https://og-media-worker.fatonyahmadfauzi.workers.dev/image",
+        "thumbnailUrl": "https://dynamic-og-media.fatonyahmadfauzi.workers.dev/image",
         "uploadDate": "2025-02-17T12:00:00Z",
-        "contentUrl": "https://og-media-worker.fatonyahmadfauzi.workers.dev/video",
+        "contentUrl": "https://dynamic-og-media.fatonyahmadfauzi.workers.dev/video",
         "embedUrl": "https://fatonyahmadfauzi.me/",
         "duration": "PT1M",
         "author": {
