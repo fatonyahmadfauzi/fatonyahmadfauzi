@@ -50,24 +50,34 @@ exports.handler = async function (event, context) {
         // Translate commit messages with language detection
         const translatedCommits = await Promise.all(
             commits.slice(0, 5).map(async (commit) => {
-                const message = commit.commit.message;
-                console.log("Pesan asli:", message);
-
-                const detectedLang = await detectLanguage(message);
+              const message = commit.commit.message;
+              console.log("Pesan asli:", message);
+          
+              let detectedLang = "en";
+              try {
+                detectedLang = await detectLanguage(message);
                 console.log(`Detected language: ${detectedLang}`);
-
-                const translatedMessage = await translate(message, detectedLang, targetLang);
-                console.log(`Terjemahan (${targetLang}):`, translatedMessage);
-
-                return {
-                    author: commit.commit.author.name,
-                    originalMessage: message,
-                    detectedLanguage: detectedLang,
-                    translatedMessage,
-                    date: commit.commit.author.date,
-                };
+              } catch (err) {
+                console.warn("Gagal deteksi bahasa:", err.message);
+              }
+          
+              let translatedMessage = message;
+              try {
+                const result = await translate(message, detectedLang, targetLang);
+                translatedMessage = result || message;
+              } catch (err) {
+                console.warn("Gagal menerjemahkan:", err.message);
+              }
+          
+              return {
+                author: commit.commit.author.name,
+                originalMessage: message,
+                detectedLanguage: detectedLang,
+                translatedMessage,
+                date: commit.commit.author.date,
+              };
             })
-        );
+        );         
 
         return {
             statusCode: 200,
