@@ -22,17 +22,30 @@ exports.handler = async function (event, context) {
     const targetLang = event.queryStringParameters.lang || "en";
     const githubApiUrl = "https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits";
 
+    if (!githubToken || !HF_API_KEY) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: "Missing API keys" })
+        };
+    }
+
     const headers = {
         Authorization: `Bearer ${githubToken}`,
         Accept: "application/vnd.github.v3+json",
     };
 
     try {
-        // Fetch commits from GitHub API
+        console.log("Fetching commits...");
         const response = await fetch(githubApiUrl, { headers });
-        if (!response.ok) throw new Error("Gagal mengambil data commit");
+        const text = await response.text(); // Ambil isi mentah dulu
 
-        const commits = await response.json();
+        console.log("GitHub API response:", text); // Tampilkan untuk debug
+
+        if (!response.ok) throw new Error("GitHub API error");
+
+        const commits = JSON.parse(text); // Parsing JSON
+
+        if (!Array.isArray(commits)) throw new Error("Invalid commit format");
 
         // Translate commit messages with language detection
         const translatedCommits = await Promise.all(
