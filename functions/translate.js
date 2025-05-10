@@ -10,65 +10,77 @@ async function translate(text, sourceLang, targetLang) {
         return text;
     }
 
-    console.log(`📥 Teks asli untuk terjemahan: ${text}`);
+    console.log(`📥 Terjemahan: ${sourceLang} → ${targetLang}`);
+    console.log(`Teks: ${text.substring(0, 50)}${text.length > 50 ? '...' : ''}`);
 
-    // Pastikan kode bahasa sesuai format MyMemory
+    // Mapping kode bahasa untuk MyMemory
     const langMapping = {
         "jp": "ja",
-        "kr": "ko"
+        "kr": "ko",
+        "zh": "zh-CN",
+        "pt": "pt-PT"
     };
 
+    // Normalisasi kode bahasa untuk sumber dan target
+    sourceLang = langMapping[sourceLang] || sourceLang;
     targetLang = langMapping[targetLang] || targetLang;
 
     let translation;
     try {
-        if (sourceLang === "en" && targetLang === "ru") {
-            // 🇬🇧 → 🇷🇺 Gunakan Hugging Face
-            translation = await translateHuggingFace(text, targetLang);
-        } else if (sourceLang === "en" && targetLang === "pl") {
-            // 🇬🇧 → 🇵🇱 Gunakan Google Apps Script
-            translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
-        } else if (["id", "zh", "ja", "de", "fr", "es", "pt", "ko"].includes(targetLang)) {
-            // 🇬🇧 → 🇮🇩 🇨🇳 🇯🇵 🇩🇪 🇫🇷 🇪🇸 🇵🇹 🇰🇷 Gunakan MyMemory
+        // Prioritaskan MyMemory untuk bahasa Asia dan Eropa
+        if (["zh-CN", "ja", "pt-PT", "id", "de", "fr", "es", "ko"].includes(targetLang)) {
             translation = await translateMyMemory(text, sourceLang, targetLang);
-        } else {
-            console.warn(`⚠️ Bahasa ${targetLang} tidak didukung.`);
+        }
+        // Fallback ke Google Apps Script untuk Polandia
+        else if (targetLang === "pl") {
+            translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
+        }
+        // Fallback ke Hugging Face untuk Rusia
+        else if (targetLang === "ru") {
+            translation = await translateHuggingFace(text, targetLang);
+        }
+        
+        // Jika terjemahan gagal, kembalikan teks asli
+        if (!translation || translation.toLowerCase() === text.toLowerCase()) {
+            console.warn("⏩ Menggunakan teks asli karena terjemahan gagal");
             return text;
         }
 
-        if (translation && translation !== text) {
-            console.log(`✅ Terjemahan berhasil: ${translation}`);
-        } else {
-            console.warn("❌ Terjemahan tidak valid atau tidak berubah.");
-        }
+        console.log(`✅ Hasil: ${translation.substring(0, 50)}${translation.length > 50 ? '...' : ''}`);
+        return translation;
     } catch (error) {
-        console.error("❌ Error saat menerjemahkan:", error.message);
+        console.error("❌ Error utama:", error.message);
+        return text;
     }
-
-    return translation || text;
 }
 
 async function translateGoogleAppsScript(text, sourceLang, targetLang) {
     try {
-        console.log("🌐 Menggunakan Google Apps Script (en → pl)");
-        const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?text=${encodeURIComponent(text)}&source=${sourceLang}&target=${targetLang}`);
+        console.log("🌐 Menggunakan Google Apps Script");
+        const params = new URLSearchParams({
+            text: text,
+            source: sourceLang,
+            target: targetLang
+        });
+        
+        const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?${params}`);
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-        const translatedText = await response.text();
-        console.log("✅ Respons Google Apps Script:", translatedText);
-        return translatedText.trim();
+        
+        return await response.text();
     } catch (error) {
-        console.error("❌ Error Google Apps Script:", error.message);
+        console.error("❌ Google Apps Script Error:", error.message);
         return null;
     }
 }
 
 async function translateHuggingFace(text, targetLang) {
-    const model = "Helsinki-NLP/opus-mt-en-ru";
+    const models = {
+        "ru": "Helsinki-NLP/opus-mt-en-ru"
+    };
 
     try {
-        console.log("🌐 Menggunakan Hugging Face API (en → ru)");
-        const response = await fetch(`https://api-inference.huggingface.co/models/${model}`, {
+        console.log("🌐 Menggunakan Hugging Face");
+        const response = await fetch(`https://api-inference.huggingface.co/models/${models[targetLang]}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${HF_API_KEY}`,
@@ -77,43 +89,40 @@ async function translateHuggingFace(text, targetLang) {
             body: JSON.stringify({ inputs: text }),
         });
 
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
         const data = await response.json();
-        const translation = data[0]?.translation_text || null;
-        console.log("✅ Respons Hugging Face:", translation);
-        return translation;
+        return data[0]?.translation_text;
     } catch (error) {
-        console.error("❌ Error Hugging Face:", error.message);
+        console.error("❌ Hugging Face Error:", error.message);
         return null;
     }
 }
 
 async function translateMyMemory(text, sourceLang, targetLang) {
     if (!MYMEMORY_API_KEY) {
-        console.warn("⚠️ MyMemory API Key tidak tersedia. Mengabaikan permintaan.");
+        console.warn("⚠️ MyMemory API Key tidak tersedia");
         return null;
     }
 
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}&key=${MYMEMORY_API_KEY}`;
-
     try {
-        console.log(`🌐 Menggunakan MyMemory API (en → ${targetLang})`);
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        console.log(`🌐 MyMemory: ${sourceLang} → ${targetLang}`);
+        const params = new URLSearchParams({
+            q: text,
+            langpair: `${sourceLang}|${targetLang}`,
+            key: MYMEMORY_API_KEY,
+            mt: "1" // Aktifkan terjemahan mesin
+        });
 
+        const response = await fetch(`https://api.mymemory.translated.net/get?${params}`);
         const data = await response.json();
-        const translation = data.responseData?.translatedText || null;
-
-        if (!translation || translation.toLowerCase() === text.toLowerCase()) {
-            console.warn(`⚠️ MyMemory gagal menerjemahkan "${text}" ke ${targetLang}.`);
-            return null;
+        
+        // Handle respons khusus untuk bahasa Asia
+        if (targetLang === "zh-CN" && data.responseData?.translatedText.match(/[\u4e00-\u9fff]/)) {
+            return data.responseData.translatedText;
         }
-
-        console.log("✅ Respons MyMemory:", translation);
-        return translation;
+        
+        return data.responseData?.translatedText || null;
     } catch (error) {
-        console.error("❌ Error MyMemory:", error.message);
+        console.error("❌ MyMemory Error:", error.message);
         return null;
     }
 }
