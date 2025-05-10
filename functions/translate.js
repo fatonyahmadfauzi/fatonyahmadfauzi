@@ -7,16 +7,13 @@ const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY;
 // Mapping model Hugging Face untuk bahasa target
 const HF_MODELS = {
     "zh-CN": {
-        "en": "Helsinki-NLP/opus-mt-en-zh",
-        "zh": "Helsinki-NLP/opus-mt-zh-en" // Model dua arah
+        "en": "Helsinki-NLP/opus-mt-en-zh"
     },
-    "ja": {
-        "en": "Helsinki-NLP/opus-mt-en-jap",
-        "ja": "Helsinki-NLP/opus-mt-jap-en"
+    "ja": { // <-- Perbaikan kode bahasa
+        "en": "Helsinki-NLP/opus-mt-en-ja" // Model yang benar
     },
     "pt-PT": {
-        "en": "Helsinki-NLP/opus-mt-en-pt",
-        "pt": "Helsinki-NLP/opus-mt-pt-en"
+        "en": "Helsinki-NLP/opus-mt-en-pt"
     }
 };
 
@@ -54,15 +51,21 @@ async function translate(text, sourceLang, targetLang) {
             translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
         }
 
+        // [BARU] Langkah 4: Fallback Google Gratis
+        if (!translation) {
+            console.log('⏳ Fallback ke Google Gratis...');
+            translation = await translateGoogleFree(text, sourceLang, targetLang);
+        }
+
         // Validasi karakter khusus
         if (translation) {
             const isInvalid = (
                 (targetLang === 'zh-CN' && !/[\u4e00-\u9fff]/.test(translation)) ||
-                (targetLang === 'ja' && !/[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9fff]/.test(translation))
+                (targetLang === 'ja' && !/[\u3040-\u309F\u30A0-\u30FF]/.test(translation))
             );
             
             if (isInvalid) {
-                console.warn('⚠️ Karakter tidak valid, tetapi tetap diterima');
+                console.warn('⚠️ Karakter tidak valid, tetap digunakan');
             }
         }
 
@@ -75,6 +78,13 @@ async function translate(text, sourceLang, targetLang) {
 
 // Fungsi baru untuk Hugging Face
 async function translateHuggingFace(text, sourceLang, targetLang) {
+    // Jika sumber bukan Inggris, konversi ke Inggris dulu
+    if (sourceLang !== 'en') {
+        const englishText = await translateMyMemory(text, sourceLang, 'en');
+        sourceLang = 'en';
+        text = englishText || text;
+    }
+
     if (!HF_API_KEY) return null;
 
     // Ambil model berdasarkan pasangan bahasa
@@ -100,7 +110,15 @@ async function translateHuggingFace(text, sourceLang, targetLang) {
         );
 
         const data = await response.json();
+        
+        // [BARU] Cek error dari Hugging Face
+        if (data.error) {
+            console.error("❌ Hugging Face Model Error:", data.error);
+            return null;
+        }
+        
         return data[0]?.translation_text;
+
     } catch (error) {
         console.error(`❌ Hugging Face Error: ${error.message}`);
         return null;
@@ -159,6 +177,23 @@ async function translateGoogleAppsScript(text, sourceLang, targetLang) {
         return await response.text();
     } catch (error) {
         console.error(`❌ Google Apps Error: ${error.message}`);
+        return null;
+    }
+}
+
+async function translateGoogleFree(text, sourceLang, targetLang) {
+    try {
+        const params = new URLSearchParams({
+            text: text,
+            from: sourceLang,
+            to: targetLang
+        });
+
+        const response = await fetch(`https://translate.googleapis.com/translate_a/single?${params}&dt=t&client=gtx`);
+        const data = await response.json();
+        return data[0][0][0];
+    } catch (error) {
+        console.error("❌ Google Gratis Error:", error.message);
         return null;
     }
 }
