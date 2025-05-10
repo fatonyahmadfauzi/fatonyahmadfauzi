@@ -6,9 +6,18 @@ const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY;
 
 // Mapping model Hugging Face untuk bahasa target
 const HF_MODELS = {
-    "zh-CN": "Helsinki-NLP/opus-mt-en-zh",
-    "ja": "Helsinki-NLP/opus-mt-en-jap",
-    "pt-PT": "Helsinki-NLP/opus-mt-en-pt"
+    "zh-CN": {
+        "en": "Helsinki-NLP/opus-mt-en-zh",
+        "zh": "Helsinki-NLP/opus-mt-zh-en" // Model dua arah
+    },
+    "ja": {
+        "en": "Helsinki-NLP/opus-mt-en-jap",
+        "ja": "Helsinki-NLP/opus-mt-jap-en"
+    },
+    "pt-PT": {
+        "en": "Helsinki-NLP/opus-mt-en-pt",
+        "pt": "Helsinki-NLP/opus-mt-pt-en"
+    }
 };
 
 async function translate(text, sourceLang, targetLang) {
@@ -48,13 +57,12 @@ async function translate(text, sourceLang, targetLang) {
         // Validasi karakter khusus
         if (translation) {
             const isInvalid = (
-                (targetLang === 'zh-CN' && !translation.match(/[\u4e00-\u9fff]/)) ||
-                (targetLang === 'ja' && !translation.match(/[\u3040-\u309F\u30A0-\u30FF]/))
+                (targetLang === 'zh-CN' && !/[\u4e00-\u9fff]/.test(translation)) ||
+                (targetLang === 'ja' && !/[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9fff]/.test(translation))
             );
             
             if (isInvalid) {
-                console.warn('⚠️ Invalid characters detected');
-                return text;
+                console.warn('⚠️ Karakter tidak valid, tetapi tetap diterima');
             }
         }
 
@@ -67,13 +75,18 @@ async function translate(text, sourceLang, targetLang) {
 
 // Fungsi baru untuk Hugging Face
 async function translateHuggingFace(text, sourceLang, targetLang) {
-    if (!HF_API_KEY) {
-        console.warn('⚠️ Hugging Face API key missing');
+    if (!HF_API_KEY) return null;
+
+    // Ambil model berdasarkan pasangan bahasa
+    const modelPair = HF_MODELS[targetLang];
+    const model = modelPair?.[sourceLang] || modelPair?.en;
+
+    if (!model) {
+        console.warn("Model tidak tersedia untuk pasangan ini");
         return null;
     }
 
     try {
-        const model = HF_MODELS[targetLang];
         const response = await fetch(
             `https://api-inference.huggingface.co/models/${model}`,
             {
@@ -87,13 +100,7 @@ async function translateHuggingFace(text, sourceLang, targetLang) {
         );
 
         const data = await response.json();
-        
-        // Handle response format
-        if (data[0]?.translation_text) {
-            return data[0].translation_text;
-        }
-        
-        return null;
+        return data[0]?.translation_text;
     } catch (error) {
         console.error(`❌ Hugging Face Error: ${error.message}`);
         return null;
@@ -152,29 +159,6 @@ async function translateGoogleAppsScript(text, sourceLang, targetLang) {
         return await response.text();
     } catch (error) {
         console.error(`❌ Google Apps Error: ${error.message}`);
-        return null;
-    }
-}
-
-// Google Cloud Translator (Fallback Premium)
-async function translateGoogleCloud(text, sourceLang, targetLang) {
-    if (!GOOGLE_CLOUD_KEY) return null;
-    
-    try {
-        const url = 'https://translation.googleapis.com/language/translate/v2';
-        const params = new URLSearchParams({
-            q: text,
-            source: sourceLang,
-            target: targetLang,
-            format: 'text',
-            key: GOOGLE_CLOUD_KEY
-        });
-
-        const response = await fetch(`${url}?${params}`);
-        const data = await response.json();
-        return data.data.translations[0].translatedText;
-    } catch (error) {
-        console.error(`❌ Google Cloud Error: ${error.message}`);
         return null;
     }
 }

@@ -4,7 +4,16 @@ const { translate } = require("./translate");
 const HF_LANG_DETECT_MODEL = "papluca/xlm-roberta-base-language-detection";
 const HF_API_KEY = process.env.HF_API_KEY;
 
+// File: getCommits.js
 async function detectLanguage(text) {
+    // [BARU] Prioritas deteksi untuk commit teknis
+    const isTechnical = /(merge|fix|feat|refactor|chore|docs|style|test)/i.test(text);
+    if (isTechnical) {
+        console.log("🔍 Deteksi teknis: default ke en");
+        return "en";
+    }
+
+    // [ASLI] Deteksi bahasa menggunakan Hugging Face
     const response = await fetch(`https://api-inference.huggingface.co/models/${HF_LANG_DETECT_MODEL}`, {
         method: "POST",
         headers: { 
@@ -14,7 +23,7 @@ async function detectLanguage(text) {
         body: JSON.stringify({ inputs: text })
     });
     const result = await response.json();
-    return result[0]?.[0]?.label || "en"; // Default ke "en" jika gagal
+    return result[0]?.[0]?.label || "en";
 }
 
 exports.handler = async function (event, context) {
@@ -47,38 +56,47 @@ exports.handler = async function (event, context) {
 
         if (!Array.isArray(commits)) throw new Error("Invalid commit format");
 
-        // Translate commit messages with language detection
+        // Di dalam exports.handler -> Promise.all(commits.map(...))
         const translatedCommits = await Promise.all(
             commits.slice(0, 5).map(async (commit) => {
-              const message = commit.commit.message;
-              console.log("Pesan asli:", message);
-          
-              let detectedLang = "en";
-              try {
-                detectedLang = await detectLanguage(message);
-                console.log(`Detected language: ${detectedLang}`);
-              } catch (err) {
-                console.warn("Gagal deteksi bahasa:", err.message);
-              }
-          
-              let translatedMessage = message;
-              try {
-                const result = await translate(message, detectedLang, targetLang);
-                translatedMessage = result || message;
-              } catch (err) {
-                console.warn("Gagal menerjemahkan:", err.message);
-              }
-          
-              return {
-                author: commit.commit.author.name,
-                originalMessage: message,
-                detectedLanguage: detectedLang,
-                translatedMessage,
-                date: commit.commit.author.date,
-              };
-            })
-        );         
+                const message = commit.commit.message;
+                console.log("Pesan asli:", message);
 
+                let detectedLang = "en";
+                try {
+                    detectedLang = await detectLanguage(message);
+                    console.log(`Detected language: ${detectedLang}`);
+                } catch (err) {
+                    console.warn("Gagal deteksi bahasa:", err.message);
+                }
+
+                let translatedMessage = message;
+                try {
+                    // [BARU] Tambahkan logging di sini
+                    const result = await translate(message, detectedLang, targetLang);
+                    translatedMessage = result || message;
+                    
+                    // --- LOGGING HASIL TERJEMAHAN ---
+                    console.log("Hasil Terjemahan:", {
+                        asli: message,
+                        terjemahan: translatedMessage, // Gunakan translatedMessage
+                        sumber: detectedLang,
+                        target: targetLang
+                    });
+                    
+                } catch (err) {
+                    console.warn("Gagal menerjemahkan:", err.message);
+                }
+
+                return {
+                    author: commit.commit.author.name,
+                    originalMessage: message,
+                    detectedLanguage: detectedLang,
+                    translatedMessage, // <-- Data yang sudah di-log
+                    date: commit.commit.author.date
+                };
+            })
+        );
         return {
             statusCode: 200,
             body: JSON.stringify(translatedCommits),
