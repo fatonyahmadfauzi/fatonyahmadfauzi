@@ -43,10 +43,22 @@ function initializeLanguage() {
 }
 
 // ---- Bagian 2: Event Listener ----
-document.addEventListener('DOMContentLoaded', function() {
-    initializeLanguage(); // Isi nilai currentLanguage
+document.addEventListener('DOMContentLoaded', function () {
+    // Inisialisasi bahasa & waktu
+    initializeLanguage();
     changeLanguage(currentLanguage).then(() => {
         setInterval(updateDateTime, 1000);
+    });
+
+    // ✅ Tambahkan event listener agar dropdown bahasa bisa mengganti bahasa
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            const selectedLang = option.getAttribute('data-lang');
+            if (selectedLang) {
+                changeLanguage(selectedLang);
+            }
+        });
     });
 });
 
