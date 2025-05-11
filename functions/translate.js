@@ -2,8 +2,9 @@ const fetch = require("node-fetch");
 const { TranslationServiceClient } = require('@google-cloud/translate').v3;
 
 // Inisialisasi Google Cloud Translation Client
+const keyFile = Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64, 'base64').toString('utf-8');
 const translationClient = new TranslationServiceClient({
-  keyFilename: process.env.GOOGLE_CLOUD_KEY_FILE // Path ke service account key
+  credentials: JSON.parse(keyFile)
 });
 
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz72hUk_ZHt5G8Uxjusz5PogNY9YsYmJ2qOcQLesvspad9PDo9kQX4I_X8SF3zGsq7k/exec";

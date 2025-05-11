@@ -11,3 +11,4 @@ package-lock.json
 
 # **6. Variabel Lingkungan** (Token atau API Key yang bersifat rahasia)
 .env
+google-cloud-key.json
