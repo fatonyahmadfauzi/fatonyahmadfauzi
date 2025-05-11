@@ -1,6 +1,21 @@
 const fetch = require("node-fetch");
 const { TranslationServiceClient } = require('@google-cloud/translate').v3;
 
+// ✅ Validasi credentials Google Cloud
+if (!process.env.GOOGLE_CREDENTIALS_BASE64) {
+    throw new Error("GOOGLE_CREDENTIALS_BASE64 tidak ditemukan di .env");
+}
+
+// ✅ Validasi project ID Google Cloud
+if (!process.env.GOOGLE_CLOUD_PROJECT_ID) {
+    throw new Error("GOOGLE_CLOUD_PROJECT_ID tidak ditemukan di .env");
+}
+
+// ✅ Validasi MyMemory API Key
+if (!process.env.MYMEMORY_API_KEY) {
+    console.warn("Peringatan: MYMEMORY_API_KEY tidak ada. Terjemahan mungkin terbatas.");
+}
+
 // Inisialisasi Google Cloud Translation Client
 if (!process.env.GOOGLE_CREDENTIALS_BASE64) {
     console.error("❌ GOOGLE_CREDENTIALS_BASE64 tidak terdefinisi!");
@@ -12,7 +27,7 @@ const translationClient = new TranslationServiceClient({
     credentials: JSON.parse(keyFile)
 });
 
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz72hUk_ZHt5G8Uxjusz5PogNY9YsYmJ2qOcQLesvspad9PDo9kQX4I_X8SF3zGsq7k/exec";
+const GOOGLE_APPS_SCRIPT_URL = process.env.GOOGLE_APPS_SCRIPT_URL;
 const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY;
 
 // Peta bahasa untuk validasi dan konversi

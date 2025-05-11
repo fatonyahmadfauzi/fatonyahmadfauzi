@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             try {
-                const response = await fetch("https://faa-form-backend-production.up.railway.app/handle-form.php", {
+                const response = await fetch(process.env.FORM_SUBMISSION_URL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

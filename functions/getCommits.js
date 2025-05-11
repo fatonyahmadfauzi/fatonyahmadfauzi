@@ -2,6 +2,11 @@ const fetch = require("node-fetch");
 const { translate } = require("./translate");
 
 exports.handler = async function (event, context) {
+    // ✅ Validasi GITHUB_TOKEN
+    if (!process.env.GITHUB_TOKEN) {
+        throw new Error("GITHUB_TOKEN tidak ditemukan di .env");
+    }
+    
     const githubToken = process.env.GITHUB_TOKEN;
     const targetLang = event.queryStringParameters.lang || "en";
     const githubApiUrl = "https://api.github.com/repos/fatonyahmadfauzi/Kianoland-Group/commits";

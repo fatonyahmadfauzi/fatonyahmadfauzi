@@ -29,7 +29,11 @@ function sanitizeInput(input) {
 
 // Mode Debug Aman
 (function() {
-    const developerModeToken = "YOUR_SECURE_TOKEN";
+    const developerModeToken = process.env.DEVELOPER_MODE_TOKEN;
+    if (!developerModeToken) {
+        throw new Error("DEVELOPER_MODE_TOKEN tidak ditemukan di .env");
+    }
+    
     const queryParams = new URLSearchParams(window.location.search);
     if (queryParams.get("debug") === developerModeToken) {
         console.log("%c Debug Mode Aktif", "color: green; font-size: 20px; font-weight: bold;");
