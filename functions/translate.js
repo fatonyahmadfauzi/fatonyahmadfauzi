@@ -1,20 +1,17 @@
 const fetch = require("node-fetch");
 
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz72hUk_ZHt5G8Uxjusz5PogNY9YsYmJ2qOcQLesvspad9PDo9kQX4I_X8SF3zGsq7k/exec";
-const HF_API_KEY = process.env.HF_API_KEY;
 const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY;
 
-// Mapping model Hugging Face untuk bahasa target
-const HF_MODELS = {
-    "zh-CN": {
-        "en": "Helsinki-NLP/opus-mt-en-zh"
-    },
-    "ja": { // <-- Perbaikan kode bahasa
-        "en": "Helsinki-NLP/opus-mt-en-ja" // Model yang benar
-    },
-    "pt-PT": {
-        "en": "Helsinki-NLP/opus-mt-en-pt"
-    }
+// Mapping bahasa yang didukung (termasuk Rusia)
+const SUPPORTED_LANGUAGES = {
+  'en': 'English',
+  'zh-CN': 'Chinese',
+  'ja': 'Japanese',
+  'pt-PT': 'Portuguese',
+  'ru': 'Russian',  // Bahasa Rusia ditambahkan
+  'ko': 'Korean',
+  'id': 'Indonesian'
 };
 
 async function translate(text, sourceLang, targetLang) {
@@ -25,7 +22,8 @@ async function translate(text, sourceLang, targetLang) {
         'zh': 'zh-CN',
         'jp': 'ja',
         'kr': 'ko',
-        'pt': 'pt-PT'
+        'pt': 'pt-PT',
+        'rus': 'ru'  // Alias untuk Rusia
     };
     
     sourceLang = langMap[sourceLang] || sourceLang;
@@ -39,29 +37,24 @@ async function translate(text, sourceLang, targetLang) {
         // Langkah 1: Coba MyMemory API
         translation = await translateMyMemory(text, sourceLang, targetLang);
         
-        // Langkah 2: Fallback ke Hugging Face untuk 3 bahasa spesifik
-        if (!translation && HF_MODELS[targetLang]) {
-            console.log('⏳ Fallback ke Hugging Face...');
-            translation = await translateHuggingFace(text, sourceLang, targetLang);
-        }
-
-        // Langkah 3: Final fallback ke Google Apps Script
+        // Langkah 2: Fallback ke Google Apps Script
         if (!translation) {
             console.log('⏳ Fallback ke Google Apps Script...');
             translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
         }
 
-        // [BARU] Langkah 4: Fallback Google Gratis
+        // Langkah 3: Final fallback ke Google Gratis
         if (!translation) {
             console.log('⏳ Fallback ke Google Gratis...');
             translation = await translateGoogleFree(text, sourceLang, targetLang);
         }
 
-        // Validasi karakter khusus
+        // Validasi karakter khusus untuk bahasa Asia
         if (translation) {
             const isInvalid = (
                 (targetLang === 'zh-CN' && !/[\u4e00-\u9fff]/.test(translation)) ||
-                (targetLang === 'ja' && !/[\u3040-\u309F\u30A0-\u30FF]/.test(translation))
+                (targetLang === 'ja' && !/[\u3040-\u309F\u30A0-\u30FF]/.test(translation)) ||
+                (targetLang === 'ru' && !/[а-яА-ЯЁё]/.test(translation))  // Validasi Cyrillic
             );
             
             if (isInvalid) {
@@ -73,55 +66,6 @@ async function translate(text, sourceLang, targetLang) {
     } catch (error) {
         console.error(`❌ Translation failed: ${error.message}`);
         return text;
-    }
-}
-
-// Fungsi baru untuk Hugging Face
-async function translateHuggingFace(text, sourceLang, targetLang) {
-    // Jika sumber bukan Inggris, konversi ke Inggris dulu
-    if (sourceLang !== 'en') {
-        const englishText = await translateMyMemory(text, sourceLang, 'en');
-        sourceLang = 'en';
-        text = englishText || text;
-    }
-
-    if (!HF_API_KEY) return null;
-
-    // Ambil model berdasarkan pasangan bahasa
-    const modelPair = HF_MODELS[targetLang];
-    const model = modelPair?.[sourceLang] || modelPair?.en;
-
-    if (!model) {
-        console.warn("Model tidak tersedia untuk pasangan ini");
-        return null;
-    }
-
-    try {
-        const response = await fetch(
-            `https://api-inference.huggingface.co/models/${model}`,
-            {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${HF_API_KEY}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ inputs: text })
-            }
-        );
-
-        const data = await response.json();
-        
-        // [BARU] Cek error dari Hugging Face
-        if (data.error) {
-            console.error("❌ Hugging Face Model Error:", data.error);
-            return null;
-        }
-        
-        return data[0]?.translation_text;
-
-    } catch (error) {
-        console.error(`❌ Hugging Face Error: ${error.message}`);
-        return null;
     }
 }
 
@@ -144,17 +88,14 @@ async function translateMyMemory(text, sourceLang, targetLang) {
         const response = await fetch(`https://api.mymemory.translated.net/get?${params}`);
         const data = await response.json();
         
-        // Debugging response
         console.log('📤 MyMemory Response:', {
             status: data.responseStatus,
             matches: data.matches?.length || 0
         });
 
-        // Handle error codes
         if (data.responseStatus === 403) throw new Error('Quota exceeded');
         if (data.responseStatus >= 400) throw new Error('API error');
         
-        // Ambil terjemahan terbaik dengan similarity tinggi
         const bestMatch = data.matches?.find(m => m.similarity > 0.7);
         return bestMatch?.translation || data.responseData?.translatedText;
     } catch (error) {
@@ -170,7 +111,7 @@ async function translateGoogleAppsScript(text, sourceLang, targetLang) {
             text: text,
             source: sourceLang,
             target: targetLang,
-            cache: new Date().getTime() // Prevent caching
+            cache: new Date().getTime()
         });
 
         const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?${params}`);
@@ -181,6 +122,7 @@ async function translateGoogleAppsScript(text, sourceLang, targetLang) {
     }
 }
 
+// Google Translate Gratis
 async function translateGoogleFree(text, sourceLang, targetLang) {
     try {
         const params = new URLSearchParams({
@@ -198,4 +140,7 @@ async function translateGoogleFree(text, sourceLang, targetLang) {
     }
 }
 
-module.exports = { translate };
+module.exports = { 
+    translate,
+    SUPPORTED_LANGUAGES  // Ekspor daftar bahasa yang didukung
+};
