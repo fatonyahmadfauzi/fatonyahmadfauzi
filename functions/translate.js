@@ -1,141 +1,107 @@
 const fetch = require("node-fetch");
+const { TranslationServiceClient } = require('@google-cloud/translate').v3;
+
+// Inisialisasi Google Cloud Translation Client
+const translationClient = new TranslationServiceClient({
+  keyFilename: process.env.GOOGLE_CLOUD_KEY_FILE // Path ke service account key
+});
 
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz72hUk_ZHt5G8Uxjusz5PogNY9YsYmJ2qOcQLesvspad9PDo9kQX4I_X8SF3zGsq7k/exec";
 const MYMEMORY_API_KEY = process.env.MYMEMORY_API_KEY;
 
-// Mapping bahasa yang didukung (termasuk Rusia)
-const SUPPORTED_LANGUAGES = {
-  'en': 'English',
-  'zh-CN': 'Chinese',
-  'ja': 'Japanese',
-  'pt-PT': 'Portuguese',
-  'ru': 'Russian',  // Bahasa Rusia ditambahkan
-  'ko': 'Korean',
-  'id': 'Indonesian'
+// Peta bahasa untuk validasi
+const LANGUAGE_MAP = {
+    de: "de", en: "en", es: "es", fr: "fr", id: "id",
+    jp: "ja", kr: "ko", pl: "pl", pt: "pt", ru: "ru", zh: "zh",
 };
 
+// Fungsi utama untuk memilih API berdasarkan bahasa
 async function translate(text, sourceLang, targetLang) {
-    if (sourceLang === targetLang) return text;
+    sourceLang = LANGUAGE_MAP[sourceLang] || "en";
+    targetLang = LANGUAGE_MAP[targetLang] || "en";
 
-    // Normalisasi kode bahasa
-    const langMap = {
-        'zh': 'zh-CN',   // China
-        'ja': 'ja',      // Jepang (ubah dari 'jp')
-        'ko': 'ko',      // Korea (ubah dari 'kr')
-        'pt': 'pt-PT',
-        'ru': 'ru'       // Rusia (ubah dari 'rus')
-    };
-    
-    sourceLang = langMap[sourceLang] || sourceLang;
-    targetLang = langMap[targetLang] || targetLang;
-
-    console.log(`🌐 Translate: [${sourceLang}] → [${targetLang}]`);
-    console.log(`📝 Text: ${text.substring(0, 40)}${text.length > 40 ? '...' : ''}`);
-
-    let translation;
-    try {
-        // 1. Coba Google Apps Script dulu
-        translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
-        
-        // 2. Fallback ke Google Gratis
-        if (!translation) {
-        translation = await translateGoogleFree(text, sourceLang, targetLang);
-        }
-        
-        // 3. Terakhir MyMemory
-        if (!translation && !['zh-CN', 'ja', 'ko', 'ru'].includes(targetLang)) {
-        translation = await translateMyMemory(text, sourceLang, targetLang);
-        }
-
-        // Validasi karakter khusus untuk bahasa Asia
-        if (translation) {
-            const isInvalid = (
-                (targetLang === 'zh-CN' && !/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/.test(translation)) ||  // China
-                (targetLang === 'ja' && !/[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9faf]/.test(translation)) ||     // Jepang
-                (targetLang === 'ko' && !/[\uac00-\ud7af\u1100-\u11ff]/.test(translation)) ||                  // Korea
-                (targetLang === 'ru' && !/[а-яА-ЯЁё]/.test(translation))                                       // Rusia
-            );
-            
-            if (isInvalid) {
-                console.warn('⚠️ Karakter tidak valid, tetap digunakan');
-            }
-        }
-
-        return translation || text;
-    } catch (error) {
-        console.error(`❌ Translation failed: ${error.message}`);
+    if (sourceLang === targetLang) {
+        console.warn("Bahasa sumber dan target sama. Tidak perlu menerjemahkan.");
         return text;
     }
-}
 
-// MyMemory Translator dengan validasi ekstra
-async function translateMyMemory(text, sourceLang, targetLang) {
-    if (!MYMEMORY_API_KEY) {
-        console.warn('⚠️ MyMemory API key missing');
-        return null;
-    }
+    console.log(`📥 Mengirim permintaan terjemahan: ${text} dari ${sourceLang} ke ${targetLang}`);
+    let translation;
 
     try {
-        const params = new URLSearchParams({
-            q: text,
-            langpair: `${sourceLang}|${targetLang}`,
-            key: MYMEMORY_API_KEY,
-            mt: '1',
-            of: 'JSON'
-        });
-
-        const response = await fetch(`https://api.mymemory.translated.net/get?${params}`);
-        const data = await response.json();
-        
-        console.log('📤 MyMemory Response:', {
-            status: data.responseStatus,
-            matches: data.matches?.length || 0
-        });
-
-        if (data.responseStatus === 403) throw new Error('Quota exceeded');
-        if (data.responseStatus >= 400) throw new Error('API error');
-        
-        const bestMatch = data.matches?.find(m => m.similarity > 0.7);
-        return bestMatch?.translation || data.responseData?.translatedText;
+        if (sourceLang === "en" && targetLang === "pl") {
+            // Gunakan Google Apps Script untuk en → pl
+            translation = await translateGoogleAppsScript(text, sourceLang, targetLang);
+        } else {
+            // Gunakan Google Cloud Translation untuk bahasa lainnya
+            translation = await translateGoogleCloud(text, sourceLang, targetLang);
+            
+            // Fallback ke MyMemory jika Google Cloud gagal
+            if (!translation) {
+                translation = await translateMyMemory(text, sourceLang, targetLang);
+            }
+        }
     } catch (error) {
-        console.error(`❌ MyMemory Error: ${error.message}`);
+        console.error("❌ Error saat menerjemahkan:", error.message);
+    }
+
+    return translation || text; // Kembalikan teks asli jika gagal
+}
+
+// Fungsi untuk Google Cloud Translation API
+async function translateGoogleCloud(text, sourceLang, targetLang) {
+    try {
+        console.log(`🌐 Menggunakan Google Cloud Translation (${sourceLang} → ${targetLang})`);
+        
+        const request = {
+            parent: `projects/${process.env.GOOGLE_CLOUD_PROJECT_ID}/locations/global`,
+            contents: [text],
+            mimeType: 'text/plain',
+            sourceLanguageCode: sourceLang,
+            targetLanguageCode: targetLang,
+        };
+
+        const [response] = await translationClient.translateText(request);
+        return response.translations[0].translatedText;
+    } catch (error) {
+        console.error("❌ Error Google Cloud Translation:", error.message);
         return null;
     }
 }
 
-// Google Apps Script Translator
+// Fungsi untuk Google Apps Script (en → pl)
 async function translateGoogleAppsScript(text, sourceLang, targetLang) {
     try {
-        const params = new URLSearchParams({
-            text: text,
-            source: sourceLang,
-            target: targetLang,
-            cache: new Date().getTime()
-        });
+        console.log("🌐 Menggunakan Google Apps Script (en → pl)");
+        const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?text=${encodeURIComponent(text)}&source=${sourceLang}&target=${targetLang}`);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-        const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?${params}`);
-        return await response.text();
+        const translatedText = await response.text();
+        console.log("✅ Respons Google Apps Script:", translatedText);
+        return translatedText;
     } catch (error) {
-        console.error(`❌ Google Apps Error: ${error.message}`);
+        console.error("❌ Error Google Apps Script:", error.message);
         return null;
     }
 }
 
-// Google Translate Gratis
-async function translateGoogleFree(text, sourceLang, targetLang) {
+// Fungsi untuk MyMemory API (fallback)
+async function translateMyMemory(text, sourceLang, targetLang) {
+    const keyParam = MYMEMORY_API_KEY ? `&key=${MYMEMORY_API_KEY}` : "";
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}${keyParam}`;
+
     try {
-      const response = await fetch(
-        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
-      );
-      const data = await response.json();
-      return data[0].map(item => item[0]).join('');
+        console.log("🌐 Menggunakan MyMemory API (fallback)");
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+        const data = await response.json();
+        console.log("✅ Respons MyMemory:", JSON.stringify(data, null, 2));
+        return data.responseData?.translatedText || text;
     } catch (error) {
-      console.error("Google Gratis Error:", error);
-      return null;
+        console.error("❌ Error MyMemory:", error.message);
+        return null;
     }
 }
 
-module.exports = { 
-    translate,
-    SUPPORTED_LANGUAGES  // Ekspor daftar bahasa yang didukung
-};
+module.exports = { translate };
