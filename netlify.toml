@@ -40,7 +40,7 @@
       img-src 'self' https://dynamic-og-media.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id https://*.google.com data:; 
       media-src 'self' https://dynamic-og-media.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; 
       frame-src 'self' https://www.google.com https://maps.googleapis.com https://td.doubleclick.net https://www.googletagmanager.com; 
-      connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://faa-form-backend-production.up.railway.app; 
+      connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://faa-form-backend-production.up.railway.app https://faa-form-backend.vercel.app; 
       font-src 'self' https://cdn.jsdelivr.net; 
       object-src 'none'; 
       base-uri 'self'; 
