@@ -26,18 +26,3 @@ function sanitizeInput(input) {
         "color: white; background: black; font-size: 16px; padding: 8px;"
     );
 })();
-
-// Mode Debug Aman
-(function() {
-    const developerModeToken = process.env.DEVELOPER_MODE_TOKEN;
-    if (!developerModeToken) {
-        throw new Error("DEVELOPER_MODE_TOKEN tidak ditemukan di .env");
-    }
-    
-    const queryParams = new URLSearchParams(window.location.search);
-    if (queryParams.get("debug") === developerModeToken) {
-        console.log("%c Debug Mode Aktif", "color: green; font-size: 20px; font-weight: bold;");
-    } else {
-        console.log("%c DevTools Akses Dibatasi!", "color: red; font-size: 20px;");
-    }
-})();
