@@ -1,6 +1,5 @@
 [build]
   functions = "functions"
-  command = "envsubst < gtm-loader.js > gtm-loader.js && envsubst < gtag-loader.js > gtag-loader.js && echo 'Build complete'"
   publish = "public"
 
 [[redirects]]
