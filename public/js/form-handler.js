@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             try {
-                const response = await fetch("faa-form-backend.vercel.app/api/handle-form", {
+                const response = await fetch("https://faa-form-backend.vercel.app/api/handle-form", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
