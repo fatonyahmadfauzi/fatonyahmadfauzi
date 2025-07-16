@@ -36,7 +36,7 @@
     Content-Security-Policy = '''
       default-src 'none';
       script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com https://*.google.com https://*.gstatic.com;
-      style-src 'self' https://cdn.jsdelivr.net;
+      style-src 'self' https://cdn.jsdelivr.net 'unsafe-hashes' 'sha256-kdaXPEOwTw3zyiuCzGv1vpohcW9SqOWq8k6gy2OWgtI=';
       img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id https://*.google.com data:;
       media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app;
       frame-src 'self' https://www.google.com https://maps.googleapis.com https://td.doubleclick.net https://www.googletagmanager.com;
