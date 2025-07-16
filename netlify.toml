@@ -34,20 +34,20 @@
   for = "/*"
   [headers.values]
     Content-Security-Policy = '''
-      default-src 'none'; 
-      script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com https://*.google.com https://*.gstatic.com; 
-      style-src 'self' https://cdn.jsdelivr.net; 
-      img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id https://*.google.com data:; 
-      media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app; 
-      frame-src 'self' https://www.google.com https://maps.googleapis.com https://td.doubleclick.net https://www.googletagmanager.com; 
-      connect-src 'self' https://analytics.google.com https://stats.g.doubleclick.net faa-form-backend.vercel.app; 
-      font-src 'self' https://cdn.jsdelivr.net; 
-      object-src 'none'; 
-      base-uri 'self'; 
-      form-action 'self'; 
+      default-src 'none';
+      script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://apis.google.com https://*.google.com https://*.gstatic.com;
+      style-src 'self' https://cdn.jsdelivr.net;
+      img-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://opengraph.githubassets.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google.co.id https://*.google.com data:;
+      media-src 'self' https://og-media-worker.fatonyahmadfauzi.workers.dev https://fatonyahmadfauzi.netlify.app;
+      frame-src 'self' https://www.google.com https://maps.googleapis.com https://td.doubleclick.net https://www.googletagmanager.com;
+      connect-src 'self' https://analytics.google.com https://stats.g.doubleclick.net faa-form-backend.vercel.app https://www.google-analytics.com;
+      font-src 'self' https://cdn.jsdelivr.net;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
       frame-ancestors 'self';
     '''
-    X-Frame-Options = "SAMEORIGIN" # Mengubah dari DENY ke SAMEORIGIN
+    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=()"
