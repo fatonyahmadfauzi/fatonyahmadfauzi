@@ -1,4 +1,3 @@
-// Form submission
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('contactForm');
     if (form) {
