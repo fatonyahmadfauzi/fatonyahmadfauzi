@@ -327,6 +327,7 @@ body.dark-mode .project-box {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    margin-top: -5px;
 }
 
 footer {
