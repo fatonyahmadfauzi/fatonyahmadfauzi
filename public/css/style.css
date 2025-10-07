@@ -275,10 +275,6 @@ body.dark-mode .project-box {
     cursor: pointer;
 }
 
-.custom-svg {
-    display: block;
-}
-
 /* ====================================================================================================
 ============ CONTACT SECTION ==========================================================================
 ==================================================================================================== */
@@ -431,8 +427,11 @@ iframe.map-frame {
     border: 0;
 }
 
-svg.custom-svg {
+svg.custom-svg, .custom-svg {
     display: block;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
 }
 
 #cookie-notice {
