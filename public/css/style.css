@@ -295,7 +295,7 @@ body.dark-mode .project-box {
     position: fixed;
     width: 57px;
     height: 47px; /* Maintain height equal to width */
-    bottom: 20px;
+    bottom: 80px; /* DIUBAH: Dari 20px menjadi 80px */
     right: 20px;
     color: #fff; /* Text color (if needed for icons/text) */
     text-align: center;
