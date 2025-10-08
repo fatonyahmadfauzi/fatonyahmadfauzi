@@ -58,12 +58,12 @@ function setThemeBasedOnTime() {
         // Daytime: Light Mode
         document.body.classList.remove('dark-mode');
         document.body.classList.add('light-mode');
-        changeBackgroundVideo("light");
+        updateThemeAssets("light"); // PEMANGGILAN FUNGSI BARU
     } else {
         // Nighttime: Dark Mode
         document.body.classList.remove('light-mode');
         document.body.classList.add('dark-mode');
-        changeBackgroundVideo("dark");
+        updateThemeAssets("dark"); // PEMANGGILAN FUNGSI BARU
     }
 }
 
@@ -76,21 +76,23 @@ function toggleTheme() {
         body.classList.add('dark-mode');
         modeIcon.classList.remove("bi-sun");
         modeIcon.classList.add("bi-moon");
-        changeBackgroundVideo("dark");
+        updateThemeAssets("dark"); // PEMANGGILAN FUNGSI BARU
     } else {
         body.classList.remove('dark-mode');
         body.classList.add('light-mode');
         modeIcon.classList.remove("bi-moon");
         modeIcon.classList.add("bi-sun");
-        changeBackgroundVideo("light");
+        updateThemeAssets("light"); // PEMANGGILAN FUNGSI BARU
     }
     // Save the current theme to localStorage
     localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
 }    
 
-// Function to change the background video based on the current theme
-function changeBackgroundVideo(theme) {
+// Function to change the background video and trakteer icon based on the current theme
+function updateThemeAssets(theme) {
     const video = document.getElementById("backgroundVideo");
+    const trakteerIcon = document.getElementById("trakteerIcon");
+
     if (video) {
         if (theme === "dark") {
             video.src = "assets/bg-dark.mp4";  // Dark mode video
@@ -100,7 +102,18 @@ function changeBackgroundVideo(theme) {
     } else {
         console.warn("Background video element not found");
     }
+
+    if(trakteerIcon) {
+        if (theme === "dark") {
+            trakteerIcon.src = "assets/trakteer.svg"; // dark mode icon
+        } else {
+            trakteerIcon.src = "assets/trakteer-invert.svg"; // light mode icon
+        }
+    } else {
+        console.warn("Trakteer icon element not found");
+    }
 }
+
 
 // On page load, apply the theme based on time
 window.addEventListener('DOMContentLoaded', () => {
