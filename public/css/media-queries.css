@@ -128,7 +128,7 @@
     ============ FLOATING TRAKTEER ========================================================================
     ==================================================================================================== */
     .trakteer-float {
-        bottom: 80px; /* Jarak dari bawah layar agar tidak tertutup notifikasi cookies */
+        bottom: 100px; /* Jarak dari bawah layar agar tidak tertutup notifikasi cookies */
         right: 15px;  /* Sedikit mengurangi jarak dari kanan pada layar kecil */
     }
 }
