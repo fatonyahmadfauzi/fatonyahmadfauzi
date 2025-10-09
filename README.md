@@ -44,26 +44,26 @@ Struktur folder proyek diatur untuk memisahkan antara _konfigurasi_, _kode sisi 
 
 ```bash
 /
-├── .github/ \# Konfigurasi GitHub Actions (jika ada)
-├── .gitignore \# File yang diabaikan oleh Git
-├── .htaccess \# Konfigurasi server Apache
-├── .nvmrc \# Versi Node.js yang direkomendasikan
-├── functions/ \# Kode backend (Netlify Functions)
-│ ├── getCommits.js \# Fungsi untuk mengambil commit dari GitHub
-│ └── translate.js \# Fungsi untuk menangani terjemahan
-├── netlify.toml \# Konfigurasi Netlify
-├── node_modules/ \# Dependensi Node.js
-├── package.json \# Informasi proyek dan dependensi
-├── package-lock.json \# Versi dependensi yang terkunci
-├── public/ \# Folder utama untuk aset frontend
-│ ├── assets/ \# Gambar, ikon, dan video
-│ ├── css/ \# File CSS
-│ ├── js/ \# File JavaScript
-│ ├── lang/ \# File terjemahan JSON
-│ ├── js-function/ \# Halaman fallback jika JavaScript dinonaktifkan
-│ ├── index.html \# Halaman utama
+├── .github/            # Konfigurasi GitHub Actions (jika ada)
+├── .gitignore          # File yang diabaikan oleh Git
+├── .htaccess           # Konfigurasi server Apache
+├── .nvmrc              # Versi Node.js yang direkomendasikan
+├── functions/          # Kode backend (Netlify Functions)
+│ ├── getCommits.js     # Fungsi untuk mengambil commit dari GitHub
+│ └── translate.js      # Fungsi untuk menangani terjemahan
+├── netlify.toml        # Konfigurasi Netlify
+├── node_modules/       # Dependensi Node.js
+├── package.json        # Informasi proyek dan dependensi
+├── package-lock.json   # Versi dependensi yang terkunci
+├── public/             # Folder utama untuk aset frontend
+│ ├── assets/           # Gambar, ikon, dan video
+│ ├── css/              # File CSS
+│ ├── js/               # File JavaScript
+│ ├── lang/             # File terjemahan JSON
+│ ├── js-function/      # Halaman fallback jika JavaScript dinonaktifkan
+│ ├── index.html        # Halaman utama
 │ └── ...
-└── README.md \# Dokumentasi ini
+└── README.md           # Dokumentasi ini
 ```
 
 ## 🚀 Instalasi dan Menjalankan Secara Lokal
